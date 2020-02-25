@@ -17,8 +17,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        scene.getStylesheets().add("styles.css");
+        scene = new Scene(loadFXML("songScreen"), 800, 400);
+        stage.setMinHeight(300);
+        stage.setMinWidth(800);
         stage.setScene(scene);
         stage.show();
     }

@@ -2,28 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/PrimaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/SecondaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/primary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/secondary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/PrimaryController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/SecondaryController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/primary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/secondary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/alduthir/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/BeatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/PrimaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/SecondaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/MeasureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/primary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/measureScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/secondary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/beatScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +25,7 @@
       <list>
         <option value="Class" />
         <option value="CSS File" />
+        <option value="module-info" />
       </list>
     </option>
   </component>
@@ -68,11 +59,17 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/org/alduthir" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="org.alduthir" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.alduthir" />
     </key>
@@ -144,7 +141,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582276729390</updated>
-      <workItem from="1582276733533" duration="5593000" />
+      <workItem from="1582276733533" duration="5980000" />
+      <workItem from="1582542561981" duration="82000" />
+      <workItem from="1582615452213" duration="3071000" />
+      <workItem from="1582618665786" duration="10435000" />
     </task>
     <servers />
   </component>
@@ -152,34 +152,38 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1918" y="179" key="#Notifications" timestamp="1582276764555">
+    <state x="1918" y="179" key="#Notifications" timestamp="1582615519109">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1918" y="179" key="#Notifications/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582276764555" />
+    <state x="1918" y="179" key="#Notifications/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582615519109" />
     <state x="1780" y="176" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582278003199">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1780" y="176" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582278003199" />
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1582624341744">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582624341744" />
     <state x="2106" y="276" key="FileChooserDialogImpl" timestamp="1582277670233">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582277670233" />
-    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1582281260111">
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1582282730422">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582281260111" />
-    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1582281260111">
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582282730422" />
+    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1582282730422">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582281260095" />
-    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1582281260095">
+    <state width="1877" height="261" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582282730422" />
+    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1582282730422">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582281260095" />
-    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1582281260111">
+    <state width="1877" height="261" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582282730422" />
+    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1582282730422">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582281260111" />
+    <state width="1877" height="261" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582282730422" />
     <state x="1906" y="256" key="IDE.errors.dialog" timestamp="1582277126358">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -188,10 +192,10 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1856" y="176" key="Maven.ArtifactSearchDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582278918849" />
-    <state x="1827" y="163" key="SettingsEditor" timestamp="1582280200214">
+    <state x="1827" y="163" key="SettingsEditor" timestamp="1582542641665">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582280200214" />
+    <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582542641665" />
     <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1582281036882">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -200,5 +204,9 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2012" y="236" width="627" height="568" key="find.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582280085386" />
+    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1582622714798">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582622714798" />
   </component>
 </project>
