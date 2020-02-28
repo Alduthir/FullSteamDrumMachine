@@ -9,5 +9,8 @@ module org.alduthir {
     requires com.jfoenix;
 
     exports org.alduthir;
+    exports org.alduthir.Song;
+
     opens org.alduthir to javafx.graphics;
+    opens org.alduthir.Song to javafx.graphics;
 }

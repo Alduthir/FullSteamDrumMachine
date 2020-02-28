@@ -32,3 +32,7 @@ JFXListView {
     -fx-padding: 10 10 10 20;
     -fx-spacing: 2;
 }
+
+Hbox {
+    -fx-fill-width: true;
+}

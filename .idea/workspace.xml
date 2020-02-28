@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/BeatController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Song/Song.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Song/SongCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Song/SongCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/PrimaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/SecondaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/MeasureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/primary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/measureScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/secondary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/beatScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,12 +19,15 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="CSS File" />
         <option value="module-info" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -47,6 +49,9 @@
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1Y6xDsiQHtdYPw3FkZFe0SCn4co" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -59,23 +64,31 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/org/alduthir" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="org.alduthir.Song" />
       <recent name="org.alduthir" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.alduthir" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
       <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\java\org\alduthir\view" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.alduthir" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.fullsteamdrummachine [package]">
@@ -134,6 +147,9 @@
       <item itemvalue="Maven.fullsteamdrummachine [exec:java]" />
     </list>
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="" />
@@ -145,6 +161,7 @@
       <workItem from="1582542561981" duration="82000" />
       <workItem from="1582615452213" duration="3071000" />
       <workItem from="1582618665786" duration="10435000" />
+      <workItem from="1582877819616" duration="11654000" />
     </task>
     <servers />
   </component>
@@ -156,17 +173,30 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1918" y="179" key="#Notifications/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582615519109" />
+    <state x="275" y="22" key="#Project_Structure" timestamp="1582877887186">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="22" key="#Project_Structure/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1582877887186" />
     <state x="1780" y="176" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582278003199">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1780" y="176" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582278003199" />
-    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1582624341744">
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1582887529602">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582624341744" />
-    <state x="2106" y="276" key="FileChooserDialogImpl" timestamp="1582277670233">
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582887529602" />
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1582886283546">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582886283546" />
+    <state x="2056" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1582883418071">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2056" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582883418071" />
+    <state x="526" y="193" key="FileChooserDialogImpl" timestamp="1582877883144">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1582877883144" />
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582277670233" />
     <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1582282730422">
       <screen x="1366" y="0" width="1920" height="1040" />
@@ -192,14 +222,22 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1856" y="176" key="Maven.ArtifactSearchDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582278918849" />
-    <state x="1827" y="163" key="SettingsEditor" timestamp="1582542641665">
+    <state x="1827" y="163" key="SettingsEditor" timestamp="1582883086271">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582542641665" />
-    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1582281036882">
+    <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582883086271" />
+    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1582886609683">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582281036882" />
+    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582886609683" />
+    <state x="359" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1582877821575">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="359" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1582877821575" />
+    <state x="2056" y="265" key="extract.method.dialog" timestamp="1582879963543">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2056" y="265" key="extract.method.dialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582879963543" />
     <state x="2012" y="236" width="627" height="568" key="find.popup" timestamp="1582280085386">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>

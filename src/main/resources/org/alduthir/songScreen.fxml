@@ -3,11 +3,11 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 <?scenebuilder-stylesheet styles.css?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ListView?>
+<?import com.jfoenix.controls.JFXListView?>
 <GridPane maxHeight="Infinity" maxWidth="Infinity" minHeight="400" minWidth="800"
           xmlns="http://javafx.com/javafx/8.0.171"
           xmlns:fx="http://javafx.com/fxml/1"
@@ -15,7 +15,8 @@
     <stylesheets>
         <URL value="@styles.css"/>
     </stylesheets>
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" styleClass="song-pane">
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"  GridPane.vgrow="ALWAYS"
+          styleClass="song-pane">
         <JFXButton fx:id="addSongButton" alignment="TOP_LEFT" styleClass="small-button">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
