@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
 import org.alduthir.Song.Song;
 import org.alduthir.Song.SongCellFactory;
 
@@ -59,4 +58,6 @@ public class SongController extends App implements Initializable {
 
         return items;
     }
+
+
 }

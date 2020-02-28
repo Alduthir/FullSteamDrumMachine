@@ -3,6 +3,11 @@ VBox {
     -fx-base: #A0959E;
 }
 
+GridPane {
+    -fx-background-color: #222022;
+    -fx-base: #A0959E;
+}
+
 JFXListView {
     -fx-text-fill: #6B5868;
     -fx-background-color: #353030;

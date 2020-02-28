@@ -15,19 +15,18 @@
     <stylesheets>
         <URL value="@styles.css"/>
     </stylesheets>
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"  GridPane.vgrow="ALWAYS"
-          styleClass="song-pane">
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+          styleClass="song-pane" GridPane.columnSpan="3">
         <JFXButton fx:id="addSongButton" alignment="TOP_LEFT" styleClass="small-button">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
             </graphic>
         </JFXButton>
-        <JFXListView fx:id="songList" minHeight="300"/>
+        <JFXListView fx:id="songList" minHeight="300" minWidth="400"/>
     </VBox>
-    <BorderPane>
+    <BorderPane GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.columnSpan="1">
         <right>
-            <VBox alignment="TOP_RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS"
-                  GridPane.vgrow="ALWAYS" styleClass="button-box">
+            <VBox alignment="TOP_RIGHT" styleClass="button-box">
                 <JFXButton fx:id="playButton" onAction="#switchToSecondary" buttonType="FLAT"
                            styleClass="menu-button" text="Play">
                     <graphic>
