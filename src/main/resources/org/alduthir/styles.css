@@ -1,11 +1,8 @@
-VBox {
+VBox, HBox, GridPane, AnchorPane, StackPane {
     -fx-background-color: #222022;
     -fx-base: #A0959E;
-}
-
-GridPane {
-    -fx-background-color: #222022;
-    -fx-base: #A0959E;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
 }
 
 JFXListView {
@@ -13,13 +10,17 @@ JFXListView {
     -fx-background-color: #353030;
 }
 
-.button-box{
+Label {
+    -fx-text-fill: #ffffff;
+}
+
+.button-box {
     -fx-spacing: 20;
     -fx-padding: 20 20 20 20;
 }
 
 .small-button {
-    -fx-background-color: #38344C;
+    -fx-background-color: #462E48;
 }
 
 .menu-button {
@@ -38,6 +39,7 @@ JFXListView {
     -fx-spacing: 2;
 }
 
-Hbox {
-    -fx-fill-width: true;
+.bpm-label {
+    -fx-font: 18 arial;
+    -fx-label-padding: 2 5 0 0;
 }

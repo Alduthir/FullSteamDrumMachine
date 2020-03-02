@@ -1,9 +1,11 @@
 package org.alduthir;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,4 +39,12 @@ public class App extends Application {
         launch();
     }
 
+
+    @FXML
+    public void notYetImplemented() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Not yet implemented");
+        alert.setContentText("Deze functionaliteit is nog niet geïmplementeerd.");
+        alert.showAndWait();
+    }
 }

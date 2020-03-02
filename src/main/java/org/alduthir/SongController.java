@@ -6,15 +6,15 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import org.alduthir.Song.Song;
 import org.alduthir.Song.SongCellFactory;
 
@@ -31,20 +31,17 @@ public class SongController extends App implements Initializable {
     public ObservableList<Song> items = FXCollections.observableArrayList();
 
     @FXML
-    public void notYetImplemented() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Not yet implemented");
-        alert.setContentText("Deze functionaliteit is nog niet geïmplementeerd.");
-        alert.showAndWait();
-    }
-
     public void switchToMeasureScreen() throws IOException {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
-        if(selectedSong != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen"));
+        if (selectedSong != null) {
+            Stage stage = (Stage) songList.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen.fxml"));
+            Parent root = loader.load();
             MeasureController controller = loader.getController();
-//        controller.setSong(song);
-            App.setRoot("measureScreen");
+            controller.loadSong(selectedSong);
+            stage.setScene(new Scene(root, 800,400));
+            stage.setTitle("Full Steam Drum Machine - " + selectedSong.toString());
+            stage.show();
         }
     }
 
@@ -62,6 +59,8 @@ public class SongController extends App implements Initializable {
                 e.consume();
             }
         });
+        songList.getSelectionModel().selectFirst();
+        songList.requestFocus();
     }
 
     private ObservableList<Song> createSongList() {
