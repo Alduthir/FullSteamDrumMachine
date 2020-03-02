@@ -10,14 +10,10 @@ public class SongCell extends ListCell<Song> {
         String name = null;
 
         // Format name
-        if (song == null || empty)
-        {
-        }
-        else
-        {
+        if (song == null || empty) {
+        } else {
             name = song.toString();
         }
-
         this.setText(name);
         setGraphic(null);
     }

@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Alert;
@@ -30,21 +31,35 @@ public class SongController extends App implements Initializable {
     public ObservableList<Song> items = FXCollections.observableArrayList();
 
     @FXML
-    public void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+    public void notYetImplemented() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Not yet implemented");
+        alert.setContentText("Deze functionaliteit is nog niet geïmplementeerd.");
+        alert.showAndWait();
+    }
+
+    public void switchToMeasureScreen() throws IOException {
+        Song selectedSong = songList.getSelectionModel().getSelectedItem();
+        if(selectedSong != null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen"));
+            MeasureController controller = loader.getController();
+//        controller.setSong(song);
+            App.setRoot("measureScreen");
+        }
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         songList.getItems().addAll(createSongList());
         songList.setCellFactory(new SongCellFactory());
-        songList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Song>() {
-            @Override
-            public void changed(ObservableValue<? extends Song> observableValue, Song song, Song t1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Wollah");
-                alert.setContentText("Je hebt op " + song.toString() + " geklikt");
-                alert.showAndWait();
+        songList.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                try {
+                    switchToMeasureScreen();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                e.consume();
             }
         });
     }
@@ -58,6 +73,4 @@ public class SongController extends App implements Initializable {
 
         return items;
     }
-
-
 }
