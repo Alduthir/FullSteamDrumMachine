@@ -7,11 +7,19 @@ VBox, HBox, GridPane, AnchorPane, StackPane {
 
 JFXListView {
     -fx-text-fill: #6B5868;
-    -fx-background-color: #353030;
+    -fx-background-color: #222022;
 }
 
 Label {
     -fx-text-fill: #ffffff;
+}
+
+JFXCheckbox {
+    -fx-padding: 5 0 0 0;
+}
+
+BeatCell{
+    -fx-background-color: #222022;
 }
 
 .button-box {
@@ -42,4 +50,8 @@ Label {
 .bpm-label {
     -fx-font: 18 arial;
     -fx-label-padding: 2 5 0 0;
+}
+
+.song-list {
+    -fx-padding: 0 0 20 0;
 }

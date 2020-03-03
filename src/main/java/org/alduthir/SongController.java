@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.alduthir.Song.Song;
 import org.alduthir.Song.SongCellFactory;
@@ -28,7 +27,7 @@ public class SongController extends App implements Initializable {
     public JFXButton exportButton;
     public JFXButton deleteButton;
 
-    public ObservableList<Song> items = FXCollections.observableArrayList();
+    private ObservableList<Song> songCollection = FXCollections.observableArrayList();
 
     @FXML
     public void switchToMeasureScreen() throws IOException {
@@ -38,7 +37,7 @@ public class SongController extends App implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen.fxml"));
             Parent root = loader.load();
             MeasureController controller = loader.getController();
-            controller.loadSong(selectedSong);
+            controller.initialize(selectedSong);
             stage.setScene(new Scene(root, 800,400));
             stage.setTitle("Full Steam Drum Machine - " + selectedSong.toString());
             stage.show();
@@ -64,12 +63,12 @@ public class SongController extends App implements Initializable {
     }
 
     private ObservableList<Song> createSongList() {
-        Song testSong = new Song(1, "Test1");
-        items.add(testSong);
+        Song testSong = new Song(1, "Tides of the sea");
+        songCollection.add(testSong);
 
-        Song testSong2 = new Song(2, "Test2");
-        items.add(testSong2);
+        Song testSong2 = new Song(2, "Psycho bitch");
+        songCollection.add(testSong2);
 
-        return items;
+        return songCollection;
     }
 }

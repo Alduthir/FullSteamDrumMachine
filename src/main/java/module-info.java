@@ -10,7 +10,11 @@ module org.alduthir {
 
     exports org.alduthir;
     exports org.alduthir.Song;
+    exports org.alduthir.Measure;
+    exports org.alduthir.Beat;
 
     opens org.alduthir to javafx.graphics;
     opens org.alduthir.Song to javafx.graphics;
+    opens org.alduthir.Measure to javafx.graphics;
+    opens org.alduthir.Beat to javafx.graphics;
 }

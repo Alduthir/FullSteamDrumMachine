@@ -20,7 +20,7 @@
                 <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
             </graphic>
         </JFXButton>
-        <JFXListView fx:id="songList" minHeight="300" minWidth="400" VBox.vgrow="ALWAYS"/>
+        <JFXListView fx:id="songList" minHeight="300" minWidth="400" VBox.vgrow="ALWAYS" styleClass="song-list"/>
     </VBox>
     <VBox GridPane.columnIndex="3" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">

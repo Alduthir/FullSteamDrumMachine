@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.layout.GridPane?>
+<?import java.net.URL?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
-
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alduthir.BeatController">
-    <children>
-        <Label text="Beat view" />
-    </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-</VBox>
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Separator?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.CheckBox?>
+<GridPane xmlns="http://javafx.com/javafx/8.0.171"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.alduthir.BeatController">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <JFXListView fx:id="beatList" minHeight="300" minWidth="550" VBox.vgrow="ALWAYS" focusTraversable="false"/>
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="TOP_RIGHT"
+          styleClass="button-box">
+        <JFXButton fx:id="playButton" onAction="#notYetImplemented" buttonType="FLAT" styleClass="menu-button"
+                   text="Preview">
+            <graphic>
+                <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
+            </graphic>
+        </JFXButton>
+        <Separator/>
+        <JFXButton fx:id="addButton" text="Add Instrument" onAction="#notYetImplemented" buttonType="FLAT"
+                   styleClass="menu-button">
+            <graphic>
+                <FontIcon iconLiteral="fa-plus" iconSize="40" iconColor="white"/>
+            </graphic>
+        </JFXButton>
+        <Separator/>
+        <JFXButton fx:id="backButton" text="Back to song" onAction="#switchToMeasure" buttonType="FLAT"
+                   styleClass="menu-button">
+            <graphic>
+                <FontIcon iconLiteral="fa-mail-reply" iconSize="40" iconColor="white"/>
+            </graphic>
+        </JFXButton>
+    </VBox>
+</GridPane>
