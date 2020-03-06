@@ -1,4 +1,4 @@
-package org.alduthir;
+package org.alduthir.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -8,10 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.alduthir.App;
 import org.alduthir.Beat.Beat;
 import org.alduthir.Beat.BeatCellFactory;
 import org.alduthir.Beat.NoSelectionModel;
@@ -48,7 +46,7 @@ public class BeatController extends App {
     @FXML
     public void switchToMeasure() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/measureScreen.fxml"));
         Parent root = loader.load();
         MeasureController controller = loader.getController();
         controller.initialize(this.song);

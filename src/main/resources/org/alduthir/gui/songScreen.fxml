@@ -8,9 +8,9 @@
 <?import javafx.scene.control.Separator?>
 <?import com.jfoenix.controls.JFXListView?>
 <GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.alduthir.SongController">
+          fx:controller="org.alduthir.Controller.SongController">
     <stylesheets>
-        <URL value="@styles.css"/>
+        <URL value="@../styles.css"/>
     </stylesheets>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
           styleClass="song-pane">

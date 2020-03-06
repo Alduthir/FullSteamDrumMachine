@@ -2,24 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Beat/Beat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Beat/BeatCell.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Beat/BeatCellFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Beat/NoSelectionModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Measure/Measure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Measure/MeasureCell.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Measure/MeasureCellFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/BeatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/MeasureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/Song/SongCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Song/SongCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/beatScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/beatScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/measureScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/measureScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Controller/BeatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Controller/MeasureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/Controller/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/beatScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/measureScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,9 +77,16 @@
       <recent name="org.alduthir" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.alduthir.Song" />
+      <recent name="org.alduthir.Measure" />
+      <recent name="org.alduthir.Beat" />
       <recent name="org.alduthir" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir\Controller" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir\Song" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir\Measure" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir\Beat" />
       <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -96,9 +94,8 @@
       <recent name="org.alduthir.Measure" />
       <recent name="org.alduthir" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\resources\org\alduthir" />
-      <recent name="D:\JavaProjects\FullSteamDrumMachine\src\main\java\org\alduthir\view" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.fullsteamdrummachine [clean,javafx:run]">
@@ -199,7 +196,8 @@
       <workItem from="1582877819616" duration="11654000" />
       <workItem from="1582903914908" duration="1762000" />
       <workItem from="1583166480594" duration="3144000" />
-      <workItem from="1583220557950" duration="12308000" />
+      <workItem from="1583220557950" duration="12384000" />
+      <workItem from="1583478803698" duration="1425000" />
     </task>
     <servers />
   </component>
@@ -224,10 +222,10 @@
     </state>
     <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583224485972" />
     <state x="544" y="135" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1583167006986" />
-    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1582886283546">
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1583479232610">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582886283546" />
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583479232610" />
     <state x="2056" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583230348400">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -237,25 +235,25 @@
     </state>
     <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1582877883144" />
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582277670233" />
-    <state width="1877" height="260" key="GridCell.Tab.0.bottom" timestamp="1583233154110">
+    <state width="1877" height="260" key="GridCell.Tab.0.bottom" timestamp="1583480231764">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="260" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583233154110" />
+    <state width="1877" height="260" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583480231764" />
     <state width="1323" height="201" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583180273864" />
-    <state width="1877" height="260" key="GridCell.Tab.0.center" timestamp="1583233154109">
+    <state width="1877" height="260" key="GridCell.Tab.0.center" timestamp="1583480231764">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="260" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583233154109" />
+    <state width="1877" height="260" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583480231764" />
     <state width="1323" height="201" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583180273864" />
-    <state width="1877" height="260" key="GridCell.Tab.0.left" timestamp="1583233154109">
+    <state width="1877" height="260" key="GridCell.Tab.0.left" timestamp="1583480231763">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="260" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583233154109" />
+    <state width="1877" height="260" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583480231763" />
     <state width="1323" height="201" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583180273864" />
-    <state width="1877" height="260" key="GridCell.Tab.0.right" timestamp="1583233154109">
+    <state width="1877" height="260" key="GridCell.Tab.0.right" timestamp="1583480231764">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="260" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583233154109" />
+    <state width="1877" height="260" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583480231764" />
     <state width="1323" height="201" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583180273864" />
     <state width="1323" height="201" key="GridCell.Tab.1.bottom" timestamp="1583180273864">
       <screen x="0" y="0" width="1366" height="728" />
@@ -289,10 +287,10 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582883086271" />
-    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1583230578677">
+    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1583479495474">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583230578677" />
+    <state x="1458" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583479495474" />
     <state x="65" y="64" width="1236" height="600" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1583174456587" />
     <state x="359" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1582877821575">
       <screen x="0" y="0" width="1366" height="728" />

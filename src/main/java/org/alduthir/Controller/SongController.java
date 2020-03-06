@@ -1,4 +1,4 @@
-package org.alduthir;
+package org.alduthir.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.alduthir.App;
+import org.alduthir.Controller.MeasureController;
 import org.alduthir.Song.Song;
 import org.alduthir.Song.SongCellFactory;
 
@@ -34,7 +36,7 @@ public class SongController extends App implements Initializable {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             Stage stage = (Stage) songList.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("measureScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/measureScreen.fxml"));
             Parent root = loader.load();
             MeasureController controller = loader.getController();
             controller.initialize(selectedSong);

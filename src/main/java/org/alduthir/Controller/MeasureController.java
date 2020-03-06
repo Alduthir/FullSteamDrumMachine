@@ -1,4 +1,4 @@
-package org.alduthir;
+package org.alduthir.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+import org.alduthir.App;
+import org.alduthir.Controller.BeatController;
 import org.alduthir.Measure.Measure;
 import org.alduthir.Measure.MeasureCellFactory;
 import org.alduthir.Song.Song;
@@ -67,7 +69,7 @@ public class MeasureController extends App {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
             Stage stage = (Stage) measureList.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("beatScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/beatScreen.fxml"));
             Parent root = loader.load();
             BeatController controller = loader.getController();
             controller.initialize(song, selectedMeasure);
@@ -101,7 +103,7 @@ public class MeasureController extends App {
     @FXML
     public void switchToSongSelection() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("songScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
         Parent root = loader.load();
         stage.setScene(new Scene(root, 800, 400));
         stage.setTitle("Full Steam Drum Machine");

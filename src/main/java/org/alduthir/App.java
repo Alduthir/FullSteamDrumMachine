@@ -20,7 +20,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("songScreen"), 800, 400);
+        scene = new Scene(loadFXML("gui/songScreen.fxml"), 800, 400);
         stage.setMinHeight(300);
         stage.setMinWidth(800);
         stage.setScene(scene);
@@ -32,7 +32,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml));
         return fxmlLoader.load();
     }
 

@@ -10,9 +10,9 @@
 <?import javafx.scene.control.CheckBox?>
 <GridPane xmlns="http://javafx.com/javafx/8.0.171"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.alduthir.BeatController">
+          fx:controller="org.alduthir.Controller.BeatController">
     <stylesheets>
-        <URL value="@styles.css"/>
+        <URL value="@../styles.css"/>
     </stylesheets>
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
         <JFXListView fx:id="beatList" minHeight="300" minWidth="550" VBox.vgrow="ALWAYS" focusTraversable="false"/>
