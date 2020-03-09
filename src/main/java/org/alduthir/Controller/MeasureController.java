@@ -12,7 +12,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.Controller.BeatController;
 import org.alduthir.Measure.Measure;
 import org.alduthir.Measure.MeasureCellFactory;
 import org.alduthir.Song.Song;

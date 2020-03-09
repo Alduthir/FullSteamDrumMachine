@@ -18,7 +18,7 @@ JFXCheckbox {
     -fx-padding: 5 0 0 0;
 }
 
-BeatCell{
+InstrumentCell{
     -fx-background-color: #222022;
 }
 

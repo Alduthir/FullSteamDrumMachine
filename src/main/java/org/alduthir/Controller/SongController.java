@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.Controller.MeasureController;
 import org.alduthir.Song.Song;
 import org.alduthir.Song.SongCellFactory;
 

@@ -1,24 +1,18 @@
-package org.alduthir.Song;
+package org.alduthir.Instrument;
 
-public class Song {
+public class Instrument {
 
     private int id;
+
     private String name;
-    private int bpm;
 
-    public Song() {
+    private String midiPath;
+
+    public Instrument() {
     }
 
-    public Song(int id, String name, int bpm) {
-        this.id = id;
+    public Instrument(String name) {
         this.name = name;
-        this.bpm = bpm;
-    }
-
-    public Song(int id, String name) {
-        this.id = id;
-        this.name = name;
-        this.bpm = 75;
     }
 
     public int getId() {
@@ -37,12 +31,12 @@ public class Song {
         this.name = name;
     }
 
-    public int getBpm() {
-        return bpm;
+    public String getMidiPath() {
+        return midiPath;
     }
 
-    public void setBpm(int bpm) {
-        this.bpm = bpm;
+    public void setMidiPath(String midiPath) {
+        this.midiPath = midiPath;
     }
 
     @Override

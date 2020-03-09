@@ -11,6 +11,9 @@
       </list>
     </option>
   </component>
+  <component name="ProjectResources">
+    <resource url="http://hibernate.hibernate.org/dtd/hibernate-mapping-5.3.dtd" location="$APPLICATION_HOME_DIR$/plugins/Hibernate/lib/hibernate.jar!/resources/schemas/hibernate-mapping-3.0.dtd" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="13" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

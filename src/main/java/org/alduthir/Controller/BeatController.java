@@ -10,9 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.Beat.Beat;
-import org.alduthir.Beat.BeatCellFactory;
-import org.alduthir.Beat.NoSelectionModel;
+import org.alduthir.Instrument.Instrument;
+import org.alduthir.Instrument.InstrumentCellFactory;
+import org.alduthir.Instrument.NoSelectionModel;
 import org.alduthir.Measure.Measure;
 import org.alduthir.Song.Song;
 
@@ -23,24 +23,24 @@ public class BeatController extends App {
     public JFXButton backButton;
     public JFXButton addButton;
     public JFXButton playButton;
-    public JFXListView<Beat> beatList;
+    public JFXListView<Instrument> beatList;
 
     private Song song;
     private Measure measure;
-    private ObservableList<Beat> beatCollection = FXCollections.observableArrayList();
+    private ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
     public void initialize(Song song, Measure measure) {
         this.song = song;
         this.measure = measure;
-        Beat test1 = new Beat("Bass Drum");
-        beatCollection.add(test1);
+        Instrument test1 = new Instrument("Bass Drum");
+        instrumentCollection.add(test1);
 
-        Beat test2 = new Beat("Hihat");
-        beatCollection.add(test2);
+        Instrument test2 = new Instrument("Hihat");
+        instrumentCollection.add(test2);
 
-        beatList.setSelectionModel(new NoSelectionModel<Beat>());
-        beatList.getItems().addAll(beatCollection);
-        beatList.setCellFactory(new BeatCellFactory());
+        beatList.setSelectionModel(new NoSelectionModel<Instrument>());
+        beatList.getItems().addAll(instrumentCollection);
+        beatList.setCellFactory(new InstrumentCellFactory());
     }
 
     @FXML

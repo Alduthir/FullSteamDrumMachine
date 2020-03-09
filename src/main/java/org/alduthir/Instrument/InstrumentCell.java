@@ -1,4 +1,4 @@
-package org.alduthir.Beat;
+package org.alduthir.Instrument;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -12,16 +12,14 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.util.ArrayList;
-
-public class BeatCell extends ListCell<Beat> {
+public class InstrumentCell extends ListCell<Instrument> {
     private HBox hbox = new HBox();
     private JFXButton deleteButton = new JFXButton();
     private Label label = new Label("");
     private HBox checkboxContainer = new HBox();
     private ObservableList<JFXCheckBox> checkBoxCollection = FXCollections.observableArrayList();
 
-    public BeatCell() {
+    public InstrumentCell() {
         super();
         deleteButton.setStyle("-fx-background-color: red; -fx-padding: 10 10 10 10; -fx-fill-height: true");
         FontIcon fi = new FontIcon();
@@ -45,12 +43,12 @@ public class BeatCell extends ListCell<Beat> {
     }
 
     @Override
-    public void updateItem(Beat beat, boolean empty) {
-        super.updateItem(beat, empty);
+    public void updateItem(Instrument instrument, boolean empty) {
+        super.updateItem(instrument, empty);
         setPrefHeight(45);
         setText(null);
-        if (beat != null) {
-            String name = beat.toString();
+        if (instrument != null) {
+            String name = instrument.toString();
             label.setText(name);
             label.setTooltip(new Tooltip(name));
             setGraphic(hbox);

@@ -1,1 +1,2 @@
 target/
+resources/META-INF/hibernate.cfg.xml
