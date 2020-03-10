@@ -10,6 +10,7 @@ module org.alduthir {
     requires java.naming;
     requires java.sql;
 
+    exports org.alduthir;
     exports org.alduthir.controller;
     exports org.alduthir.song;
     exports org.alduthir.measure;
