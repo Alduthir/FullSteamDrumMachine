@@ -1,4 +1,4 @@
-package org.alduthir.Controller;
+package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -10,11 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.Instrument.Instrument;
-import org.alduthir.Instrument.InstrumentCellFactory;
-import org.alduthir.Instrument.NoSelectionModel;
-import org.alduthir.Measure.Measure;
-import org.alduthir.Song.Song;
+import org.alduthir.instrument.Instrument;
+import org.alduthir.instrument.InstrumentCellFactory;
+import org.alduthir.instrument.NoSelectionModel;
+import org.alduthir.measure.Measure;
+import org.alduthir.song.Song;
 
 import java.io.IOException;
 

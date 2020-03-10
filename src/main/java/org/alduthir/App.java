@@ -5,18 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
     private static Scene scene;
-    private static Connection con;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,25 +22,8 @@ public class App extends Application {
         stage.setMinHeight(300);
         stage.setMinWidth(800);
         stage.setScene(scene);
+        stage.setTitle("Full Steam Drum Machine");
         stage.show();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/full-steam-drum-machine",
-                    "root",
-                    "password"
-            );
-
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Song");
-            while (rs.next()) {
-                System.out.println(rs.getString("name") + "  " + rs.getInt("bpm"));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -60,10 +41,25 @@ public class App extends Application {
 
 
     @FXML
-    public void notYetImplemented() throws IOException {
+    public void notYetImplemented() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        styleButtonDialog(alert);
         alert.setTitle("Not yet implemented");
         alert.setContentText("Deze functionaliteit is nog niet geïmplementeerd.");
         alert.showAndWait();
+    }
+
+    public void styleButtonDialog(Dialog<ButtonType> dialog) {
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getStylesheets().add(
+                App.class.getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("fx-dialog");
+    }
+
+    public void styleStringDialog(Dialog<String> dialog) {
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getStylesheets().add(
+                App.class.getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("fx-dialog");
     }
 }

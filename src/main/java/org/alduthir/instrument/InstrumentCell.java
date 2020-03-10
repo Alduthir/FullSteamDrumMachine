@@ -1,4 +1,4 @@
-package org.alduthir.Instrument;
+package org.alduthir.instrument;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;

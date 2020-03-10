@@ -9,17 +9,18 @@ module org.alduthir {
     requires com.jfoenix;
     requires java.naming;
     requires java.sql;
-    requires mysql.connector.java;
 
     exports org.alduthir;
-    exports org.alduthir.Controller;
-    exports org.alduthir.Song;
-    exports org.alduthir.Measure;
-    exports org.alduthir.Instrument;
+    exports org.alduthir.util;
+    exports org.alduthir.controller;
+    exports org.alduthir.song;
+    exports org.alduthir.measure;
+    exports org.alduthir.instrument;
 
     opens org.alduthir to javafx.graphics;
-    opens org.alduthir.Controller to javafx.graphics;
-    opens org.alduthir.Song to javafx.graphics;
-    opens org.alduthir.Measure to javafx.graphics;
-    opens org.alduthir.Instrument to javafx.graphics;
+    opens org.alduthir.controller to javafx.graphics;
+    opens org.alduthir.song to javafx.graphics;
+    opens org.alduthir.measure to javafx.graphics;
+    opens org.alduthir.instrument to javafx.graphics;
+    opens org.alduthir.util to javafx.graphics;
 }

@@ -1,4 +1,4 @@
-package org.alduthir.Controller;
+package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -12,9 +12,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.Measure.Measure;
-import org.alduthir.Measure.MeasureCellFactory;
-import org.alduthir.Song.Song;
+import org.alduthir.measure.Measure;
+import org.alduthir.measure.MeasureCellFactory;
+import org.alduthir.song.Song;
 
 import java.io.IOException;
 

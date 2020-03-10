@@ -1,4 +1,4 @@
-package org.alduthir.Song;
+package org.alduthir.song;
 
 public class Song {
 
@@ -15,8 +15,7 @@ public class Song {
         this.bpm = bpm;
     }
 
-    public Song(int id, String name) {
-        this.id = id;
+    public Song(String name) {
         this.name = name;
         this.bpm = 75;
     }

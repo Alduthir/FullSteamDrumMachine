@@ -22,6 +22,11 @@ InstrumentCell{
     -fx-background-color: #222022;
 }
 
+.fx-dialog{
+    -fx-background-color: #222022;
+    -fx-base: #A0959E;
+}
+
 .button-box {
     -fx-spacing: 20;
     -fx-padding: 20 20 20 20;

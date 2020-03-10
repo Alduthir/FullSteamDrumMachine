@@ -10,7 +10,7 @@
 <?import javafx.scene.control.CheckBox?>
 <GridPane xmlns="http://javafx.com/javafx/8.0.171"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.alduthir.Controller.BeatController">
+          fx:controller="org.alduthir.controller.BeatController">
     <stylesheets>
         <URL value="@../styles.css"/>
     </stylesheets>

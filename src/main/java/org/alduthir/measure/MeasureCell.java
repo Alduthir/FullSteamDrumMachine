@@ -1,4 +1,4 @@
-package org.alduthir.Measure;
+package org.alduthir.measure;
 
 import javafx.scene.control.ListCell;
 

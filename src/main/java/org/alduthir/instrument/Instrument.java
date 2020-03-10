@@ -1,21 +1,17 @@
-package org.alduthir.Measure;
+package org.alduthir.instrument;
 
-public class Measure {
+public class Instrument {
 
     private int id;
+
     private String name;
-    private int sequence;
 
-    public Measure() {
+    private String midiPath;
+
+    public Instrument() {
     }
 
-    public Measure(int id, String name, int sequence) {
-        this.id = id;
-        this.name = name;
-        this.sequence = sequence;
-    }
-
-    public Measure(String name) {
+    public Instrument(String name) {
         this.name = name;
     }
 
@@ -35,12 +31,12 @@ public class Measure {
         this.name = name;
     }
 
-    public int getSequence() {
-        return sequence;
+    public String getMidiPath() {
+        return midiPath;
     }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
+    public void setMidiPath(String midiPath) {
+        this.midiPath = midiPath;
     }
 
     @Override

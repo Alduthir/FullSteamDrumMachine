@@ -1,4 +1,4 @@
-package org.alduthir.Instrument;
+package org.alduthir.instrument;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
