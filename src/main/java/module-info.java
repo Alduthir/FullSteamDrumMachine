@@ -10,8 +10,6 @@ module org.alduthir {
     requires java.naming;
     requires java.sql;
 
-    exports org.alduthir;
-    exports org.alduthir.util;
     exports org.alduthir.controller;
     exports org.alduthir.song;
     exports org.alduthir.measure;
@@ -22,5 +20,4 @@ module org.alduthir {
     opens org.alduthir.song to javafx.graphics;
     opens org.alduthir.measure to javafx.graphics;
     opens org.alduthir.instrument to javafx.graphics;
-    opens org.alduthir.util to javafx.graphics;
 }

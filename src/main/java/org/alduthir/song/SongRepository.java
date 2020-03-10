@@ -3,6 +3,7 @@ package org.alduthir.song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.alduthir.util.AbstractDatabaseInteractionService;
+import org.alduthir.util.NamedPreparedStatement;
 
 import java.sql.*;
 
@@ -30,9 +31,9 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
     @Override
     public Song findById(int id) throws SQLException, ClassNotFoundException {
         Connection connection = openConnection();
-        String sql = "SELECT * FROM Song WHERE songId = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, id);
+        String sql = "SELECT * FROM Song WHERE songId = :songId";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setInt("songId", id);
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
@@ -51,19 +52,19 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
     @Override
     public void deleteById(int id) throws SQLException, ClassNotFoundException {
         Connection connection = openConnection();
-        String sql = "DELETE FROM Song WHERE songId = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, id);
+        String sql = "DELETE FROM Song WHERE songId = :songId";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setInt("songId", id);
         stmt.executeUpdate();
         stmt.close();
     }
 
     public void createSong(Song song) throws SQLException, ClassNotFoundException {
         Connection connection = openConnection();
-        String sql = "INSERT INTO Song(name, bpm) VALUES(?, 75)";
-        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, song.getName());
-        stmt.executeUpdate();
+        String sql = "INSERT INTO Song(name, bpm) VALUES(:name, 75)";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setString("name", song.getName());
+        stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
 
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs != null && rs.next()) {
