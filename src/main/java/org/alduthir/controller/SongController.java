@@ -82,7 +82,7 @@ public class SongController extends App implements Initializable {
 
     public void addSong() throws SQLException {
         TextInputDialog textInputDialog = new TextInputDialog();
-        styleStringDialog(textInputDialog);
+        styleDialog(textInputDialog);
 
         textInputDialog.setTitle("Create new Song");
         textInputDialog.setContentText("Enter the name of your new song.");

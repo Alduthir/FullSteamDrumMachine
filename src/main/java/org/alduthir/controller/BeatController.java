@@ -59,6 +59,10 @@ public class BeatController extends App {
         notYetImplemented();
     }
 
+    public void removeInstrument() {
+        notYetImplemented();
+    }
+
     public void playMeasure() {
         notYetImplemented();
     }
