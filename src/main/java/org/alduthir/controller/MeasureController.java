@@ -69,16 +69,24 @@ public class MeasureController extends App {
         stage.show();
     }
 
+    public void playMeasure() {
+        notYetImplemented();
+    }
+
     public void addMeasure() {
+        notYetImplemented();
     }
 
     public void deleteMeasure() {
+        notYetImplemented();
     }
 
     public void reuseMeasure() {
+        notYetImplemented();
     }
 
     public void saveSequence() {
+        notYetImplemented();
     }
 
     private void initializeBpmSpinner() {

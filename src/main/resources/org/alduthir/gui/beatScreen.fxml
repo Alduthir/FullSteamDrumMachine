@@ -20,14 +20,14 @@
     </HBox>
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">
-        <JFXButton fx:id="playButton" onAction="#notYetImplemented" buttonType="FLAT" styleClass="menu-button"
+        <JFXButton fx:id="playButton" onAction="#playMeasure" buttonType="FLAT" styleClass="menu-button"
                    text="Preview">
             <graphic>
                 <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="addButton" text="Add Instrument" onAction="#notYetImplemented" buttonType="FLAT"
+        <JFXButton fx:id="addButton" text="Add Instrument" onAction="#addInstrument" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconSize="40" iconColor="white"/>

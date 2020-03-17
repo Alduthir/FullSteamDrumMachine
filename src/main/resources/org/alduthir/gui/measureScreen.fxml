@@ -22,19 +22,19 @@
         <BorderPane>
             <left>
                 <HBox>
-                    <JFXButton fx:id="addMeasureButton" onAction="#notYetImplemented" styleClass="small-button"
+                    <JFXButton fx:id="addMeasureButton" onAction="#addMeasure" styleClass="small-button"
                                focusTraversable="false">
                         <graphic>
                             <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="reuseMeasureButton" onAction="#notYetImplemented" styleClass="small-button"
+                    <JFXButton fx:id="reuseMeasureButton" onAction="#reuseMeasure" styleClass="small-button"
                                focusTraversable="false">
                         <graphic>
                             <FontIcon iconLiteral="fa-refresh" iconColor="white" iconSize="24"/>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="deleteMeasureButton" alignment="TOP_LEFT" onAction="#notYetImplemented" styleClass="small-button"
+                    <JFXButton fx:id="deleteMeasureButton" alignment="TOP_LEFT" onAction="#deleteMeasure" styleClass="small-button"
                                focusTraversable="false">
                         <graphic>
                             <FontIcon iconLiteral="fa-trash" iconColor="white" iconSize="24"/>
@@ -53,14 +53,14 @@
     </VBox>
     <VBox GridPane.columnIndex="3" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">
-        <JFXButton fx:id="playButton" onAction="#notYetImplemented" buttonType="FLAT" styleClass="menu-button"
+        <JFXButton fx:id="playButton" onAction="#playMeasure" buttonType="FLAT" styleClass="menu-button"
                    text="Play">
             <graphic>
                 <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="editButton" text="Edit" onAction="#notYetImplemented" buttonType="FLAT"
+        <JFXButton fx:id="editButton" text="Edit" onAction="#switchToBeatEditor" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-edit" iconSize="40" iconColor="white"/>

@@ -106,11 +106,11 @@ public class SongController extends App implements Initializable {
     }
 
     public void playSong() {
-
+        notYetImplemented();
     }
 
     public void exportSong() {
-
+        notYetImplemented();
     }
 
     private ObservableList<Song> createSongList() throws SQLException {
