@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.instrument.Instrument;
 import org.alduthir.instrument.InstrumentCellFactory;
-import org.alduthir.instrument.NoSelectionModel;
+import org.alduthir.util.NoSelectionModel;
 import org.alduthir.measure.Measure;
 import org.alduthir.song.Song;
 
