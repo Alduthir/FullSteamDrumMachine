@@ -3,16 +3,23 @@ package org.alduthir.measure;
 public class Measure {
 
     private int id;
+    private int beatUnit = 4;
+    private int beatsInMeasure = 4;
     private String name;
-    private int sequence;
 
     public Measure() {
     }
 
-    public Measure(int id, String name, int sequence) {
+    public Measure(int id, String name) {
         this.id = id;
         this.name = name;
-        this.sequence = sequence;
+    }
+
+    public Measure(int id, String name, int beatUnit, int beatsInMeasure){
+        this.id = id;
+        this.name = name;
+        this.beatUnit = beatUnit;
+        this.beatsInMeasure = beatsInMeasure;
     }
 
     public Measure(String name) {
@@ -35,12 +42,20 @@ public class Measure {
         this.name = name;
     }
 
-    public int getSequence() {
-        return sequence;
+    public int getBeatUnit() {
+        return beatUnit;
     }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
+    public void setBeatUnit(int beatUnit) {
+        this.beatUnit = beatUnit;
+    }
+
+    public int getBeatsInMeasure() {
+        return beatsInMeasure;
+    }
+
+    public void setBeatsInMeasure(int beatsInMeasure) {
+        this.beatsInMeasure = beatsInMeasure;
     }
 
     @Override

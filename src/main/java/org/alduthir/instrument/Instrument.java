@@ -15,6 +15,12 @@ public class Instrument {
         this.name = name;
     }
 
+    public Instrument(int id, String name, String midiPath) {
+        this.id = id;
+        this.name = name;
+        this.midiPath = midiPath;
+    }
+
     public int getId() {
         return id;
     }

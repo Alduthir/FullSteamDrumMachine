@@ -9,10 +9,12 @@ import java.sql.*;
 
 public class SongRepository extends AbstractDatabaseInteractionService<Song> {
 
+    public SongRepository() throws SQLException, ClassNotFoundException {
+    }
+
     @Override
-    public ObservableList<Song> fetchAll() throws SQLException, ClassNotFoundException {
+    public ObservableList<Song> fetchAll() throws SQLException {
         ObservableList<Song> songCollection = FXCollections.observableArrayList();
-        Connection connection = openConnection();
 
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Song");
@@ -29,8 +31,7 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
     }
 
     @Override
-    public Song findById(int id) throws SQLException, ClassNotFoundException {
-        Connection connection = openConnection();
+    public Song findById(int id) throws SQLException {
         String sql = "SELECT * FROM Song WHERE songId = :songId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("songId", id);
@@ -50,8 +51,7 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
     }
 
     @Override
-    public void deleteById(int id) throws SQLException, ClassNotFoundException {
-        Connection connection = openConnection();
+    public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE songId = :songId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("songId", id);
@@ -59,8 +59,7 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
         stmt.close();
     }
 
-    public void createSong(Song song) throws SQLException, ClassNotFoundException {
-        Connection connection = openConnection();
+    public void createSong(Song song) throws SQLException {
         String sql = "INSERT INTO Song(name, bpm) VALUES(:name, 75)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setString("name", song.getName());

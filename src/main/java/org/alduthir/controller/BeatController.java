@@ -44,7 +44,7 @@ public class BeatController extends App {
     }
 
     @FXML
-    public void switchToMeasure() throws IOException {
+    public void switchToMeasureSelection() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/measureScreen.fxml"));
         Parent root = loader.load();
@@ -53,5 +53,11 @@ public class BeatController extends App {
         stage.setScene(new Scene(root, 800, 400));
         stage.setTitle("Full Steam Drum Machine - " + song.toString());
         stage.show();
+    }
+
+    public void addInstrument() {
+    }
+
+    public void playMeasure() {
     }
 }

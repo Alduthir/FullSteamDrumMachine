@@ -16,6 +16,10 @@ import java.io.IOException;
 public class App extends Application {
     private static Scene scene;
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("gui/songScreen.fxml"), 800, 400);
@@ -30,16 +34,6 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml));
-        return fxmlLoader.load();
-    }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
-
     @FXML
     public void notYetImplemented() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -49,17 +43,22 @@ public class App extends Application {
         alert.showAndWait();
     }
 
-    public void styleButtonDialog(Dialog<ButtonType> dialog) {
+    protected void styleButtonDialog(Dialog<ButtonType> dialog) {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add(
                 App.class.getResource("styles.css").toExternalForm());
         dialogPane.getStyleClass().add("fx-dialog");
     }
 
-    public void styleStringDialog(Dialog<String> dialog) {
+    protected void styleStringDialog(Dialog<String> dialog) {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add(
                 App.class.getResource("styles.css").toExternalForm());
         dialogPane.getStyleClass().add("fx-dialog");
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml));
+        return fxmlLoader.load();
     }
 }

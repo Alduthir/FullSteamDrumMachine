@@ -9,6 +9,7 @@ module org.alduthir {
     requires com.jfoenix;
     requires java.naming;
     requires java.sql;
+    requires java.desktop;
 
     exports org.alduthir;
     exports org.alduthir.controller;

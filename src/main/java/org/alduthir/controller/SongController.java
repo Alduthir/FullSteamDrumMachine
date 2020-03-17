@@ -9,13 +9,11 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.alduthir.App;
@@ -54,14 +52,19 @@ public class SongController extends App implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         if (repository == null) {
-            repository = new SongRepository();
+            try {
+                repository = new SongRepository();
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
             songList.getItems().addAll(createSongList());
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         songList.setCellFactory(new SongCellFactory());
         songList.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
@@ -77,12 +80,7 @@ public class SongController extends App implements Initializable {
         songList.requestFocus();
     }
 
-    private ObservableList<Song> createSongList() throws SQLException, ClassNotFoundException {
-        songCollection = repository.fetchAll();
-        return songCollection;
-    }
-
-    public void addSong(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void addSong() throws SQLException {
         TextInputDialog textInputDialog = new TextInputDialog();
         styleStringDialog(textInputDialog);
 
@@ -98,12 +96,25 @@ public class SongController extends App implements Initializable {
         }
     }
 
-    public void deleteSong(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void deleteSong() throws SQLException {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
-        if(selectedSong != null) {
+        if (selectedSong != null) {
             repository.deleteById(selectedSong.getId());
             songCollection.remove(selectedSong);
             songList.getItems().setAll(songCollection);
         }
+    }
+
+    public void playSong() {
+
+    }
+
+    public void exportSong() {
+
+    }
+
+    private ObservableList<Song> createSongList() throws SQLException {
+        songCollection = repository.fetchAll();
+        return songCollection;
     }
 }

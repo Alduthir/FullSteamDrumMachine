@@ -34,7 +34,7 @@
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="backButton" text="Back to song" onAction="#switchToMeasure" buttonType="FLAT"
+        <JFXButton fx:id="backButton" text="Back to song" onAction="#switchToMeasureSelection" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-mail-reply" iconSize="40" iconColor="white"/>

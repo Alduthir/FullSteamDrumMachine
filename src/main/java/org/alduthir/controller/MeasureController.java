@@ -20,7 +20,6 @@ import java.io.IOException;
 
 public class MeasureController extends App {
 
-
     @FXML
     public JFXButton editButton;
     public JFXButton playButton;
@@ -34,37 +33,13 @@ public class MeasureController extends App {
     private Song song;
     private ObservableList<Measure> measureCollection = FXCollections.observableArrayList();
 
-
     public void initialize(Song song) {
         this.song = song;
         initializeBpmSpinner();
         initializeMeasureList();
     }
 
-    private void initializeMeasureList() {
-        Measure test1 = new Measure("Intro");
-        measureCollection.add(test1);
-
-        Measure test2 = new Measure("Chorus");
-        measureCollection.add(test2);
-
-        measureList.getItems().addAll(measureCollection);
-        measureList.setCellFactory(new MeasureCellFactory());
-        measureList.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2) {
-                try {
-                switchToBeatEditor();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                e.consume();
-            }
-        });
-        measureList.getSelectionModel().selectFirst();
-        measureList.requestFocus();
-    }
-
-    private void switchToBeatEditor() throws IOException {
+    public void switchToBeatEditor() throws IOException {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
             Stage stage = (Stage) measureList.getScene().getWindow();
@@ -84,6 +59,28 @@ public class MeasureController extends App {
         }
     }
 
+    @FXML
+    public void switchToSongSelection() throws IOException {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root, 800, 400));
+        stage.setTitle("Full Steam Drum Machine");
+        stage.show();
+    }
+
+    public void addMeasure() {
+    }
+
+    public void deleteMeasure() {
+    }
+
+    public void reuseMeasure() {
+    }
+
+    public void saveSequence() {
+    }
+
     private void initializeBpmSpinner() {
         bpmSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(20, 250));
         bpmSpinner.getValueFactory().setValue(75);
@@ -99,13 +96,26 @@ public class MeasureController extends App {
         });
     }
 
-    @FXML
-    public void switchToSongSelection() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
-        Parent root = loader.load();
-        stage.setScene(new Scene(root, 800, 400));
-        stage.setTitle("Full Steam Drum Machine");
-        stage.show();
+    private void initializeMeasureList() {
+        Measure test1 = new Measure("Intro");
+        measureCollection.add(test1);
+
+        Measure test2 = new Measure("Chorus");
+        measureCollection.add(test2);
+
+        measureList.getItems().addAll(measureCollection);
+        measureList.setCellFactory(new MeasureCellFactory());
+        measureList.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                try {
+                    switchToBeatEditor();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                e.consume();
+            }
+        });
+        measureList.getSelectionModel().selectFirst();
+        measureList.requestFocus();
     }
 }
