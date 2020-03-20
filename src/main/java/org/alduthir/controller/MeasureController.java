@@ -10,13 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.measure.Measure;
 import org.alduthir.measure.MeasureCellFactory;
+import org.alduthir.measure.MeasureRepository;
 import org.alduthir.song.Song;
+import org.alduthir.song.SongRepository;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class MeasureController extends App {
 
@@ -32,11 +37,26 @@ public class MeasureController extends App {
 
     private Song song;
     private ObservableList<Measure> measureCollection = FXCollections.observableArrayList();
+    private MeasureRepository repository;
 
     public void initialize(Song song) {
         this.song = song;
+
+        if (repository == null) {
+            try {
+                repository = new MeasureRepository();
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            initializeMeasureList();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         initializeBpmSpinner();
-        initializeMeasureList();
     }
 
     public void switchToBeatEditor() throws IOException {
@@ -73,12 +93,31 @@ public class MeasureController extends App {
         notYetImplemented();
     }
 
-    public void addMeasure() {
-        notYetImplemented();
+    public void addMeasure() throws SQLException {
+        TextInputDialog textInputDialog = new TextInputDialog();
+        styleDialog(textInputDialog);
+
+        textInputDialog.setTitle("Create new Measure");
+        textInputDialog.setContentText("Enter the name of your new measure.");
+
+        Optional<String> result = textInputDialog.showAndWait();
+        if (result.isPresent()) {
+            Measure measure = new Measure(result.get());
+            repository.createMeasure(measure);
+            measureCollection.add(measure);
+            measureList.getItems().setAll(measureCollection);
+
+            repository.addToSong(measure, song, measureCollection.size());
+        }
     }
 
-    public void deleteMeasure() {
-        notYetImplemented();
+    public void deleteMeasure() throws SQLException {
+        Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
+        if (selectedMeasure != null) {
+            repository.removeFromMeasure(selectedMeasure, song);
+            measureCollection.remove(selectedMeasure);
+            measureList.getItems().setAll(measureCollection);
+        }
     }
 
     public void reuseMeasure() {
@@ -104,14 +143,9 @@ public class MeasureController extends App {
         });
     }
 
-    private void initializeMeasureList() {
-        Measure test1 = new Measure("Intro");
-        measureCollection.add(test1);
+    private void initializeMeasureList() throws SQLException {
+        measureList.getItems().addAll(repository.fetchForSong(song));
 
-        Measure test2 = new Measure("Chorus");
-        measureCollection.add(test2);
-
-        measureList.getItems().addAll(measureCollection);
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {

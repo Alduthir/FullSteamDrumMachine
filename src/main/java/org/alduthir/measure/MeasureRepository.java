@@ -101,12 +101,13 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         return instrumentCollection;
     }
 
-    public void addToSong(Measure measure, Song song) throws SQLException {
-        String sql = "INSERT INTO SongMeasure(songId, measureId) VALUES(:songId, :measureId)";
+    public void addToSong(Measure measure, Song song, int sequence) throws SQLException {
+        String sql = "INSERT INTO SongMeasure(songId, measureId, sequence) VALUES(:songId, :measureId, :sequence)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
-        stmt.setInt("measureId", measure.getId());
         stmt.setInt("songId", song.getId());
-        stmt.executeQuery();
+        stmt.setInt("measureId", measure.getId());
+        stmt.setInt("sequence", sequence);
+        stmt.executeUpdate();
     }
 
     public void removeFromMeasure(Measure measure, Song song) throws SQLException {
