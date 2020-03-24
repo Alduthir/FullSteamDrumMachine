@@ -3,7 +3,6 @@ package org.alduthir.measure;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.alduthir.instrument.Instrument;
 import org.alduthir.song.Song;
 import org.alduthir.util.AbstractDatabaseInteractionService;
 import org.alduthir.util.NamedPreparedStatement;

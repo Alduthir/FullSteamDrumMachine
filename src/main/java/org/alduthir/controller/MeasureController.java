@@ -144,7 +144,7 @@ public class MeasureController extends App {
     }
 
     private void initializeMeasureList() throws SQLException {
-        measureList.getItems().addAll(repository.fetchForSong(song));
+        measureList.getItems().setAll(repository.fetchForSong(song));
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {

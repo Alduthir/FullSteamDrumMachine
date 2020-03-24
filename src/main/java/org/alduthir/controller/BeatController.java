@@ -12,11 +12,13 @@ import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.instrument.Instrument;
 import org.alduthir.instrument.InstrumentCellFactory;
+import org.alduthir.instrument.InstrumentRepository;
 import org.alduthir.util.NoSelectionModel;
 import org.alduthir.measure.Measure;
 import org.alduthir.song.Song;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class BeatController extends App {
 
@@ -28,19 +30,18 @@ public class BeatController extends App {
     private Song song;
     private Measure measure;
     private ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+    private InstrumentRepository repository;
 
     public void initialize(Song song, Measure measure) {
         this.song = song;
         this.measure = measure;
-        Instrument test1 = new Instrument("Bass Drum");
-        instrumentCollection.add(test1);
+        getRepository();
 
-        Instrument test2 = new Instrument("Hihat");
-        instrumentCollection.add(test2);
-
-        beatList.setSelectionModel(new NoSelectionModel<Instrument>());
-        beatList.getItems().addAll(instrumentCollection);
-        beatList.setCellFactory(new InstrumentCellFactory());
+        try {
+            initializeInstrumentCollection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -59,11 +60,33 @@ public class BeatController extends App {
         notYetImplemented();
     }
 
-    public void removeInstrument() {
-        notYetImplemented();
+    public void removeInstrument(Measure measure, Instrument instrument) throws SQLException {
+        getRepository().removeFromMeasure(measure, instrument);
+        instrumentCollection.remove(instrument);
+        beatList.getItems().setAll(instrumentCollection);
     }
 
     public void playMeasure() {
         notYetImplemented();
+    }
+
+    private void initializeInstrumentCollection() throws SQLException {
+        beatList.getItems().setAll(
+                getRepository().fetchForMeasure(measure)
+        );
+        beatList.setSelectionModel(new NoSelectionModel<>());
+        beatList.setCellFactory(new InstrumentCellFactory(measure));
+    }
+
+    private InstrumentRepository getRepository() {
+        if (repository == null) {
+            try {
+                repository = new InstrumentRepository();
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            return repository;
+        }
+        return repository;
     }
 }

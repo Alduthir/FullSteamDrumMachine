@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.alduthir.measure.Measure;
-import org.alduthir.song.Song;
 import org.alduthir.util.AbstractDatabaseInteractionService;
 import org.alduthir.util.NamedPreparedStatement;
 
@@ -80,7 +79,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     public ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM Instrument i JOIN MeasureInstrument mi ON i.intrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
+        String sql = "SELECT * FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("measureId", measure.getId());
         ResultSet rs = stmt.executeQuery();
@@ -102,7 +101,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("measureId", measure.getId());
         stmt.setInt("instrumentId", instrument.getId());
-        stmt.executeQuery();
+        stmt.executeUpdate();
     }
 
     public void updateBeat(Instrument instrument, ObservableList<JFXCheckBox> checkBoxCollection) {
