@@ -104,10 +104,8 @@ public class MeasureController extends App {
         if (result.isPresent()) {
             Measure measure = new Measure(result.get());
             repository.createMeasure(measure);
-            measureCollection.add(measure);
-            measureList.getItems().setAll(measureCollection);
-
             repository.addToSong(measure, song, measureCollection.size());
+            initializeMeasureList();
         }
     }
 
@@ -115,8 +113,7 @@ public class MeasureController extends App {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
             repository.removeFromMeasure(selectedMeasure, song);
-            measureCollection.remove(selectedMeasure);
-            measureList.getItems().setAll(measureCollection);
+            initializeMeasureList();
         }
     }
 
@@ -144,7 +141,8 @@ public class MeasureController extends App {
     }
 
     private void initializeMeasureList() throws SQLException {
-        measureList.getItems().setAll(repository.fetchForSong(song));
+        measureCollection = repository.fetchForSong(song);
+        measureList.getItems().setAll(measureCollection);
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {

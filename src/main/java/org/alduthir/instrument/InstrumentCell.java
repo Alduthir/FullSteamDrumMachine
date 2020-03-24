@@ -4,23 +4,16 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
-import org.alduthir.App;
-import org.alduthir.controller.BeatController;
-import org.alduthir.measure.Measure;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InstrumentCell extends ListCell<Instrument> {
     private HBox hbox = new HBox();
@@ -29,11 +22,10 @@ public class InstrumentCell extends ListCell<Instrument> {
     private HBox checkboxContainer = new HBox();
     private ObservableList<JFXCheckBox> checkBoxCollection = FXCollections.observableArrayList();
     private Instrument instrument;
-    private Measure measure;
+    private List<InstrumentActionListener> listeners = new ArrayList<InstrumentActionListener>();
 
-    public InstrumentCell(Measure measure) {
+    public InstrumentCell() {
         super();
-        this.measure = measure;
         initDeleteButton();
 
         label.setStyle("-fx-label-padding: 10 0 0 0; -fx-min-width: 70; -fx-max-width: 70; -fx-text-overrun: ellipsis");
@@ -45,9 +37,14 @@ public class InstrumentCell extends ListCell<Instrument> {
         hbox.setSpacing(5);
     }
 
+    public void addListener(InstrumentActionListener listener) {
+        listeners.add(listener);
+    }
+
     private void initCheckBoxContainer() {
         for (int i = 0; i < 14; i++) {
             JFXCheckBox checkbox = new JFXCheckBox();
+            checkbox.setOnMouseClicked(mouseEvent -> updateBeat());
             checkBoxCollection.add(checkbox);
         }
         checkboxContainer.getChildren().addAll(checkBoxCollection);
@@ -74,28 +71,27 @@ public class InstrumentCell extends ListCell<Instrument> {
             label.setText(name);
             label.setTooltip(new Tooltip(name));
             setGraphic(hbox);
-            addClickHandlers();
+
+            deleteButton.setOnMouseClicked(mouseEvent -> {
+                for (InstrumentActionListener listener : listeners) {
+                    listener.removeInstrument(instrument);
+                }
+            });
         } else {
             setGraphic(null);
         }
     }
 
-    private void addClickHandlers() {
-        deleteButton.setOnMouseClicked(mouseEvent -> {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/beatScreen.fxml"));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void updateBeat()
+    {
+        StringBuilder beat = new StringBuilder();
+        for(JFXCheckBox checkbox : checkBoxCollection){
+            int isChecked = checkbox.isSelected() ? 1 : 0;
+            beat.append(isChecked);
+        }
 
-            BeatController controller = loader.getController();
-
-            try {
-                controller.removeInstrument(measure, instrument);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+        for (InstrumentActionListener listener : listeners) {
+            listener.updateBeat(beat.toString(), instrument);
+        }
     }
 }

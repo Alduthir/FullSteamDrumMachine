@@ -2,8 +2,6 @@ package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.instrument.Instrument;
+import org.alduthir.instrument.InstrumentActionListener;
 import org.alduthir.instrument.InstrumentCellFactory;
 import org.alduthir.instrument.InstrumentRepository;
 import org.alduthir.util.NoSelectionModel;
@@ -20,7 +19,7 @@ import org.alduthir.song.Song;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class BeatController extends App {
+public class BeatController extends App implements InstrumentActionListener {
 
     public JFXButton backButton;
     public JFXButton addButton;
@@ -29,7 +28,6 @@ public class BeatController extends App {
 
     private Song song;
     private Measure measure;
-    private ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
     private InstrumentRepository repository;
 
     public void initialize(Song song, Measure measure) {
@@ -60,12 +58,6 @@ public class BeatController extends App {
         notYetImplemented();
     }
 
-    public void removeInstrument(Measure measure, Instrument instrument) throws SQLException {
-        getRepository().removeFromMeasure(measure, instrument);
-        instrumentCollection.remove(instrument);
-        beatList.getItems().setAll(instrumentCollection);
-    }
-
     public void playMeasure() {
         notYetImplemented();
     }
@@ -75,7 +67,7 @@ public class BeatController extends App {
                 getRepository().fetchForMeasure(measure)
         );
         beatList.setSelectionModel(new NoSelectionModel<>());
-        beatList.setCellFactory(new InstrumentCellFactory(measure));
+        beatList.setCellFactory(new InstrumentCellFactory(this));
     }
 
     private InstrumentRepository getRepository() {
@@ -88,5 +80,24 @@ public class BeatController extends App {
             return repository;
         }
         return repository;
+    }
+
+    @Override
+    public void removeInstrument(Instrument instrument){
+        try {
+            getRepository().removeFromMeasure(measure, instrument);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            initializeInstrumentCollection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateBeat(String beatNotes, Instrument instrument) {
+        notYetImplemented();
     }
 }
