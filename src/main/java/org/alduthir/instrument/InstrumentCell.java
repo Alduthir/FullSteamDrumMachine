@@ -28,7 +28,7 @@ public class InstrumentCell extends ListCell<Instrument> {
         super();
         initDeleteButton();
 
-        label.setStyle("-fx-label-padding: 10 0 0 0; -fx-min-width: 70; -fx-max-width: 70; -fx-text-overrun: ellipsis");
+        label.setStyle("-fx-label-padding: 10 0 0 0; -fx-min-width: 60; -fx-max-width: 60; -fx-text-overrun: ellipsis");
 
         HBox.setHgrow(checkboxContainer, Priority.ALWAYS);
         initCheckBoxContainer();
@@ -42,17 +42,17 @@ public class InstrumentCell extends ListCell<Instrument> {
     }
 
     private void initCheckBoxContainer() {
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 16; i++) {
             JFXCheckBox checkbox = new JFXCheckBox();
             checkbox.setOnMouseClicked(mouseEvent -> updateBeat());
             checkBoxCollection.add(checkbox);
         }
         checkboxContainer.getChildren().addAll(checkBoxCollection);
-        checkboxContainer.setStyle("-fx-alignment: center-left; -fx-spacing:10;");
+        checkboxContainer.setStyle("-fx-alignment: center-left; -fx-spacing:8;");
     }
 
     private void initDeleteButton() {
-        deleteButton.setStyle("-fx-background-color: red; -fx-padding: 10 10 10 10; -fx-fill-height: true");
+        deleteButton.setStyle("-fx-background-color: red; -fx-padding: 10 0 10 0; -fx-fill-height: true");
         FontIcon fi = new FontIcon();
         fi.setIconLiteral("fa-ban");
         fi.setIconSize(18);

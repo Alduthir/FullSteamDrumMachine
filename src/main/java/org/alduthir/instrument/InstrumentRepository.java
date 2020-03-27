@@ -104,7 +104,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         stmt.executeUpdate();
     }
 
-    public void updateBeat(Instrument instrument, ObservableList<JFXCheckBox> checkBoxCollection) {
+    public void updateBeat(Instrument instrument, String encodedBeat) {
     }
 
     public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {

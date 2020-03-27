@@ -109,7 +109,7 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.executeUpdate();
     }
 
-    public void removeFromMeasure(Measure measure, Song song) throws SQLException {
+    public void removeFromSong(Measure measure, Song song) throws SQLException {
         String sql = "DELETE FROM SongMeasure WHERE measureId = :measureId AND songId = :songId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("measureId", measure.getId());
@@ -118,6 +118,6 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.close();
     }
 
-    public void updateSequence(Measure measure, Song song, ObservableList<JFXCheckBox> checkBoxCollection) {
+    public void updateSequence(Song song, ObservableList<Measure> measureCollection) {
     }
 }

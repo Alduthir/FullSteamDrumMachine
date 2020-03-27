@@ -17,7 +17,6 @@ import org.alduthir.measure.Measure;
 import org.alduthir.measure.MeasureCellFactory;
 import org.alduthir.measure.MeasureRepository;
 import org.alduthir.song.Song;
-import org.alduthir.song.SongRepository;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -112,7 +111,7 @@ public class MeasureController extends App {
     public void deleteMeasure() throws SQLException {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
-            repository.removeFromMeasure(selectedMeasure, song);
+            repository.removeFromSong(selectedMeasure, song);
             initializeMeasureList();
         }
     }
