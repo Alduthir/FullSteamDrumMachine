@@ -32,13 +32,12 @@ public class App extends Application {
     @FXML
     protected void notYetImplemented() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        styleDialog(alert);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                App.class.getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("fx-dialog");
         alert.setTitle("Not yet implemented");
         alert.setContentText("Deze functionaliteit is nog niet geïmplementeerd.");
         alert.showAndWait();
-    }
-
-    protected void styleDialog(Dialog dialog) {
-
     }
 }
