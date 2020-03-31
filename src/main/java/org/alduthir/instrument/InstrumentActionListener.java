@@ -1,6 +1,6 @@
 package org.alduthir.instrument;
 
 public interface InstrumentActionListener {
-    void removeInstrument(Instrument instrument);
-    void updateBeat(String beatNotes, Instrument instrument);
+    void removeAction(Instrument instrument);
+    void updateAction(String beatNotes, Instrument instrument);
 }

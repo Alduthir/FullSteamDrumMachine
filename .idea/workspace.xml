@@ -2,11 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentManageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/BpmSpinnerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureManageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongManageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/util/StyledTextInputDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentActionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,6 +243,8 @@
       <workItem from="1585036229404" duration="7097000" />
       <workItem from="1585293708874" duration="2576000" />
       <workItem from="1585303935718" duration="1532000" />
+      <workItem from="1585305505913" duration="74000" />
+      <workItem from="1585636660977" duration="3563000" />
     </task>
     <servers />
   </component>
@@ -289,11 +302,11 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2060" y="350" key="EnvironmentVariablesDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583484033163" />
-    <state x="2106" y="276" key="FileChooserDialogImpl" timestamp="1585305464530">
+    <state x="2106" y="276" key="FileChooserDialogImpl" timestamp="1585305575071">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="526" y="173" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1585304687521" />
-    <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1585305464530" />
+    <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1585305575071" />
     <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583773020014" />
     <state width="1877" height="123" key="GridCell.Tab.0.bottom" timestamp="1585305469369">
       <screen x="1366" y="0" width="1920" height="1040" />

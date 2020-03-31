@@ -74,7 +74,7 @@ public class InstrumentCell extends ListCell<Instrument> {
 
             deleteButton.setOnMouseClicked(mouseEvent -> {
                 for (InstrumentActionListener listener : listeners) {
-                    listener.removeInstrument(instrument);
+                    listener.removeAction(instrument);
                 }
             });
         } else {
@@ -91,7 +91,7 @@ public class InstrumentCell extends ListCell<Instrument> {
         }
 
         for (InstrumentActionListener listener : listeners) {
-            listener.updateBeat(beat.toString(), instrument);
+            listener.updateAction(beat.toString(), instrument);
         }
     }
 }

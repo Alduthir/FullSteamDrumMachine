@@ -3,7 +3,6 @@ package org.alduthir.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.*;
@@ -12,14 +11,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.song.Song;
 import org.alduthir.song.SongCellFactory;
-import org.alduthir.song.SongRepository;
+import org.alduthir.song.SongManageService;
 
 public class SongController extends App implements Initializable {
+
+    private final SongManageService songManageService;
 
     @FXML
     public JFXListView<Song> songList;
@@ -29,10 +29,12 @@ public class SongController extends App implements Initializable {
     public JFXButton exportButton;
     public JFXButton deleteButton;
 
-    private SongRepository repository;
+    public SongController() {
+        this.songManageService = new SongManageService();
+    }
 
     @FXML
-    public void switchToMeasureScreen() throws IOException {
+    public void redirectToMeasureScreen() throws IOException {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             Stage stage = (Stage) songList.getScene().getWindow();
@@ -48,16 +50,8 @@ public class SongController extends App implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        if (repository == null) {
-            try {
-                repository = new SongRepository();
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
         try {
-            initializeSongList();
+            songManageService.initializeSongList(songList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,7 +60,7 @@ public class SongController extends App implements Initializable {
         songList.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
                 try {
-                    switchToMeasureScreen();
+                    redirectToMeasureScreen();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -77,38 +71,19 @@ public class SongController extends App implements Initializable {
         songList.requestFocus();
     }
 
-    public void addSong() throws SQLException {
-        TextInputDialog textInputDialog = new TextInputDialog();
-        styleDialog(textInputDialog);
-
-        textInputDialog.setTitle("Create new Song");
-        textInputDialog.setContentText("Enter the name of your new song.");
-
-        Optional<String> result = textInputDialog.showAndWait();
-        if (result.isPresent()) {
-            Song song = new Song(result.get());
-            repository.createSong(song);
-            initializeSongList();
-        }
+    public void addAction() throws SQLException {
+        songManageService.addSong(songList);
     }
 
-    public void deleteSong() throws SQLException {
-        Song selectedSong = songList.getSelectionModel().getSelectedItem();
-        if (selectedSong != null) {
-            repository.deleteById(selectedSong.getId());
-            initializeSongList();
-        }
+    public void deleteAction() throws SQLException {
+        songManageService.deleteSong(songList);
     }
 
-    public void playSong() {
+    public void playAction() {
         notYetImplemented();
     }
 
-    public void exportSong() {
+    public void exportAction() {
         notYetImplemented();
-    }
-
-    private void initializeSongList() throws SQLException {
-        songList.getItems().setAll(repository.fetchAll());
     }
 }

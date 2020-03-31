@@ -39,9 +39,6 @@ public class App extends Application {
     }
 
     protected void styleDialog(Dialog dialog) {
-        DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.getStylesheets().add(
-                App.class.getResource("styles.css").toExternalForm());
-        dialogPane.getStyleClass().add("fx-dialog");
+
     }
 }

@@ -11,8 +11,7 @@ import org.alduthir.App;
 import org.alduthir.instrument.Instrument;
 import org.alduthir.instrument.InstrumentActionListener;
 import org.alduthir.instrument.InstrumentCellFactory;
-import org.alduthir.instrument.InstrumentRepository;
-import org.alduthir.util.NoSelectionModel;
+import org.alduthir.instrument.InstrumentManageService;
 import org.alduthir.measure.Measure;
 import org.alduthir.song.Song;
 
@@ -20,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class BeatController extends App implements InstrumentActionListener {
+    private final InstrumentManageService instrumentManageService;
 
     public JFXButton backButton;
     public JFXButton addButton;
@@ -28,22 +28,26 @@ public class BeatController extends App implements InstrumentActionListener {
 
     private Song song;
     private Measure measure;
-    private InstrumentRepository repository;
+
+    public BeatController() {
+        this.instrumentManageService = new InstrumentManageService();
+    }
 
     public void initialize(Song song, Measure measure) {
         this.song = song;
         this.measure = measure;
-        getRepository();
+
+        beatList.setCellFactory(new InstrumentCellFactory(this));
 
         try {
-            initializeInstrumentCollection();
+            instrumentManageService.initializeInstrumentCollection(measure, beatList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    public void switchToMeasureSelection() throws IOException {
+    public void redirectToMeasureSelection() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/measureScreen.fxml"));
         Parent root = loader.load();
@@ -54,50 +58,21 @@ public class BeatController extends App implements InstrumentActionListener {
         stage.show();
     }
 
-    public void addInstrument() {
+    public void addAction() {
         notYetImplemented();
     }
 
-    public void playMeasure() {
+    public void playAction() {
         notYetImplemented();
     }
 
-    private void initializeInstrumentCollection() throws SQLException {
-        beatList.getItems().setAll(
-                getRepository().fetchForMeasure(measure)
-        );
-        beatList.setSelectionModel(new NoSelectionModel<>());
-        beatList.setCellFactory(new InstrumentCellFactory(this));
-    }
-
-    private InstrumentRepository getRepository() {
-        if (repository == null) {
-            try {
-                repository = new InstrumentRepository();
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return repository;
-        }
-        return repository;
+    @Override
+    public void removeAction(Instrument instrument) {
+        instrumentManageService.removeInstrument(measure, instrument, beatList);
     }
 
     @Override
-    public void removeInstrument(Instrument instrument){
-        try {
-            getRepository().removeFromMeasure(measure, instrument);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            initializeInstrumentCollection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void updateBeat(String beatNotes, Instrument instrument) {
+    public void updateAction(String beatNotes, Instrument instrument) {
         notYetImplemented();
     }
 }

@@ -70,4 +70,13 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
             song.setId(rs.getInt(1));
         }
     }
+
+    public void updateBpm(Song song) throws SQLException {
+        String sql = "UPDATE Song SET bpm = :bpm WHERE songId = :songId";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setInt("bpm", song.getBpm());
+        stmt.setInt("songId", song.getId());
+        stmt.executeUpdate();
+        stmt.close();
+    }
 }

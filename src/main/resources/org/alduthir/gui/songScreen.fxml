@@ -14,7 +14,7 @@
     </stylesheets>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
           styleClass="song-pane">
-        <JFXButton fx:id="addSongButton" alignment="TOP_LEFT" onAction="#addSong" styleClass="small-button"
+        <JFXButton fx:id="addSongButton" alignment="TOP_LEFT" onAction="#addAction" styleClass="small-button"
                    focusTraversable="false">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
@@ -24,28 +24,28 @@
     </VBox>
     <VBox GridPane.columnIndex="3" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">
-        <JFXButton fx:id="playButton" onAction="#playSong" buttonType="FLAT" styleClass="menu-button"
+        <JFXButton fx:id="playButton" onAction="#playAction" buttonType="FLAT" styleClass="menu-button"
                    text="Play">
             <graphic>
                 <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="editButton" text="Edit" onAction="#switchToMeasureScreen" buttonType="FLAT"
+        <JFXButton fx:id="editButton" text="Edit" onAction="#redirectToMeasureScreen" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-edit" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="exportButton" text="Export" onAction="#exportSong" buttonType="FLAT"
+        <JFXButton fx:id="exportButton" text="Export" onAction="#exportAction" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-external-link" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="deleteButton" text="Delete" onAction="#deleteSong" buttonType="FLAT"
+        <JFXButton fx:id="deleteButton" text="Delete" onAction="#deleteAction" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-trash" iconSize="40" iconColor="white"/>

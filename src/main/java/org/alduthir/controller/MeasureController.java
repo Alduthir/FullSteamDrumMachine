@@ -2,27 +2,22 @@ package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.measure.Measure;
-import org.alduthir.measure.MeasureCellFactory;
-import org.alduthir.measure.MeasureRepository;
+import org.alduthir.measure.*;
 import org.alduthir.song.Song;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class MeasureController extends App {
+    private final MeasureManageService measureManageService;
+    private final BpmSpinnerService bpmSpinnerService;
 
     @FXML
     public JFXButton editButton;
@@ -35,30 +30,38 @@ public class MeasureController extends App {
     public Spinner<Integer> bpmSpinner;
 
     private Song song;
-    private ObservableList<Measure> measureCollection = FXCollections.observableArrayList();
-    private MeasureRepository repository;
+
+    public MeasureController() {
+        this.measureManageService = new MeasureManageService();
+        this.bpmSpinnerService = new BpmSpinnerService();
+    }
 
     public void initialize(Song song) {
         this.song = song;
 
-        if (repository == null) {
-            try {
-                repository = new MeasureRepository();
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
         try {
-            initializeMeasureList();
+            measureManageService.initializeMeasureList(song, measureList);
+            bpmSpinnerService.initializeBpmSpinner(song, bpmSpinner);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        initializeBpmSpinner();
+        measureList.setCellFactory(new MeasureCellFactory());
+        measureList.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                try {
+                    redirectToBeatEditor();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                e.consume();
+            }
+        });
+        measureList.getSelectionModel().selectFirst();
+        measureList.requestFocus();
     }
 
-    public void switchToBeatEditor() throws IOException {
+    public void redirectToBeatEditor() throws IOException {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
             Stage stage = (Stage) measureList.getScene().getWindow();
@@ -79,7 +82,7 @@ public class MeasureController extends App {
     }
 
     @FXML
-    public void switchToSongSelection() throws IOException {
+    public void redirectToSongSelection() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
         Parent root = loader.load();
@@ -88,73 +91,23 @@ public class MeasureController extends App {
         stage.show();
     }
 
-    public void playMeasure() {
+    public void playAction() {
         notYetImplemented();
     }
 
-    public void addMeasure() throws SQLException {
-        TextInputDialog textInputDialog = new TextInputDialog();
-        styleDialog(textInputDialog);
-
-        textInputDialog.setTitle("Create new Measure");
-        textInputDialog.setContentText("Enter the name of your new measure.");
-
-        Optional<String> result = textInputDialog.showAndWait();
-        if (result.isPresent()) {
-            Measure measure = new Measure(result.get());
-            repository.createMeasure(measure);
-            repository.addToSong(measure, song, measureCollection.size());
-            initializeMeasureList();
-        }
+    public void addAction() throws SQLException {
+        measureManageService.addMeasure(song, measureList);
     }
 
-    public void deleteMeasure() throws SQLException {
-        Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
-        if (selectedMeasure != null) {
-            repository.removeFromSong(selectedMeasure, song);
-            initializeMeasureList();
-        }
+    public void deleteAction() throws SQLException {
+        measureManageService.deleteMeasure(song, measureList);
     }
 
-    public void reuseMeasure() {
+    public void reuseAction() {
         notYetImplemented();
     }
 
     public void saveSequence() {
         notYetImplemented();
-    }
-
-    private void initializeBpmSpinner() {
-        bpmSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(20, 250));
-        bpmSpinner.getValueFactory().setValue(75);
-        bpmSpinner.setOnScroll(e -> {
-            double delta = e.getDeltaY();
-
-            if (delta < 0) {
-                bpmSpinner.decrement();
-            } else if (delta > 0) {
-                bpmSpinner.increment();
-            }
-            e.consume();
-        });
-    }
-
-    private void initializeMeasureList() throws SQLException {
-        measureCollection = repository.fetchForSong(song);
-        measureList.getItems().setAll(measureCollection);
-
-        measureList.setCellFactory(new MeasureCellFactory());
-        measureList.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2) {
-                try {
-                    switchToBeatEditor();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                e.consume();
-            }
-        });
-        measureList.getSelectionModel().selectFirst();
-        measureList.requestFocus();
     }
 }
