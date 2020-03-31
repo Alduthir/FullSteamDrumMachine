@@ -15,7 +15,7 @@ public abstract class AbstractDatabaseInteractionService<T> implements DatabaseI
         if (connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/full-steam-drum-machine",
+                    "jdbc:mysql://localhost:3306/full-steam-drum-machine?useLegacyDatetimeCode=false&serverTimezone=UTC",
                     "root",
                     "password"
             );

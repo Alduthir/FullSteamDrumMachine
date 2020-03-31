@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import java.net.URL?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.text.Text?>
+<GridPane
+        xmlns="http://javafx.com/javafx/8.0.171"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.alduthir.controller.AddInstrumentDialogController">
+    <stylesheets>
+        <URL value="@../styles.css"/>
+    </stylesheets>
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <HBox>
+            <Text>Would you like to reuse an existing instrument, or add a new one?</Text>
+            <JFXComboBox fx:id="newOrReuseSelection"/>
+        </HBox>
+        <VBox fx:id="reuseBox" visible="false">
+            <HBox>
+                <Label text="reuse option"/>
+                <JFXComboBox fx:id="reuseComboBox" onAction="#changeVisibility"/>
+            </HBox>
+            <JFXButton fx:id="reuseButton" text="save"/>
+        </VBox>
+        <VBox fx:id="newBox" visible="false">
+            <HBox>
+                <Label text="name"/>
+                <JFXTextField fx:id="newNameField" text="name" onMouseClicked="#saveReuse"/>
+            </HBox>
+            <HBox>
+                <Label text="sound"/>
+                <JFXButton fx:id="chooseFileButton" onMouseClicked="#openFileDialog"/>
+            </HBox>
+            <JFXButton fx:id="newButton" text="save" onMouseClicked="#saveNewInstrument"/>
+        </VBox>
+    </VBox>
+</GridPane>

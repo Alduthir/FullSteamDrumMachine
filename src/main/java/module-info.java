@@ -16,6 +16,7 @@ module org.alduthir {
     exports org.alduthir.song;
     exports org.alduthir.measure;
     exports org.alduthir.instrument;
+    exports org.alduthir.util;
 
     opens org.alduthir to javafx.fxml;
     opens org.alduthir.controller to javafx.graphics;

@@ -11,8 +11,9 @@ public class Instrument {
     public Instrument() {
     }
 
-    public Instrument(String name) {
+    public Instrument(String name, String midiPath) {
         this.name = name;
+        this.midiPath = midiPath;
     }
 
     public Instrument(int id, String name, String midiPath) {

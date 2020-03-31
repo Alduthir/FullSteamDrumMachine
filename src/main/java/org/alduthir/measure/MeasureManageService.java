@@ -19,19 +19,27 @@ public class MeasureManageService {
         }
     }
 
-    public void initializeMeasureList(Song song, JFXListView<Measure> measureList) throws SQLException {
-        measureList.getItems().setAll(repository.fetchForSong(song));
+    public void initializeMeasureList(Song song, JFXListView<Measure> measureList) {
+        try {
+            measureList.getItems().setAll(repository.fetchForSong(song));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void deleteMeasure(Song song, JFXListView<Measure> measureList) throws SQLException {
+    public void deleteMeasure(Song song, JFXListView<Measure> measureList)  {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
-            repository.removeFromSong(selectedMeasure, song);
+            try {
+                repository.removeFromSong(selectedMeasure, song);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             initializeMeasureList(song, measureList);
         }
     }
 
-    public void addMeasure(Song song, JFXListView<Measure> measureList) throws SQLException {
+    public void addMeasure(Song song, JFXListView<Measure> measureList) {
         TextInputDialog textInputDialog = new StyledTextInputDialog();
         textInputDialog.setTitle("Create new Measure");
         textInputDialog.setContentText("Enter the name of your new measure.");
@@ -39,8 +47,13 @@ public class MeasureManageService {
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()) {
             Measure measure = new Measure(result.get());
-            repository.createMeasure(measure);
-            repository.addToSong(measure, song, measureList.getItems().size());
+            try {
+                repository.createMeasure(measure);
+                repository.addToSong(measure, song, measureList.getItems().size());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             initializeMeasureList(song, measureList);
         }
     }

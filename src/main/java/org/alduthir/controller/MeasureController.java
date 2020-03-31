@@ -13,7 +13,6 @@ import org.alduthir.measure.*;
 import org.alduthir.song.Song;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class MeasureController extends App {
     private final MeasureManageService measureManageService;
@@ -38,13 +37,8 @@ public class MeasureController extends App {
 
     public void initialize(Song song) {
         this.song = song;
-
-        try {
-            measureManageService.initializeMeasureList(song, measureList);
-            bpmSpinnerService.initializeBpmSpinner(song, bpmSpinner);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        measureManageService.initializeMeasureList(song, measureList);
+        bpmSpinnerService.initializeBpmSpinner(song, bpmSpinner);
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {
@@ -95,11 +89,11 @@ public class MeasureController extends App {
         notYetImplemented();
     }
 
-    public void addAction() throws SQLException {
+    public void addAction() {
         measureManageService.addMeasure(song, measureList);
     }
 
-    public void deleteAction() throws SQLException {
+    public void deleteAction() {
         measureManageService.deleteMeasure(song, measureList);
     }
 

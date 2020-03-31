@@ -96,6 +96,26 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         return instrumentCollection;
     }
 
+    public ObservableList<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
+        ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setInt("measureId", measure.getId());
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Instrument instrument = new Instrument(
+                    rs.getInt("instrumentId"),
+                    rs.getString("name"),
+                    rs.getString("midiPath")
+            );
+            instrumentCollection.add(instrument);
+        }
+        stmt.close();
+        return instrumentCollection;
+    }
+
     public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
         String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

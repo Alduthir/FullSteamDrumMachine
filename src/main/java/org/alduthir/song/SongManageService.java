@@ -18,11 +18,15 @@ public class SongManageService {
         }
     }
 
-    public void initializeSongList(JFXListView<Song> songList) throws SQLException {
-        songList.getItems().setAll(repository.fetchAll());
+    public void initializeSongList(JFXListView<Song> songList) {
+        try {
+            songList.getItems().setAll(repository.fetchAll());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addSong(JFXListView<Song> songList) throws SQLException {
+    public void addSong(JFXListView<Song> songList)  {
         var dialog = new StyledTextInputDialog();
         dialog.setTitle("Create new Song");
         dialog.setContentText("Enter the name of your new song.");
@@ -30,15 +34,23 @@ public class SongManageService {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             Song song = new Song(result.get());
-            repository.createSong(song);
+            try {
+                repository.createSong(song);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             initializeSongList(songList);
         }
     }
 
-    public void deleteSong(JFXListView<Song> songList) throws SQLException {
+    public void deleteSong(JFXListView<Song> songList) {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
-            repository.deleteById(selectedSong.getId());
+            try {
+                repository.deleteById(selectedSong.getId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             initializeSongList(songList);
         }
     }

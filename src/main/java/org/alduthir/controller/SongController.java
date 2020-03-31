@@ -2,7 +2,6 @@ package org.alduthir.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.*;
@@ -50,11 +49,7 @@ public class SongController extends App implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            songManageService.initializeSongList(songList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        songManageService.initializeSongList(songList);
 
         songList.setCellFactory(new SongCellFactory());
         songList.setOnMouseClicked(e -> {
@@ -71,11 +66,11 @@ public class SongController extends App implements Initializable {
         songList.requestFocus();
     }
 
-    public void addAction() throws SQLException {
+    public void addAction() {
         songManageService.addSong(songList);
     }
 
-    public void deleteAction() throws SQLException {
+    public void deleteAction() {
         songManageService.deleteSong(songList);
     }
 
