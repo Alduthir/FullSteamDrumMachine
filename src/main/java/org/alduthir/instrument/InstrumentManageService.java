@@ -31,6 +31,7 @@ public class InstrumentManageService {
     public void initializeReuseOptionCollection(Measure measure, JFXComboBox<Instrument> reuseComboBox) {
         try {
             reuseComboBox.getItems().setAll(repository.fetchReuseOptionCollection(measure));
+            reuseComboBox.getSelectionModel().selectFirst();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -18,11 +18,29 @@ JFXCheckbox {
     -fx-padding: 5 0 0 0;
 }
 
-InstrumentCell{
+InstrumentCell {
     -fx-background-color: #222022;
 }
 
-.fx-dialog{
+JFXComboBox .list-cell {
+    -fx-text-fill: #6B5868;
+    -fx-background-color: #ffffff;
+}
+
+JFXComboBox .list-view {
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-base {
+    -fx-background-color: #ffffff;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #6B5868;
+    -fx-text-fill: #ffffff;
+}
+
+.fx-dialog {
     -fx-background-color: #222022;
     -fx-base: #A0959E;
 }
@@ -59,4 +77,9 @@ InstrumentCell{
 
 .song-list {
     -fx-padding: 0 0 20 0;
+}
+
+.add-instrument-button {
+    -fx-background-color: gray;
+    -fx-text-fill: #ffffff;
 }

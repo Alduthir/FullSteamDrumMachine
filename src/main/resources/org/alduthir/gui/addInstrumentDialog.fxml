@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import java.net.URL?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <GridPane
         xmlns="http://javafx.com/javafx/8.0.171"
         xmlns:fx="http://javafx.com/fxml/1"
@@ -17,28 +17,41 @@
     <stylesheets>
         <URL value="@../styles.css"/>
     </stylesheets>
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-        <HBox>
-            <Text>Would you like to reuse an existing instrument, or add a new one?</Text>
+    <VBox fx:id="rootBox" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"
+          GridPane.vgrow="ALWAYS">
+        <HBox fx:id="selectionBox">
+            <Label style="-fx-text-fill: #ffffff" text="Would you like to reuse or add an instrument?"/>
             <JFXComboBox fx:id="newOrReuseSelection"/>
         </HBox>
         <VBox fx:id="reuseBox" visible="false">
             <HBox>
                 <Label text="reuse option"/>
-                <JFXComboBox fx:id="reuseComboBox" onAction="#changeVisibility"/>
+                <JFXComboBox fx:id="reuseComboBox"/>
             </HBox>
-            <JFXButton fx:id="reuseButton" text="save"/>
+            <JFXButton fx:id="reuseButton" text="save" onAction="#saveReuse">
+                <graphic>
+                    <FontIcon iconLiteral="fa-save" iconSize="20" iconColor="white"/>
+                </graphic>
+            </JFXButton>
         </VBox>
         <VBox fx:id="newBox" visible="false">
             <HBox>
                 <Label text="name"/>
-                <JFXTextField fx:id="newNameField" text="name" onMouseClicked="#saveReuse"/>
+                <TextField fx:id="newNameField" text="name"/>
             </HBox>
             <HBox>
                 <Label text="sound"/>
-                <JFXButton fx:id="chooseFileButton" onMouseClicked="#openFileDialog"/>
+                <JFXButton fx:id="chooseFileButton" onAction="#openFileDialog">
+                    <graphic>
+                        <FontIcon iconLiteral="fa-upload" iconSize="20" iconColor="white"/>
+                    </graphic>
+                </JFXButton>
             </HBox>
-            <JFXButton fx:id="newButton" text="save" onMouseClicked="#saveNewInstrument"/>
+            <JFXButton fx:id="newButton" onAction="#saveNewInstrument">
+                <graphic>
+                    <FontIcon iconLiteral="fa-save" iconSize="20" iconColor="white"/>
+                </graphic>
+            </JFXButton>
         </VBox>
     </VBox>
 </GridPane>

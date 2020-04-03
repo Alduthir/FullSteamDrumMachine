@@ -2,8 +2,10 @@ package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -42,8 +44,9 @@ public class BeatController extends App implements InstrumentActionListener {
     }
 
     @FXML
-    public void redirectToMeasureSelection() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
+    public void redirectToMeasureSelection(ActionEvent mouseEvent) throws IOException {
+        Node source = (Node) mouseEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/measureScreen.fxml"));
         Parent root = loader.load();
         MeasureController controller = loader.getController();
@@ -53,16 +56,19 @@ public class BeatController extends App implements InstrumentActionListener {
         stage.show();
     }
 
-    public void addAction() throws IOException {
+    public void addAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/addInstrumentDialog.fxml"));
         Parent parent = loader.load();
         AddInstrumentDialogController dialogController = loader.getController();
         dialogController.initialize(measure);
 
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(new Scene(parent, 300, 300));
-        stage.showAndWait();
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setScene(new Scene(parent, 400, 300));
+        dialog.setTitle("Add instrument");
+        dialog.showAndWait();
+
+
         instrumentManageService.initializeInstrumentCollection(measure, beatList);
     }
 
