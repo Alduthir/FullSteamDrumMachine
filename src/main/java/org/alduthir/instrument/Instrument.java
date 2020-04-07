@@ -6,21 +6,31 @@ public class Instrument {
 
     private String name;
 
-    private String midiPath;
+    private int midiNumber;
+
+    private String beat;
 
     public Instrument() {
     }
 
-    public Instrument(String name, String midiPath) {
+    public Instrument(String name, int midiNumber) {
         this.name = name;
-        this.midiPath = midiPath;
+        this.midiNumber = midiNumber;
     }
 
-    public Instrument(int id, String name, String midiPath) {
+    public Instrument(int id, String name, int midiNumber) {
         this.id = id;
         this.name = name;
-        this.midiPath = midiPath;
+        this.midiNumber = midiNumber;
     }
+
+    public Instrument(int id, String name, int midiNumber, String beat) {
+        this.id = id;
+        this.name = name;
+        this.midiNumber = midiNumber;
+        this.beat = beat;
+    }
+
 
     public int getId() {
         return id;
@@ -38,16 +48,24 @@ public class Instrument {
         this.name = name;
     }
 
-    public String getMidiPath() {
-        return midiPath;
+    public int getMidiNumber() {
+        return midiNumber;
     }
 
-    public void setMidiPath(String midiPath) {
-        this.midiPath = midiPath;
+    public void setMidiNumber(int midiNumber) {
+        this.midiNumber = midiNumber;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getBeat() {
+        return beat;
+    }
+
+    public void setBeat(String beat) {
+        this.beat = beat;
     }
 }

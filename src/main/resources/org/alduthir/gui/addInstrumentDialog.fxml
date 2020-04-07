@@ -10,6 +10,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.TextField?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Spinner?>
 <GridPane
         xmlns="http://javafx.com/javafx/8.0.171"
         xmlns:fx="http://javafx.com/fxml/1"
@@ -41,9 +42,10 @@
             </HBox>
             <HBox>
                 <Label text="sound"/>
-                <JFXButton fx:id="chooseFileButton" onAction="#openFileDialog">
+                <Spinner fx:id="noteSpinner"/>
+                <JFXButton fx:id="previewButton" onAction="#playMidiNote">
                     <graphic>
-                        <FontIcon iconLiteral="fa-upload" iconSize="20" iconColor="white"/>
+                        <FontIcon iconLiteral="fa-play" iconSize="20" iconColor="white"/>
                     </graphic>
                 </JFXButton>
             </HBox>

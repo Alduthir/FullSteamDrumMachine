@@ -67,6 +67,7 @@ public class InstrumentCell extends ListCell<Instrument> {
         setText(null);
         if (instrument != null) {
             this.instrument = instrument;
+            initializeBeat();
             String name = instrument.toString();
             label.setText(name);
             label.setTooltip(new Tooltip(name));
@@ -79,6 +80,15 @@ public class InstrumentCell extends ListCell<Instrument> {
             });
         } else {
             setGraphic(null);
+        }
+    }
+
+    private void initializeBeat() {
+        int index = 0;
+        String beat = instrument.getBeat();
+        for(JFXCheckBox checkBox: checkBoxCollection){
+            checkBox.setSelected(beat.charAt(index) == '1');
+            index++;
         }
     }
 

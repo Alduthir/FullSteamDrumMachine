@@ -1,6 +1,5 @@
 package org.alduthir.instrument;
 
-import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.alduthir.measure.Measure;
@@ -26,7 +25,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
             Instrument instrument = new Instrument(
                     rs.getInt("instrumentId"),
                     rs.getString("name"),
-                    rs.getString("midiPath")
+                    rs.getInt("midiNumber")
             );
             instrumentCollection.add(instrument);
         }
@@ -45,7 +44,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
             Instrument instrument = new Instrument(
                     rs.getInt("instrumentId"),
                     rs.getString("name"),
-                    rs.getString("midiPath")
+                    rs.getInt("midiNumber")
             );
             stmt.close();
             return instrument;
@@ -64,10 +63,10 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     }
 
     public void createInstrument(Instrument instrument) throws SQLException {
-        String sql = "INSERT INTO Instrument(name, midiPath) VALUES(:name, :midiPath)";
+        String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setString("name", instrument.getName());
-        stmt.setString("midiPath", instrument.getMidiPath());
+        stmt.setInt("midiNumber", instrument.getMidiNumber());
         stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
 
         ResultSet rs = stmt.getGeneratedKeys();
@@ -79,7 +78,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     public ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
+        String sql = "SELECT i.instrumentId, i.name, i.midiNumber, mi.beat FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("measureId", measure.getId());
         ResultSet rs = stmt.executeQuery();
@@ -88,7 +87,8 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
             Instrument instrument = new Instrument(
                     rs.getInt("instrumentId"),
                     rs.getString("name"),
-                    rs.getString("midiPath")
+                    rs.getInt("midiNumber"),
+                    rs.getString("beat")
             );
             instrumentCollection.add(instrument);
         }
@@ -108,7 +108,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
             Instrument instrument = new Instrument(
                     rs.getInt("instrumentId"),
                     rs.getString("name"),
-                    rs.getString("midiPath")
+                    rs.getInt("midiNumber")
             );
             instrumentCollection.add(instrument);
         }
@@ -124,7 +124,13 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         stmt.executeUpdate();
     }
 
-    public void updateBeat(Instrument instrument, String encodedBeat) {
+    public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws SQLException {
+        String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        stmt.setString("beat", encodedBeat);
+        stmt.setInt("measureId", measure.getId());
+        stmt.setInt("instrumentId", instrument.getId());
+        stmt.executeUpdate();
     }
 
     public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {

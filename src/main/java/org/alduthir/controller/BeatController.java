@@ -17,8 +17,12 @@ import org.alduthir.instrument.InstrumentCellFactory;
 import org.alduthir.instrument.InstrumentManageService;
 import org.alduthir.measure.Measure;
 import org.alduthir.song.Song;
+import org.alduthir.util.MidiPlayer;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class BeatController extends App implements InstrumentActionListener {
     private final InstrumentManageService instrumentManageService;
@@ -28,11 +32,13 @@ public class BeatController extends App implements InstrumentActionListener {
     public JFXButton playButton;
     public JFXListView<Instrument> beatList;
 
+    private MidiPlayer midiPlayer;
     private Song song;
     private Measure measure;
 
     public BeatController() {
         this.instrumentManageService = new InstrumentManageService();
+        this.midiPlayer = new MidiPlayer();
     }
 
     public void initialize(Song song, Measure measure) {
@@ -73,7 +79,11 @@ public class BeatController extends App implements InstrumentActionListener {
     }
 
     public void playAction() {
-        notYetImplemented();
+        try {
+            midiPlayer.playMeasure(song.getBpm(), measure);
+        } catch (InvalidMidiDataException | MidiUnavailableException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -83,6 +93,6 @@ public class BeatController extends App implements InstrumentActionListener {
 
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
-        notYetImplemented();
+        instrumentManageService.updateNotes(measure, instrument, beatNotes);
     }
 }

@@ -2,7 +2,10 @@ package org.alduthir.instrument;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import org.alduthir.measure.Measure;
+import org.alduthir.song.Song;
 import org.alduthir.util.NoSelectionModel;
 
 import java.io.File;
@@ -47,9 +50,8 @@ public class InstrumentManageService {
         }
     }
 
-    public void saveNewInstrument(String text, File file, Measure measure) {
-        String absolutePath = file.getAbsolutePath();
-        Instrument instrument = new Instrument(text, absolutePath);
+    public void saveNewInstrument(String text, int midiNumber, Measure measure) {
+        Instrument instrument = new Instrument(text, midiNumber);
 
         try {
             repository.createInstrument(instrument);
@@ -62,6 +64,26 @@ public class InstrumentManageService {
     public void reuseInstrument(Instrument selectedInstrument, Measure measure) {
         try {
             repository.addToMeasure(selectedInstrument, measure);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeInstrumentSpinner(Spinner<Integer> insturmentSpinner) {
+        insturmentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(27, 87));
+        insturmentSpinner.setOnScroll(e -> {
+            double delta = e.getDeltaY();
+            if (delta < 0) {
+                insturmentSpinner.decrement();
+            } else if (delta > 0) {
+                insturmentSpinner.increment();
+            }
+        });
+    }
+
+    public void updateNotes(Measure measure, Instrument instrument, String beatNotes) {
+        try {
+            repository.updateBeat(measure, instrument, beatNotes);
         } catch (SQLException e) {
             e.printStackTrace();
         }
