@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.measure.*;
@@ -21,7 +22,7 @@ public class MeasureController extends App {
     @FXML
     public JFXButton editButton;
     public JFXButton playButton;
-    public JFXListView<Measure> measureList;
+    public JFXListView<SongMeasure> measureList;
     public JFXButton addMeasureButton;
     public JFXButton reuseMeasureButton;
     public JFXButton deleteMeasureButton;
@@ -56,19 +57,19 @@ public class MeasureController extends App {
     }
 
     public void redirectToBeatEditor() throws IOException {
-        Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
-        if (selectedMeasure != null) {
+        SongMeasure songMeasure = measureList.getSelectionModel().getSelectedItem();
+        if (songMeasure != null) {
             Stage stage = (Stage) measureList.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/beatScreen.fxml"));
             Parent root = loader.load();
             BeatController controller = loader.getController();
-            controller.initialize(song, selectedMeasure);
+            controller.initialize(song, songMeasure.getMeasure());
             stage.setScene(new Scene(root, 800, 400));
             stage.setTitle(
                     String.format(
                             "Full Steam Drum Machine - %s - %s",
                             song.toString(),
-                            selectedMeasure.toString()
+                            songMeasure.toString()
                     )
             );
             stage.show();
@@ -97,8 +98,19 @@ public class MeasureController extends App {
         measureManageService.deleteMeasure(song, measureList);
     }
 
-    public void reuseAction() {
-        notYetImplemented();
+    public void reuseAction() throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/reuseMeasureDialog.fxml"));
+        Parent parent = loader.load();
+        ReuseMeasureDialogController dialogController = loader.getController();
+        dialogController.initialize(song, measureList.getItems().size());
+
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setScene(new Scene(parent, 400, 300));
+        dialog.setTitle("Reuse measure");
+        dialog.showAndWait();
+
+        measureManageService.initializeMeasureList(song, measureList);
     }
 
     public void saveSequence() {

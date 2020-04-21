@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import java.net.URL?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<GridPane
+        xmlns="http://javafx.com/javafx/8.0.171"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.alduthir.controller.ReuseMeasureDialogController">
+    <stylesheets>
+        <URL value="@../styles.css"/>
+    </stylesheets>
+    <VBox>
+        <HBox>
+            <Label style="-fx-text-fill: #ffffff" text="Which measure would you like to add to the song?"/>
+            <JFXComboBox fx:id="measureComboBox"/>
+        </HBox>
+        <JFXButton onAction="#previewMeasure" text="preview">
+            <graphic>
+                <FontIcon iconLiteral="fa-play" iconSize="20" iconColor="white"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton onAction="#saveReuse">
+            <graphic>
+                <FontIcon iconLiteral="fa-save" iconSize="20" iconColor="white"/>
+            </graphic>
+        </JFXButton>
+    </VBox>
+</GridPane>

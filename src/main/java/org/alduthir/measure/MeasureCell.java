@@ -2,16 +2,16 @@ package org.alduthir.measure;
 
 import javafx.scene.control.ListCell;
 
-public class MeasureCell extends ListCell<Measure> {
+public class MeasureCell extends ListCell<SongMeasure> {
     @Override
-    public void updateItem(Measure measure, boolean empty) {
-        super.updateItem(measure, empty);
+    public void updateItem(SongMeasure songMeasure, boolean empty) {
+        super.updateItem(songMeasure, empty);
 
         String name = null;
 
         // Format name
-        if (measure != null) {
-            name = measure.toString();
+        if (songMeasure != null) {
+            name = songMeasure.getMeasure().toString();
         }
         this.setText(name);
         setGraphic(null);

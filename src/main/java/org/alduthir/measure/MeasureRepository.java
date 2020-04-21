@@ -1,6 +1,5 @@
 package org.alduthir.measure;
 
-import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.alduthir.song.Song;
@@ -79,25 +78,24 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         }
     }
 
-    public ObservableList<Measure> fetchForSong(Song song) throws SQLException {
-        ObservableList<Measure> instrumentCollection = FXCollections.observableArrayList();
+    public ObservableList<SongMeasure> fetchForSong(Song song) throws SQLException {
+        ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM Measure m JOIN SongMeasure sm ON m.measureId = sm.measureId WHERE sm.songId = :songId ORDER BY sm.sequence";
+        String sql = "SELECT * FROM SongMeasure sm WHERE sm.songId = :songId ORDER BY sm.sequence";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("songId", song.getId());
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            Measure measure = new Measure(
-                    rs.getInt("measureId"),
-                    rs.getString("name"),
-                    rs.getInt("beatUnit"),
-                    rs.getInt("beatsInMeasure")
+            SongMeasure songMeasure = new SongMeasure(
+                    rs.getInt("songMeasureId"),
+                    song,
+                    findById(rs.getInt("measureId"))
             );
-            instrumentCollection.add(measure);
+            songMeasureCollection.add(songMeasure);
         }
         stmt.close();
-        return instrumentCollection;
+        return songMeasureCollection;
     }
 
     public void addToSong(Measure measure, Song song, int sequence) throws SQLException {
@@ -109,15 +107,14 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.executeUpdate();
     }
 
-    public void removeFromSong(Measure measure, Song song) throws SQLException {
-        String sql = "DELETE FROM SongMeasure WHERE measureId = :measureId AND songId = :songId";
+    public void removeFromSong(SongMeasure songMeasure) throws SQLException {
+        String sql = "DELETE FROM SongMeasure WHERE songMeasureId = :songMeasureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
-        stmt.setInt("measureId", measure.getId());
-        stmt.setInt("songId", song.getId());
+        stmt.setInt("songMeasureId", songMeasure.getSongMeasureId());
         stmt.executeUpdate();
         stmt.close();
     }
 
-    public void updateSequence(Song song, ObservableList<Measure> measureCollection) {
+    public void updateSequence(Song song, ObservableList<SongMeasure> songMeasureCollection) {
     }
 }
