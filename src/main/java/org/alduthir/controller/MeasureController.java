@@ -86,7 +86,7 @@ public class MeasureController extends App {
     }
 
     public void playAction() {
-        notYetImplemented();
+        measureManageService.playSelectedMeasure(song, measureList);
     }
 
     public void addAction() {

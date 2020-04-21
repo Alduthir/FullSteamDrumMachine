@@ -2,8 +2,6 @@ package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +10,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.alduthir.instrument.Instrument;
 import org.alduthir.instrument.InstrumentManageService;
@@ -22,7 +19,6 @@ import org.alduthir.util.MidiPlayer;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import java.io.File;
 
 public class AddInstrumentDialogController {
     public JFXComboBox<AddInstrumentOption> newOrReuseSelection;

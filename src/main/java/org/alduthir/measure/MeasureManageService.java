@@ -3,15 +3,20 @@ package org.alduthir.measure;
 import com.jfoenix.controls.JFXListView;
 import javafx.scene.control.TextInputDialog;
 import org.alduthir.song.Song;
+import org.alduthir.util.MidiPlayer;
 import org.alduthir.util.StyledTextInputDialog;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
 import java.util.Optional;
 
 public class MeasureManageService {
     private MeasureRepository repository;
+    private MidiPlayer midiPlayer;
 
     public MeasureManageService() {
+        midiPlayer = new MidiPlayer();
         try {
             repository = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
@@ -27,7 +32,7 @@ public class MeasureManageService {
         }
     }
 
-    public void deleteMeasure(Song song, JFXListView<Measure> measureList)  {
+    public void deleteMeasure(Song song, JFXListView<Measure> measureList) {
         Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
             try {
@@ -55,6 +60,18 @@ public class MeasureManageService {
             }
 
             initializeMeasureList(song, measureList);
+        }
+    }
+
+    public void playSelectedMeasure(Song song, JFXListView<Measure> measureList) {
+        Measure selectedMeasure = measureList.getSelectionModel().getSelectedItem();
+
+        if (selectedMeasure != null) {
+            try {
+                midiPlayer.playMeasure(song.getBpm(), selectedMeasure);
+            } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
