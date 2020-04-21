@@ -1,5 +1,10 @@
 package org.alduthir.instrument;
 
+/**
+ * Class Instrument
+ *
+ * A model for the Instrument object.
+ */
 public class Instrument {
 
     private int id;

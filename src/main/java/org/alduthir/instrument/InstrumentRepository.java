@@ -10,11 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Class InstrumentRepository
+ *
+ * A database repository class containing query functions for interacting with Instruments.
+ */
 public class InstrumentRepository extends AbstractDatabaseInteractionService<Instrument> {
 
+    /**
+     * Call the super constructor attempting to establish a database connection.
+     * @throws SQLException If no connection could be established.
+     * @throws ClassNotFoundException If the jdbc Driver could not be found.
+     */
     public InstrumentRepository() throws SQLException, ClassNotFoundException {
+        super();
     }
 
+    /**
+     * Retrieve a list of Instrument Objects containing every entry in the Instrument database table.
+     * @return An ObservableList of hydrated Insrtument objects.
+     * @throws SQLException if the Query throws an exception.
+     */
     @Override
     public ObservableList<Instrument> fetchAll() throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
@@ -33,6 +49,12 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         return instrumentCollection;
     }
 
+    /**
+     * Find a single Instrument by its id.
+     * @param id The Id of an Instrument
+     * @return A hydrated Instrument object containing the found data.
+     * @throws SQLException If no result is found.
+     */
     @Override
     public Instrument findById(int id) throws SQLException {
         String sql = "SELECT * FROM Instrument WHERE instrumentId = :instrumentId";
@@ -53,6 +75,11 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         throw new SQLException(String.format("No instrument found with instrumentId %d.", id));
     }
 
+    /**
+     * Delete a single Instrument by it's Id.
+     * @param id the id of the Instrument to be deleted.
+     * @throws SQLException If the query throws an exception
+     */
     @Override
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Instrument WHERE instrumentId = :instrumentId";
@@ -62,6 +89,11 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         stmt.close();
     }
 
+    /**
+     * Insert a new Instrument into the database and update the given Instrument object with the newly inserted id.
+     * @param instrument The Instrument object to be inserted.
+     * @throws SQLException If the query throws an exception.
+     */
     public void createInstrument(Instrument instrument) throws SQLException {
         String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -75,6 +107,13 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         }
     }
 
+    /**
+     * Fetch all Instruments for a given Measure.
+     *
+     * @param measure The measure for which to fetch all linked Instruments.
+     * @return An ObservableList of hydrated InstrumentObjects including their beat within the current measure.
+     * @throws SQLException if the query throws an Exception.
+     */
     public ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
@@ -96,6 +135,13 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         return instrumentCollection;
     }
 
+    /**
+     * Fetch a list of Instruments which are not currently included in the given Measure.
+     *
+     * @param measure The measure from which to exclude Instruments.
+     * @return A hydrated list of Instruments.
+     * @throws SQLException if the query throws an exception.
+     */
     public ObservableList<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
@@ -116,6 +162,14 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         return instrumentCollection;
     }
 
+    /**
+     * Add the given Instrument to the Measure.
+     *
+     * @param instrument The instrument to add to the Measure.
+     * @param measure The measure to which the instrument must be added.
+     *
+     * @throws SQLException if the query throws an exception.
+     */
     public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
         String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -124,6 +178,14 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         stmt.executeUpdate();
     }
 
+    /**
+     * Update the beat for the MeasureInstrument linking the given Measure and Instrument.
+     *
+     * @param measure the Measure for which to update the beat.
+     * @param instrument the Instrument for which to update the beat.
+     * @param encodedBeat A 16 character string containing 0's and 1's.
+     * @throws SQLException if the query throws an exception
+     */
     public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws SQLException {
         String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -133,6 +195,13 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
         stmt.executeUpdate();
     }
 
+    /**
+     * Remove the given Instrument from the Measure.
+     *
+     * @param measure The Measure from which to remove the Instrument
+     * @param instrument The instrument to be removed. It is not deleted, only decoupled from the measure.
+     * @throws SQLException if the query throws an Exception.
+     */
     public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {
         String sql = "DELETE FROM MeasureInstrument WHERE measureId = :measureId AND instrumentId = :instrumentId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

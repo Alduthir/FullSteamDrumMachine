@@ -3,11 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/Instrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/Instrument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentActionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentManageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +245,7 @@
       <workItem from="1586241184742" duration="7523000" />
       <workItem from="1586260637573" duration="115000" />
       <workItem from="1586346196578" duration="496000" />
-      <workItem from="1587449105553" duration="7262000" />
+      <workItem from="1587449105553" duration="10670000" />
     </task>
     <servers />
   </component>
@@ -358,10 +361,10 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583833026850" />
-    <state x="1906" y="256" key="IDE.errors.dialog" timestamp="1582277126358">
+    <state x="1906" y="256" key="IDE.errors.dialog" timestamp="1587461139068">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1906" y="256" key="IDE.errors.dialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1582277126358" />
+    <state x="1906" y="256" key="IDE.errors.dialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587461139068" />
     <state x="349" y="38" key="Maven.ArtifactSearchDialog" timestamp="1583776856384">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

@@ -14,10 +14,19 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    /**
+     * The starting point for launching the application. Calls javafx.application.Application.launch();
+     * @param args command-line arguments for launching the application.
+     */
     public static void main(String[] args) {
         launch();
     }
 
+    /**
+     * On a succesfull launch, start the application on the Song screen.
+     * @param stage The window in which the application is displayed.
+     * @throws IOException if no resource can be loaded for gui/songScreen.fxml.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("gui/songScreen.fxml"));
@@ -29,6 +38,9 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * In case functionality for a button is not yet implemented. Display an Alert to the user.
+     */
     @FXML
     protected void notYetImplemented() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

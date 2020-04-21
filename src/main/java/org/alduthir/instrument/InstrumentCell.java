@@ -15,6 +15,13 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class InstrumentCell
+ *
+ * The definition of a ListCell<Instrument> Contains a lot of logic for a ListCell because it is displayed as a custom
+ * UI element containing multiple checkboxes and buttons. Whenever one of the checkboxes is changed, or a button is
+ * clicked. An event is raised calling any Listeners to handle the new data.
+ */
 public class InstrumentCell extends ListCell<Instrument> {
     private HBox hbox = new HBox();
     private JFXButton deleteButton = new JFXButton();
@@ -24,6 +31,9 @@ public class InstrumentCell extends ListCell<Instrument> {
     private Instrument instrument;
     private List<InstrumentActionListener> listeners = new ArrayList<InstrumentActionListener>();
 
+    /**
+     * Create the ListCell element.
+     */
     public InstrumentCell() {
         super();
         initDeleteButton();
@@ -37,10 +47,17 @@ public class InstrumentCell extends ListCell<Instrument> {
         hbox.setSpacing(5);
     }
 
+    /**
+     * Add a listener for any actions triggered from the ListCell.
+     * @param listener An implementation of InstrumentActionListener
+     */
     public void addListener(InstrumentActionListener listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Create a list of JFXCheckBoxes for the cell.
+     */
     private void initCheckBoxContainer() {
         for (int i = 0; i < 16; i++) {
             JFXCheckBox checkbox = new JFXCheckBox();
@@ -51,6 +68,9 @@ public class InstrumentCell extends ListCell<Instrument> {
         checkboxContainer.setStyle("-fx-alignment: center-left; -fx-spacing:8;");
     }
 
+    /**
+     * Create and style a deleteButton for the cell.
+     */
     private void initDeleteButton() {
         deleteButton.setStyle("-fx-background-color: red; -fx-padding: 10 0 10 0; -fx-fill-height: true");
         FontIcon fi = new FontIcon();
@@ -60,6 +80,12 @@ public class InstrumentCell extends ListCell<Instrument> {
         deleteButton.setGraphic(fi);
     }
 
+    /**
+     * Overrides basic ListCell functionality to ensure the correct graphics are set for the listCell containing
+     * all the UI elements set up in this class.
+     * @param instrument The Instrument object the cell is made for.
+     * @param empty Whether or not the cell is empty.
+     */
     @Override
     public void updateItem(Instrument instrument, boolean empty) {
         super.updateItem(instrument, empty);
@@ -83,6 +109,9 @@ public class InstrumentCell extends ListCell<Instrument> {
         }
     }
 
+    /**
+     * Checks checkboxes based on the encoded Beat String. A character of '0' is unchecked, while '1' is checked.
+     */
     private void initializeBeat() {
         int index = 0;
         String beat = instrument.getBeat();
@@ -92,6 +121,9 @@ public class InstrumentCell extends ListCell<Instrument> {
         }
     }
 
+    /**
+     * Call every listener to update the beat for the given instrument using the encoded string of checkboxes.
+     */
     public void updateBeat()
     {
         StringBuilder beat = new StringBuilder();

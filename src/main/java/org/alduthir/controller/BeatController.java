@@ -3,7 +3,6 @@ package org.alduthir.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -128,6 +127,6 @@ public class BeatController extends App implements InstrumentActionListener {
      */
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
-        instrumentManageService.updateNotes(measure, instrument, beatNotes);
+        instrumentManageService.UpdateBeat(measure, instrument, beatNotes);
     }
 }
