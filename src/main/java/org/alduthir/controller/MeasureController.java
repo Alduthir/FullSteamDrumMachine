@@ -15,6 +15,12 @@ import org.alduthir.song.Song;
 
 import java.io.IOException;
 
+/**
+ * Class MeasureController
+ *
+ * The MeasureController contains a list of all Measures within the Song. And controls UI elements for adding, managing
+ * or previewing these Measures.
+ */
 public class MeasureController extends App {
     private final MeasureManageService measureManageService;
     private final BpmSpinnerService bpmSpinnerService;
@@ -31,11 +37,19 @@ public class MeasureController extends App {
 
     private Song song;
 
+    /**
+     * Create necessary service layer dependencies on construction.
+     */
     public MeasureController() {
         this.measureManageService = new MeasureManageService();
         this.bpmSpinnerService = new BpmSpinnerService();
     }
 
+    /**
+     * Initialise the ListCell Factories, ListView and BPM Spinner UI elements.
+     * @param song This determines which measures must be retrieved and is passed down the chain to other controller
+     *             initialize functions.
+     */
     public void initialize(Song song) {
         this.song = song;
         measureManageService.initializeMeasureList(song, measureList);
@@ -56,6 +70,10 @@ public class MeasureController extends App {
         measureList.requestFocus();
     }
 
+    /**
+     * Change the Stage to the beatScreen allowing a user to edit a single Measure.
+     * @throws IOException if no resource can be loaded from gui/beatScreen.fxml.
+     */
     public void redirectToBeatEditor() throws IOException {
         SongMeasure songMeasure = measureList.getSelectionModel().getSelectedItem();
         if (songMeasure != null) {
@@ -76,7 +94,10 @@ public class MeasureController extends App {
         }
     }
 
-    @FXML
+    /**
+     * Redirect back to the home screen.
+     * @throws IOException if no Resource can be loaded from gui/songScreen.fxml
+     */
     public void redirectToSongSelection() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
@@ -86,18 +107,31 @@ public class MeasureController extends App {
         stage.show();
     }
 
+    /**
+     * Ask the ManageService to play the audio for the currently selected measure.
+     */
     public void playAction() {
         measureManageService.playSelectedMeasure(song, measureList);
     }
 
+    /**
+     * Ask the ManageService to open a dialog for creating a new measure and Add it to the song.
+     */
     public void addAction() {
         measureManageService.addMeasure(song, measureList);
     }
 
+    /**
+     * Ask the mManageService to remove a Measure from the Song.
+     */
     public void deleteAction() {
         measureManageService.deleteMeasure(song, measureList);
     }
 
+    /**
+     * Open a dialog to reuse a Measure in the Song, the new Measure is added to the end of the ListView.
+     * @throws IOException if no resource can be loaded from gui/reuseMeasureDialog.fxml.
+     */
     public void reuseAction() throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/reuseMeasureDialog.fxml"));
         Parent parent = loader.load();
@@ -113,6 +147,10 @@ public class MeasureController extends App {
         measureManageService.initializeMeasureList(song, measureList);
     }
 
+    /**
+     * ToDo (COULD HAVE) not yet implemented.
+     * Save the sequence of all measures based on their current order in the ListView.
+     */
     public void saveSequence() {
         notYetImplemented();
     }

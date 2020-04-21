@@ -20,6 +20,11 @@ import org.alduthir.util.MidiPlayer;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 
+/**
+ * Class AddInstrumentDialogController
+ *
+ * Contains and controls GUI elements pertaining to adding a new or existing Instrument to a Measure.
+ */
 public class AddInstrumentDialogController {
     public JFXComboBox<AddInstrumentOption> newOrReuseSelection;
     public JFXComboBox<Instrument> reuseComboBox;
@@ -36,6 +41,10 @@ public class AddInstrumentDialogController {
     private MidiPlayer midiPlayer;
     private Measure measure;
 
+    /**
+     * Ensures that the right input fields are hidden/shown and initializes the list of reuse options.
+     * @param measure the Measure is required because that is what we will add the Instrument to.
+     */
     public void initialize(Measure measure) {
         this.measure = measure;
         instrumentManageService = new InstrumentManageService();
@@ -65,6 +74,10 @@ public class AddInstrumentDialogController {
         }
     }
 
+    /**
+     * Calls the InstrumentManageService to save a new Instrument with the input name and midi key.
+     * @param actionEvent passed to closeStage in order to close the modal.
+     */
     public void saveNewInstrument(ActionEvent actionEvent) {
         if (newNameField.getText().isEmpty()) {
             return;
@@ -74,6 +87,10 @@ public class AddInstrumentDialogController {
         closeStage(actionEvent);
     }
 
+    /**
+     * Reuse an existing Instrument in the current Measure.
+     * @param actionEvent passed to closeStage in order to close the modal.
+     */
     public void saveReuse(ActionEvent actionEvent) {
         if (reuseComboBox.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -82,13 +99,20 @@ public class AddInstrumentDialogController {
         closeStage(actionEvent);
     }
 
+    /**
+     * Close the modal.
+     * @param actionEvent required to retrieve the Node to be closed.
+     */
     private void closeStage(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
-    public void playMidiNote(ActionEvent actionEvent) {
+    /**
+     * Ask the midiplayer to play a single note with the midiKey equal to the value of the spinner.
+     */
+    public void playMidiNote() {
         try {
             midiPlayer.playNote(noteSpinner.getValue());
         } catch (MidiUnavailableException|InvalidMidiDataException e) {

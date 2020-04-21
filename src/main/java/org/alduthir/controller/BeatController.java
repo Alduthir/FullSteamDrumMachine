@@ -24,6 +24,11 @@ import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Class BeatController
+ *
+ * Controls GUI elements pertaining to managing beats in a Measure.
+ */
 public class BeatController extends App implements InstrumentActionListener {
     private final InstrumentManageService instrumentManageService;
 
@@ -36,11 +41,19 @@ public class BeatController extends App implements InstrumentActionListener {
     private Song song;
     private Measure measure;
 
+    /**
+     * Create necessary service layer dependencies on construction.
+     */
     public BeatController() {
         this.instrumentManageService = new InstrumentManageService();
         this.midiPlayer = new MidiPlayer();
     }
 
+    /**
+     * Setup the collection of instruments and couple the CellFactory for individual instruments.
+     * @param song Required for redirecting back to MeasureController with the correct list of measures.
+     * @param measure Used to determine which Measure to retrieve Instruments for and save them to.
+     */
     public void initialize(Song song, Measure measure) {
         this.song = song;
         this.measure = measure;
@@ -49,7 +62,11 @@ public class BeatController extends App implements InstrumentActionListener {
         instrumentManageService.initializeInstrumentCollection(measure, beatList);
     }
 
-    @FXML
+    /**
+     * Redirect back to the measure selection steam for the given Song.
+     * @param mouseEvent used to retrieve the FX element calling the function and through there retrieve the Stage.
+     * @throws IOException if no resource can be loaded from gui/measureScreen.fxml.
+     */
     public void redirectToMeasureSelection(ActionEvent mouseEvent) throws IOException {
         Node source = (Node) mouseEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -62,7 +79,11 @@ public class BeatController extends App implements InstrumentActionListener {
         stage.show();
     }
 
-    public void addAction(ActionEvent actionEvent) throws IOException {
+    /**
+     * Open a dialog for Adding a new Instrument to the measure, or reusing a different once from another Measure.
+     * @throws IOException if no resource can be loaded from gui/addInstrumentDialog.fxml.
+     */
+    public void addAction() throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/addInstrumentDialog.fxml"));
         Parent parent = loader.load();
         AddInstrumentDialogController dialogController = loader.getController();
@@ -78,6 +99,9 @@ public class BeatController extends App implements InstrumentActionListener {
         instrumentManageService.initializeInstrumentCollection(measure, beatList);
     }
 
+    /**
+     * Preview the current Measure.
+     */
     public void playAction() {
         try {
             midiPlayer.playMeasure(song.getBpm(), measure);
@@ -86,11 +110,22 @@ public class BeatController extends App implements InstrumentActionListener {
         }
     }
 
+    /**
+     * An implementation of the InstrumentActionListener, used to remove an Instrument from the Measure.
+     * @param instrument the Instrument to be removed.
+     */
     @Override
     public void removeAction(Instrument instrument) {
         instrumentManageService.removeInstrument(measure, instrument, beatList);
     }
 
+    /**
+     * An implementation of the InstrumentActionListener, used to update the checkboxes forming the beat of a single
+     * Instrument within the Measure.
+     * @param beatNotes An encoded string consisting of 0's and 1's determining whether the instrument should play on
+     *                  a 16th note.
+     * @param instrument The Instrument for which the beat should be saved within the current Measure.
+     */
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
         instrumentManageService.updateNotes(measure, instrument, beatNotes);

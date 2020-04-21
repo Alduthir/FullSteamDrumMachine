@@ -16,6 +16,11 @@ import org.alduthir.song.Song;
 import org.alduthir.song.SongCellFactory;
 import org.alduthir.song.SongManageService;
 
+/**
+ * Class SongController
+ *
+ * The homescreen of the application. Manages controls for Songs.
+ */
 public class SongController extends App implements Initializable {
 
     private final SongManageService songManageService;
@@ -32,6 +37,10 @@ public class SongController extends App implements Initializable {
         this.songManageService = new SongManageService();
     }
 
+    /**
+     * Redirect to the Measure management screen for the selected Song.
+     * @throws IOException if no resource can be loaded from gui/measureScreen.fxml.
+     */
     @FXML
     public void redirectToMeasureScreen() throws IOException {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
@@ -47,6 +56,11 @@ public class SongController extends App implements Initializable {
         }
     }
 
+    /**
+     * Implmentation of Initializable.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         songManageService.initializeSongList(songList);
@@ -66,18 +80,32 @@ public class SongController extends App implements Initializable {
         songList.requestFocus();
     }
 
+    /**
+     * Ask the songManageService to create a dialog for creating a new Song, and add it to the list.
+     */
     public void addAction() {
         songManageService.addSong(songList);
     }
 
+    /**
+     * Ask the songManageService to delete a Song and remove it from the list.
+     */
     public void deleteAction() {
         songManageService.deleteSong(songList);
     }
 
+    /**
+     * ToDo (MUST HAVE)
+     * Ask the songManageService to play the audio for the entire selected Song.
+     */
     public void playAction() {
         notYetImplemented();
     }
 
+    /**
+     * ToDo (COULD HAVE)
+     * Export the song to an audio file.
+     */
     public void exportAction() {
         notYetImplemented();
     }

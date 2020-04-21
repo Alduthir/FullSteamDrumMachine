@@ -14,6 +14,11 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
 
+/**
+ * Class ReuseMeasureDialogController
+ *
+ * A dialog for reusing an existing Measure and adding it to the given Song.
+ */
 public class ReuseMeasureDialogController {
 
     public JFXComboBox<Measure> measureComboBox;
@@ -22,6 +27,11 @@ public class ReuseMeasureDialogController {
     private MeasureManageService measureManageService;
     private MidiPlayer midiPlayer;
 
+    /**
+     * Initialise the ObservableLists with data and set required fields.
+     * @param song The Song to which the measure will be added.
+     * @param sequence The index at which the measure will be added.
+     */
     public void initialize(Song song, int sequence) {
         this.song = song;
         this.sequence = sequence;
@@ -35,12 +45,19 @@ public class ReuseMeasureDialogController {
         measureComboBox.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Close the dialog.
+     * @param actionEvent required to retrieve the Source UI element.
+     */
     private void closeStage(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Preview the audio of the selected Measure.
+     */
     public void previewMeasure() {
         Measure selectedMeasure = measureComboBox.getSelectionModel().getSelectedItem();
         if(selectedMeasure != null){
@@ -52,6 +69,10 @@ public class ReuseMeasureDialogController {
         }
     }
 
+    /**
+     * Finalise the addition of the selected Measure into the Song, and close the dialog.
+     * @param actionEvent passed to closeStage to close the dialog.
+     */
     public void saveReuse(ActionEvent actionEvent) {
         Measure selectedMeasure = measureComboBox.getSelectionModel().getSelectedItem();
         if(selectedMeasure != null){
