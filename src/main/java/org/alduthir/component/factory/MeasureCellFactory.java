@@ -6,8 +6,10 @@ import javafx.util.Callback;
 import org.alduthir.component.MeasureCell;
 import org.alduthir.model.SongMeasure;
 
-public class MeasureCellFactory implements Callback<ListView<SongMeasure>, ListCell<SongMeasure>>
-{
+public class MeasureCellFactory implements Callback<ListView<SongMeasure>, ListCell<SongMeasure>> {
+    /**
+     * @inheritDoc
+     */
     @Override
     public ListCell<SongMeasure> call(ListView<SongMeasure> measureListView) {
         return new MeasureCell();

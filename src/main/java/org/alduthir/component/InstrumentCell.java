@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Class InstrumentCell
- *
+ * <p>
  * The definition of a ListCell<Instrument> Contains a lot of logic for a ListCell because it is displayed as a custom
  * UI element containing multiple checkboxes and buttons. Whenever one of the checkboxes is changed, or a button is
  * clicked. An event is raised calling any Listeners to handle the new data.
@@ -34,7 +34,7 @@ public class InstrumentCell extends ListCell<Instrument> {
     private List<InstrumentActionListener> listeners = new ArrayList<InstrumentActionListener>();
 
     /**
-     * Create the ListCell element.
+     * Create the ListCell element. And make sure it's UI elements are correctly created.
      */
     public InstrumentCell() {
         super();
@@ -51,6 +51,7 @@ public class InstrumentCell extends ListCell<Instrument> {
 
     /**
      * Add a listener for any actions triggered from the ListCell.
+     *
      * @param listener An implementation of InstrumentActionListener
      */
     public void addListener(InstrumentActionListener listener) {
@@ -85,8 +86,9 @@ public class InstrumentCell extends ListCell<Instrument> {
     /**
      * Overrides basic ListCell functionality to ensure the correct graphics are set for the listCell containing
      * all the UI elements set up in this class.
+     *
      * @param instrument The Instrument object the cell is made for.
-     * @param empty Whether or not the cell is empty.
+     * @param empty      Whether or not the cell is empty.
      */
     @Override
     public void updateItem(Instrument instrument, boolean empty) {
@@ -117,7 +119,7 @@ public class InstrumentCell extends ListCell<Instrument> {
     private void initializeBeat() {
         int index = 0;
         String beat = instrument.getBeat();
-        for(JFXCheckBox checkBox: checkBoxCollection){
+        for (JFXCheckBox checkBox : checkBoxCollection) {
             checkBox.setSelected(beat.charAt(index) == '1');
             index++;
         }
@@ -126,10 +128,9 @@ public class InstrumentCell extends ListCell<Instrument> {
     /**
      * Call every listener to update the beat for the given instrument using the encoded string of checkboxes.
      */
-    public void updateBeat()
-    {
+    public void updateBeat() {
         StringBuilder beat = new StringBuilder();
-        for(JFXCheckBox checkbox : checkBoxCollection){
+        for (JFXCheckBox checkbox : checkBoxCollection) {
             int isChecked = checkbox.isSelected() ? 1 : 0;
             beat.append(isChecked);
         }

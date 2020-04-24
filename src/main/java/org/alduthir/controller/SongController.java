@@ -27,11 +27,6 @@ public class SongController extends App implements Initializable {
 
     @FXML
     public JFXListView<Song> songList;
-    public JFXButton addSongButton;
-    public JFXButton playButton;
-    public JFXButton editButton;
-    public JFXButton exportButton;
-    public JFXButton deleteButton;
 
     public SongController() {
         this.songManageService = new SongManageService();

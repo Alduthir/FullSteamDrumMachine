@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?scenebuilder-stylesheet styles.css?>
-
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.control.Separator?>
 <?import com.jfoenix.controls.JFXListView?>
+
 <GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="org.alduthir.controller.SongController">
     <stylesheets>
@@ -14,7 +14,7 @@
     </stylesheets>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
           styleClass="song-pane">
-        <JFXButton fx:id="addSongButton" alignment="TOP_LEFT" onAction="#addAction" styleClass="small-button"
+        <JFXButton alignment="TOP_LEFT" onAction="#addAction" styleClass="small-button"
                    focusTraversable="false">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconColor="white" iconSize="24"/>
@@ -24,28 +24,28 @@
     </VBox>
     <VBox GridPane.columnIndex="3" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">
-        <JFXButton fx:id="playButton" onAction="#playAction" buttonType="FLAT" styleClass="menu-button"
+        <JFXButton onAction="#playAction" buttonType="FLAT" styleClass="menu-button"
                    text="Play">
             <graphic>
                 <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="editButton" text="Edit" onAction="#redirectToMeasureScreen" buttonType="FLAT"
+        <JFXButton text="Edit" onAction="#redirectToMeasureScreen" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-edit" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="exportButton" text="Export" onAction="#exportAction" buttonType="FLAT"
+        <JFXButton text="Export" onAction="#exportAction" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-external-link" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="deleteButton" text="Delete" onAction="#deleteAction" buttonType="FLAT"
+        <JFXButton text="Delete" onAction="#deleteAction" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-trash" iconSize="40" iconColor="white"/>

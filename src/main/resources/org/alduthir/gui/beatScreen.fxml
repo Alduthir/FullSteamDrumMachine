@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Separator?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.HBox?>
+
 <GridPane xmlns="http://javafx.com/javafx/8.0.171"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="org.alduthir.controller.BeatController">
@@ -19,21 +20,21 @@
     </HBox>
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="TOP_RIGHT"
           styleClass="button-box">
-        <JFXButton fx:id="playButton" onAction="#playAction" buttonType="FLAT" styleClass="menu-button"
+        <JFXButton onAction="#playAction" buttonType="FLAT" styleClass="menu-button"
                    text="Preview">
             <graphic>
                 <FontIcon iconLiteral="fa-play" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="addButton" text="Add Instrument" onAction="#addAction" buttonType="FLAT"
+        <JFXButton text="Add Instrument" onAction="#addAction" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-plus" iconSize="40" iconColor="white"/>
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton fx:id="backButton" text="Back to song" onAction="#redirectToMeasureSelection" buttonType="FLAT"
+        <JFXButton text="Back to song" onAction="#redirectToMeasureSelection" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-mail-reply" iconSize="40" iconColor="white"/>

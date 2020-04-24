@@ -1,8 +1,8 @@
 package org.alduthir.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -25,18 +25,16 @@ import java.sql.SQLException;
 
 /**
  * Class BeatController
- *
+ * <p>
  * Controls GUI elements pertaining to managing beats in a Measure.
  */
 public class BeatController extends App implements InstrumentActionListener {
     private final InstrumentManageService instrumentManageService;
+    private final MidiPlayer midiPlayer;
 
-    public JFXButton backButton;
-    public JFXButton addButton;
-    public JFXButton playButton;
+    @FXML
     public JFXListView<Instrument> beatList;
 
-    private MidiPlayer midiPlayer;
     private Song song;
     private Measure measure;
 
@@ -50,7 +48,8 @@ public class BeatController extends App implements InstrumentActionListener {
 
     /**
      * Setup the collection of instruments and couple the CellFactory for individual instruments.
-     * @param song Required for redirecting back to MeasureController with the correct list of measures.
+     *
+     * @param song    Required for redirecting back to MeasureController with the correct list of measures.
      * @param measure Used to determine which Measure to retrieve Instruments for and save them to.
      */
     public void initialize(Song song, Measure measure) {
@@ -63,6 +62,7 @@ public class BeatController extends App implements InstrumentActionListener {
 
     /**
      * Redirect back to the measure selection steam for the given Song.
+     *
      * @param mouseEvent used to retrieve the FX element calling the function and through there retrieve the Stage.
      * @throws IOException if no resource can be loaded from gui/measureScreen.fxml.
      */
@@ -80,6 +80,7 @@ public class BeatController extends App implements InstrumentActionListener {
 
     /**
      * Open a dialog for Adding a new Instrument to the measure, or reusing a different once from another Measure.
+     *
      * @throws IOException if no resource can be loaded from gui/addInstrumentDialog.fxml.
      */
     public void addAction() throws IOException {
@@ -111,6 +112,7 @@ public class BeatController extends App implements InstrumentActionListener {
 
     /**
      * An implementation of the InstrumentActionListener, used to remove an Instrument from the Measure.
+     *
      * @param instrument the Instrument to be removed.
      */
     @Override
@@ -121,12 +123,13 @@ public class BeatController extends App implements InstrumentActionListener {
     /**
      * An implementation of the InstrumentActionListener, used to update the checkboxes forming the beat of a single
      * Instrument within the Measure.
-     * @param beatNotes An encoded string consisting of 0's and 1's determining whether the instrument should play on
-     *                  a 16th note.
+     *
+     * @param beatNotes  An encoded string consisting of 0's and 1's determining whether the instrument should play on
+     *                   a 16th note.
      * @param instrument The Instrument for which the beat should be saved within the current Measure.
      */
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
-        instrumentManageService.UpdateBeat(measure, instrument, beatNotes);
+        instrumentManageService.updateBeat(measure, instrument, beatNotes);
     }
 }

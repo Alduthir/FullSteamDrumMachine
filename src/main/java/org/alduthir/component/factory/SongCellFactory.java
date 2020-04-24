@@ -8,6 +8,9 @@ import org.alduthir.model.Song;
 
 public class SongCellFactory implements Callback<ListView<Song>, ListCell<Song>>
 {
+    /**
+     * @inheritDoc
+     */
     @Override
     public ListCell<Song> call(ListView<Song> songListView) {
         return new SongCell();

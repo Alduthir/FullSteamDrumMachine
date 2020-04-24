@@ -4,6 +4,9 @@ import javafx.scene.control.ListCell;
 import org.alduthir.model.SongMeasure;
 
 public class MeasureCell extends ListCell<SongMeasure> {
+    /**
+     * @inheritDoc
+     */
     @Override
     public void updateItem(SongMeasure songMeasure, boolean empty) {
         super.updateItem(songMeasure, empty);

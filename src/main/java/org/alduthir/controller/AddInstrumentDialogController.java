@@ -1,10 +1,10 @@
 package org.alduthir.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -14,40 +14,40 @@ import javafx.stage.Stage;
 import org.alduthir.model.Instrument;
 import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
-import org.alduthir.service.MidiPlayer;
-
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
 
 /**
  * Class AddInstrumentDialogController
- *
+ * <p>
  * Contains and controls GUI elements pertaining to adding a new or existing Instrument to a Measure.
  */
 public class AddInstrumentDialogController {
+    private final InstrumentManageService instrumentManageService;
+
+    @FXML
     public JFXComboBox<AddInstrumentOption> newOrReuseSelection;
     public JFXComboBox<Instrument> reuseComboBox;
-    public JFXButton reuseButton;
     public TextField newNameField;
-    public JFXButton newButton;
     public VBox reuseBox;
     public VBox newBox;
-    public VBox rootBox;
     public HBox selectionBox;
     public Spinner<Integer> noteSpinner;
 
-    private InstrumentManageService instrumentManageService;
-    private MidiPlayer midiPlayer;
     private Measure measure;
 
     /**
+     * Create the necessary service level dependencies on construction.
+     */
+    public AddInstrumentDialogController() {
+        instrumentManageService = new InstrumentManageService();
+    }
+
+    /**
      * Ensures that the right input fields are hidden/shown and initializes the list of reuse options.
+     *
      * @param measure the Measure is required because that is what we will add the Instrument to.
      */
     public void initialize(Measure measure) {
         this.measure = measure;
-        instrumentManageService = new InstrumentManageService();
-        midiPlayer = new MidiPlayer();
         ObservableList<AddInstrumentOption> newOrReuseOptionCollection = FXCollections.observableArrayList();
         newOrReuseOptionCollection.add(AddInstrumentOption.NEW);
         newOrReuseOptionCollection.add(AddInstrumentOption.REUSE);
@@ -75,6 +75,7 @@ public class AddInstrumentDialogController {
 
     /**
      * Calls the InstrumentManageService to save a new Instrument with the input name and midi key.
+     *
      * @param actionEvent passed to closeStage in order to close the modal.
      */
     public void saveNewInstrument(ActionEvent actionEvent) {
@@ -88,6 +89,7 @@ public class AddInstrumentDialogController {
 
     /**
      * Reuse an existing Instrument in the current Measure.
+     *
      * @param actionEvent passed to closeStage in order to close the modal.
      */
     public void saveReuse(ActionEvent actionEvent) {
@@ -100,6 +102,7 @@ public class AddInstrumentDialogController {
 
     /**
      * Close the modal.
+     *
      * @param actionEvent required to retrieve the Node to be closed.
      */
     private void closeStage(ActionEvent actionEvent) {
@@ -112,10 +115,6 @@ public class AddInstrumentDialogController {
      * Ask the midiplayer to play a single note with the midiKey equal to the value of the spinner.
      */
     public void playMidiNote() {
-        try {
-            midiPlayer.playNote(noteSpinner.getValue());
-        } catch (MidiUnavailableException|InvalidMidiDataException e) {
-            e.printStackTrace();
-        }
+        instrumentManageService.playNote(noteSpinner.getValue());
     }
 }

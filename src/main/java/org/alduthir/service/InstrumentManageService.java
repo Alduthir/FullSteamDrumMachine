@@ -9,14 +9,18 @@ import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.util.NoSelectionModel;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
 
 /**
  * Class InstrumentManageService
- *
+ * <p>
  * A service layer class containing CRUD functionality for Instruments.
  */
 public class InstrumentManageService {
+    private MidiPlayer midiPlayer;
     private InstrumentRepository repository;
 
     /**
@@ -26,6 +30,7 @@ public class InstrumentManageService {
     public InstrumentManageService() {
         try {
             repository = new InstrumentRepository();
+            midiPlayer = new MidiPlayer();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -34,7 +39,7 @@ public class InstrumentManageService {
     /**
      * Retrieve all Instruments linked to the current Measure as well their encoded beats.
      *
-     * @param measure required to retrieve the correct MeasureInstrument collection.
+     * @param measure  required to retrieve the correct MeasureInstrument collection.
      * @param beatList A list of InstrumentObjects to be initialised with the retrieved ObservableList of Instruments.
      */
     public void initializeInstrumentCollection(Measure measure, JFXListView<Instrument> beatList) {
@@ -50,7 +55,7 @@ public class InstrumentManageService {
     /**
      * The reuseOptionCollection contains all Instruments that are NOT within the current Measure.
      *
-     * @param measure The measure from which all Instruments should be excluded.
+     * @param measure       The measure from which all Instruments should be excluded.
      * @param reuseComboBox The combobox for which the retrieved Instruments should be set as options.s
      */
     public void initializeReuseOptionCollection(Measure measure, JFXComboBox<Instrument> reuseComboBox) {
@@ -64,10 +69,11 @@ public class InstrumentManageService {
 
     /**
      * Remove an instrument from the Measure and update the beatList.
-     * @param measure The measure from which the instrument should be removed.
+     *
+     * @param measure    The measure from which the instrument should be removed.
      * @param instrument The instrument to be removed. Only the link between it and the Measure is removed. It is not
      *                   deleted.
-     * @param beatList The beatlist which must be updated to no longer include the removed Instrument.
+     * @param beatList   The beatlist which must be updated to no longer include the removed Instrument.
      */
     public void removeInstrument(Measure measure, Instrument instrument, JFXListView<Instrument> beatList) {
         try {
@@ -81,9 +87,9 @@ public class InstrumentManageService {
     /**
      * Create a new Instrument object and add it to the given Measure.
      *
-     * @param name The given name for the new Instrument.
+     * @param name       The given name for the new Instrument.
      * @param midiNumber The key (between 27 and 87) for the midiEvent corresponding to the Instrument.
-     * @param measure The Measure to which the new Instrument is added.
+     * @param measure    The Measure to which the new Instrument is added.
      */
     public void saveNewInstrument(String name, int midiNumber, Measure measure) {
         Instrument instrument = new Instrument(name, midiNumber);
@@ -100,7 +106,7 @@ public class InstrumentManageService {
      * Add an existing Instrument to the Measure.
      *
      * @param instrument The given Instrument to be added.
-     * @param measure The Measure the Instrument should be added to.
+     * @param measure    The Measure the Instrument should be added to.
      */
     public void reuseInstrument(Instrument instrument, Measure measure) {
         try {
@@ -131,14 +137,27 @@ public class InstrumentManageService {
     /**
      * Update the beat for the Instrument within the given Measure.
      *
-     * @param measure The Measure for which to update the Beat.
+     * @param measure    The Measure for which to update the Beat.
      * @param instrument The Instrument for which to update the Beat.
-     * @param beatNotes An encoded string of 0's and 1's determining when the Instrument should be played.
+     * @param beatNotes  An encoded string of 0's and 1's determining when the Instrument should be played.
      */
-    public void UpdateBeat(Measure measure, Instrument instrument, String beatNotes) {
+    public void updateBeat(Measure measure, Instrument instrument, String beatNotes) {
         try {
             repository.updateBeat(measure, instrument, beatNotes);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Play the corresponding sound for a given key in the midiChannel.
+     *
+     * @param midiKey an integer representing which key in the midiChannel should be played.
+     */
+    public void playNote(int midiKey) {
+        try {
+            midiPlayer.playNote(midiKey);
+        } catch (InvalidMidiDataException | MidiUnavailableException e) {
             e.printStackTrace();
         }
     }

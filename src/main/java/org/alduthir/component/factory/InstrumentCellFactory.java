@@ -8,10 +8,12 @@ import org.alduthir.controller.BeatController;
 import org.alduthir.component.InstrumentCell;
 
 public class InstrumentCellFactory implements Callback<ListView<Instrument>, ListCell<Instrument>> {
+
     private BeatController beatController;
 
     /**
      * Create the InstrumentCellFactory.
+     *
      * @param beatController passed to be used as a listener for actionEvents within the InstrumentCell.
      */
     public InstrumentCellFactory(BeatController beatController) {
@@ -20,6 +22,7 @@ public class InstrumentCellFactory implements Callback<ListView<Instrument>, Lis
 
     /**
      * Create an InstrumentCell and pass the beatController as a listener.
+     *
      * @param beatListView must be passed for the CallBack<ListView<Instrument>>.
      * @return the created ListCell.
      */

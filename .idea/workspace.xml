@@ -3,36 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/BpmSpinner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/BpmSpinner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/InstrumentCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/InstrumentCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/MeasureCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/MeasureCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/SongCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/SongCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/StyledTextInputDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/StyledTextInputDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/InstrumentCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/InstrumentCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/MeasureCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/MeasureCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/SongCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/SongCellFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/Instrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Instrument.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/listener/InstrumentActionListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/InstrumentCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/InstrumentCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/instrument/InstrumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/InstrumentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/BpmSpinnerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/BpmSpinner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/Measure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Measure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/MeasureCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/MeasureCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/MeasureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/MeasureRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/measure/SongMeasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/SongMeasure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/SongCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/SongCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/song/SongRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/SongRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/util/AbstractDatabaseInteractionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/AbstractDatabaseInteractionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/util/AddInstrumentOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentOption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/util/DatabaseInteractionInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/DatabaseInteractionInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/util/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/util/StyledTextInputDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/StyledTextInputDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/addInstrumentDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/addInstrumentDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/reuseMeasureDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/reuseMeasureDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +51,8 @@
         <option value="CSS File" />
         <option value="module-info" />
         <option value="Interface" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -268,7 +257,7 @@
       <workItem from="1586260637573" duration="115000" />
       <workItem from="1586346196578" duration="496000" />
       <workItem from="1587449105553" duration="10937000" />
-      <workItem from="1587708573502" duration="2388000" />
+      <workItem from="1587708573502" duration="6355000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,10 @@
 package org.alduthir.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
@@ -20,7 +21,7 @@ import java.io.IOException;
 
 /**
  * Class MeasureController
- *
+ * <p>
  * The MeasureController contains a list of all Measures within the Song. And controls UI elements for adding, managing
  * or previewing these Measures.
  */
@@ -29,13 +30,7 @@ public class MeasureController extends App {
     private final BpmSpinner bpmSpinner;
 
     @FXML
-    public JFXButton editButton;
-    public JFXButton playButton;
     public JFXListView<SongMeasure> measureList;
-    public JFXButton addMeasureButton;
-    public JFXButton reuseMeasureButton;
-    public JFXButton deleteMeasureButton;
-    public JFXButton backButton;
     public Spinner<Integer> spinner;
 
     private Song song;
@@ -50,6 +45,7 @@ public class MeasureController extends App {
 
     /**
      * Initialise the ListCell Factories, ListView and BPM Spinner UI elements.
+     *
      * @param song This determines which measures must be retrieved and is passed down the chain to other controller
      *             initialize functions.
      */
@@ -75,6 +71,7 @@ public class MeasureController extends App {
 
     /**
      * Change the Stage to the beatScreen allowing a user to edit a single Measure.
+     *
      * @throws IOException if no resource can be loaded from gui/beatScreen.fxml.
      */
     public void redirectToBeatEditor() throws IOException {
@@ -99,10 +96,12 @@ public class MeasureController extends App {
 
     /**
      * Redirect back to the home screen.
+     *
      * @throws IOException if no Resource can be loaded from gui/songScreen.fxml
      */
-    public void redirectToSongSelection() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
+    public void redirectToSongSelection(ActionEvent mouseEvent) throws IOException {
+        Node source = (Node) mouseEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
         Parent root = loader.load();
         stage.setScene(new Scene(root, 800, 400));
@@ -133,6 +132,7 @@ public class MeasureController extends App {
 
     /**
      * Open a dialog to reuse a Measure in the Song, the new Measure is added to the end of the ListView.
+     *
      * @throws IOException if no resource can be loaded from gui/reuseMeasureDialog.fxml.
      */
     public void reuseAction() throws IOException {

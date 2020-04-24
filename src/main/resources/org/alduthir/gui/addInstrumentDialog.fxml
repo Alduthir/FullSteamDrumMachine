@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.control.Spinner?>
+
 <GridPane
         xmlns="http://javafx.com/javafx/8.0.171"
         xmlns:fx="http://javafx.com/fxml/1"
@@ -18,7 +19,7 @@
     <stylesheets>
         <URL value="@../styles.css"/>
     </stylesheets>
-    <VBox fx:id="rootBox" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"
           GridPane.vgrow="ALWAYS">
         <HBox fx:id="selectionBox">
             <Label style="-fx-text-fill: #ffffff" text="Would you like to reuse or add an instrument?"/>
@@ -29,7 +30,7 @@
                 <Label text="reuse option"/>
                 <JFXComboBox fx:id="reuseComboBox"/>
             </HBox>
-            <JFXButton fx:id="reuseButton" text="save" onAction="#saveReuse">
+            <JFXButton text="save" onAction="#saveReuse">
                 <graphic>
                     <FontIcon iconLiteral="fa-save" iconSize="20" iconColor="white"/>
                 </graphic>
@@ -43,13 +44,13 @@
             <HBox>
                 <Label text="sound"/>
                 <Spinner fx:id="noteSpinner"/>
-                <JFXButton fx:id="previewButton" onAction="#playMidiNote">
+                <JFXButton onAction="#playMidiNote">
                     <graphic>
                         <FontIcon iconLiteral="fa-play" iconSize="20" iconColor="white"/>
                     </graphic>
                 </JFXButton>
             </HBox>
-            <JFXButton fx:id="newButton" onAction="#saveNewInstrument">
+            <JFXButton onAction="#saveNewInstrument">
                 <graphic>
                     <FontIcon iconLiteral="fa-save" iconSize="20" iconColor="white"/>
                 </graphic>
