@@ -1,8 +1,10 @@
-package org.alduthir.song;
+package org.alduthir.component.factory;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import org.alduthir.component.SongCell;
+import org.alduthir.model.Song;
 
 public class SongCellFactory implements Callback<ListView<Song>, ListCell<Song>>
 {

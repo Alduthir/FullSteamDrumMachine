@@ -1,16 +1,16 @@
-package org.alduthir.measure;
+package org.alduthir.component;
 
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import org.alduthir.song.Song;
-import org.alduthir.song.SongRepository;
+import org.alduthir.model.Song;
+import org.alduthir.repository.SongRepository;
 
 import java.sql.SQLException;
 
-public class BpmSpinnerService {
+public class BpmSpinner {
     private SongRepository repository;
 
-    public BpmSpinnerService() {
+    public BpmSpinner() {
         try {
             repository = new SongRepository();
         } catch (SQLException | ClassNotFoundException e) {

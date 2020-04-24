@@ -1,9 +1,10 @@
-package org.alduthir.measure;
+package org.alduthir.repository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.alduthir.song.Song;
-import org.alduthir.util.AbstractDatabaseInteractionService;
+import org.alduthir.model.Measure;
+import org.alduthir.model.SongMeasure;
+import org.alduthir.model.Song;
 import org.alduthir.util.NamedPreparedStatement;
 
 import java.sql.ResultSet;
@@ -64,7 +65,7 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.close();
     }
 
-    public void createMeasure(Measure measure) throws SQLException {
+    public Measure createMeasure(Measure measure) throws SQLException {
         String sql = "INSERT INTO Measure(name, beatUnit, beatsInMeasure) VALUES(:name, :beatUnit, :beatsInMeasure)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setString("name", measure.getName());
@@ -74,8 +75,9 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
 
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs != null && rs.next()) {
-            measure.setId(rs.getInt(1));
+            return findById(rs.getInt(1));
         }
+        return measure;
     }
 
     public ObservableList<SongMeasure> fetchForSong(Song song) throws SQLException {

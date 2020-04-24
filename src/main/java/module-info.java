@@ -13,14 +13,14 @@ module org.alduthir {
 
     exports org.alduthir;
     exports org.alduthir.controller;
-    exports org.alduthir.song;
-    exports org.alduthir.measure;
-    exports org.alduthir.instrument;
+    exports org.alduthir.component;
+    exports org.alduthir.listener;
+    exports org.alduthir.model;
+    exports org.alduthir.repository;
+    exports org.alduthir.service;
     exports org.alduthir.util;
 
     opens org.alduthir to javafx.fxml;
     opens org.alduthir.controller to javafx.graphics;
-    opens org.alduthir.song to javafx.graphics;
-    opens org.alduthir.measure to javafx.graphics;
-    opens org.alduthir.instrument to javafx.graphics;
+    opens org.alduthir.component to javafx.graphics;
 }

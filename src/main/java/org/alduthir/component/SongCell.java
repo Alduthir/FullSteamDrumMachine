@@ -1,6 +1,7 @@
-package org.alduthir.song;
+package org.alduthir.component;
 
 import javafx.scene.control.ListCell;
+import org.alduthir.model.Song;
 
 public class SongCell extends ListCell<Song> {
     @Override

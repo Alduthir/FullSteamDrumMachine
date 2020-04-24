@@ -1,4 +1,6 @@
-package org.alduthir.instrument;
+package org.alduthir.listener;
+
+import org.alduthir.model.Instrument;
 
 /**
  * Interface InstrumentActionListener

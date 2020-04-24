@@ -1,8 +1,8 @@
-package org.alduthir.song;
+package org.alduthir.repository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.alduthir.util.AbstractDatabaseInteractionService;
+import org.alduthir.model.Song;
 import org.alduthir.util.NamedPreparedStatement;
 
 import java.sql.*;
@@ -59,16 +59,11 @@ public class SongRepository extends AbstractDatabaseInteractionService<Song> {
         stmt.close();
     }
 
-    public void createSong(Song song) throws SQLException {
+    public void createSong(String songName) throws SQLException {
         String sql = "INSERT INTO Song(name, bpm) VALUES(:name, 75)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
-        stmt.setString("name", song.getName());
-        stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
-
-        ResultSet rs = stmt.getGeneratedKeys();
-        if (rs != null && rs.next()) {
-            song.setId(rs.getInt(1));
-        }
+        stmt.setString("name", songName);
+        stmt.executeUpdate();
     }
 
     public void updateBpm(Song song) throws SQLException {

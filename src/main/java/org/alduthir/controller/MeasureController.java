@@ -10,8 +10,11 @@ import javafx.scene.control.Spinner;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.measure.*;
-import org.alduthir.song.Song;
+import org.alduthir.component.BpmSpinner;
+import org.alduthir.model.SongMeasure;
+import org.alduthir.component.factory.MeasureCellFactory;
+import org.alduthir.model.Song;
+import org.alduthir.service.MeasureManageService;
 
 import java.io.IOException;
 
@@ -23,7 +26,7 @@ import java.io.IOException;
  */
 public class MeasureController extends App {
     private final MeasureManageService measureManageService;
-    private final BpmSpinnerService bpmSpinnerService;
+    private final BpmSpinner bpmSpinner;
 
     @FXML
     public JFXButton editButton;
@@ -33,7 +36,7 @@ public class MeasureController extends App {
     public JFXButton reuseMeasureButton;
     public JFXButton deleteMeasureButton;
     public JFXButton backButton;
-    public Spinner<Integer> bpmSpinner;
+    public Spinner<Integer> spinner;
 
     private Song song;
 
@@ -42,7 +45,7 @@ public class MeasureController extends App {
      */
     public MeasureController() {
         this.measureManageService = new MeasureManageService();
-        this.bpmSpinnerService = new BpmSpinnerService();
+        this.bpmSpinner = new BpmSpinner();
     }
 
     /**
@@ -53,7 +56,7 @@ public class MeasureController extends App {
     public void initialize(Song song) {
         this.song = song;
         measureManageService.initializeMeasureList(song, measureList);
-        bpmSpinnerService.initializeBpmSpinner(song, bpmSpinner);
+        bpmSpinner.initializeBpmSpinner(song, spinner);
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {

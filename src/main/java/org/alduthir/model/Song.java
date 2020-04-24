@@ -1,13 +1,10 @@
-package org.alduthir.song;
+package org.alduthir.model;
 
 public class Song {
 
     private int id;
     private String name;
     private int bpm;
-
-    public Song() {
-    }
 
     public Song(int id, String name, int bpm) {
         this.id = id;
@@ -24,16 +21,8 @@ public class Song {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getBpm() {

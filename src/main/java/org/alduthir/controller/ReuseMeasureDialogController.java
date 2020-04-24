@@ -5,10 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import org.alduthir.measure.Measure;
-import org.alduthir.measure.MeasureManageService;
-import org.alduthir.song.Song;
-import org.alduthir.util.MidiPlayer;
+import org.alduthir.model.Measure;
+import org.alduthir.service.MeasureManageService;
+import org.alduthir.model.Song;
+import org.alduthir.service.MidiPlayer;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;

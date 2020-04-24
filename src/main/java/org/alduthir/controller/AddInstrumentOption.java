@@ -1,4 +1,4 @@
-package org.alduthir.util;
+package org.alduthir.controller;
 
 public enum AddInstrumentOption {
     NEW,

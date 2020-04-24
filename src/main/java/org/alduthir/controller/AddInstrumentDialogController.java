@@ -11,11 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.alduthir.instrument.Instrument;
-import org.alduthir.instrument.InstrumentManageService;
-import org.alduthir.measure.Measure;
-import org.alduthir.util.AddInstrumentOption;
-import org.alduthir.util.MidiPlayer;
+import org.alduthir.model.Instrument;
+import org.alduthir.service.InstrumentManageService;
+import org.alduthir.model.Measure;
+import org.alduthir.service.MidiPlayer;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;

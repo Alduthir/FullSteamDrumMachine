@@ -1,10 +1,12 @@
-package org.alduthir.instrument;
+package org.alduthir.service;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import org.alduthir.measure.Measure;
+import org.alduthir.model.Instrument;
+import org.alduthir.model.Measure;
+import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.util.NoSelectionModel;
 
 import java.sql.SQLException;
@@ -87,7 +89,7 @@ public class InstrumentManageService {
         Instrument instrument = new Instrument(name, midiNumber);
 
         try {
-            repository.createInstrument(instrument);
+            instrument = repository.createInstrument(instrument);
             repository.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();

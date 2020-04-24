@@ -1,9 +1,11 @@
-package org.alduthir.instrument;
+package org.alduthir.component.factory;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import org.alduthir.model.Instrument;
 import org.alduthir.controller.BeatController;
+import org.alduthir.component.InstrumentCell;
 
 public class InstrumentCellFactory implements Callback<ListView<Instrument>, ListCell<Instrument>> {
     private BeatController beatController;

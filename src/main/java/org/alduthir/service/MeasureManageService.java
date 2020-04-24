@@ -1,11 +1,13 @@
-package org.alduthir.measure;
+package org.alduthir.service;
 
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextInputDialog;
-import org.alduthir.song.Song;
-import org.alduthir.util.MidiPlayer;
-import org.alduthir.util.StyledTextInputDialog;
+import org.alduthir.model.Measure;
+import org.alduthir.model.SongMeasure;
+import org.alduthir.model.Song;
+import org.alduthir.repository.MeasureRepository;
+import org.alduthir.component.StyledTextInputDialog;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -54,7 +56,7 @@ public class MeasureManageService {
         if (result.isPresent()) {
             Measure measure = new Measure(result.get());
             try {
-                repository.createMeasure(measure);
+                measure = repository.createMeasure(measure);
                 repository.addToSong(measure, song, measureList.getItems().size());
             } catch (SQLException e) {
                 e.printStackTrace();

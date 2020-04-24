@@ -1,7 +1,9 @@
-package org.alduthir.song;
+package org.alduthir.service;
 
 import com.jfoenix.controls.JFXListView;
-import org.alduthir.util.StyledTextInputDialog;
+import org.alduthir.model.Song;
+import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.repository.SongRepository;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -26,16 +28,15 @@ public class SongManageService {
         }
     }
 
-    public void addSong(JFXListView<Song> songList)  {
+    public void addSong(JFXListView<Song> songList) {
         var dialog = new StyledTextInputDialog();
         dialog.setTitle("Create new Song");
         dialog.setContentText("Enter the name of your new song.");
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            Song song = new Song(result.get());
             try {
-                repository.createSong(song);
+                repository.createSong(result.get());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

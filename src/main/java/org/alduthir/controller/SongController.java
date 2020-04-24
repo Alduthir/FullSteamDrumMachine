@@ -12,9 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
-import org.alduthir.song.Song;
-import org.alduthir.song.SongCellFactory;
-import org.alduthir.song.SongManageService;
+import org.alduthir.model.Song;
+import org.alduthir.component.factory.SongCellFactory;
+import org.alduthir.service.SongManageService;
 
 /**
  * Class SongController

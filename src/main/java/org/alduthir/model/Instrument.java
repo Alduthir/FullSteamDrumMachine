@@ -1,8 +1,8 @@
-package org.alduthir.instrument;
+package org.alduthir.model;
 
 /**
  * Class Instrument
- *
+ * <p>
  * A model for the Instrument object.
  */
 public class Instrument {
@@ -13,7 +13,7 @@ public class Instrument {
 
     private int midiNumber;
 
-    private String beat;
+    private String beat = "0000000000000000";
 
     public Instrument() {
     }
@@ -36,29 +36,20 @@ public class Instrument {
         this.beat = beat;
     }
 
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getMidiNumber() {
         return midiNumber;
     }
 
-    public void setMidiNumber(int midiNumber) {
-        this.midiNumber = midiNumber;
+    public String getBeat() {
+        return beat;
     }
 
     @Override
@@ -66,11 +57,4 @@ public class Instrument {
         return name;
     }
 
-    public String getBeat() {
-        return beat;
-    }
-
-    public void setBeat(String beat) {
-        this.beat = beat;
-    }
 }

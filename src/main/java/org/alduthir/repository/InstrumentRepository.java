@@ -1,9 +1,9 @@
-package org.alduthir.instrument;
+package org.alduthir.repository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.alduthir.measure.Measure;
-import org.alduthir.util.AbstractDatabaseInteractionService;
+import org.alduthir.model.Instrument;
+import org.alduthir.model.Measure;
 import org.alduthir.util.NamedPreparedStatement;
 
 import java.sql.ResultSet;
@@ -93,8 +93,9 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
      * Insert a new Instrument into the database and update the given Instrument object with the newly inserted id.
      * @param instrument The Instrument object to be inserted.
      * @throws SQLException If the query throws an exception.
+     * @return
      */
-    public void createInstrument(Instrument instrument) throws SQLException {
+    public Instrument createInstrument(Instrument instrument) throws SQLException {
         String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setString("name", instrument.getName());
@@ -103,8 +104,9 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
 
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs != null && rs.next()) {
-            instrument.setId(rs.getInt(1));
+            return findById(rs.getInt(1));
         }
+        return instrument;
     }
 
     /**

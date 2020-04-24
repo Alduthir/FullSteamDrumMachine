@@ -1,4 +1,4 @@
-package org.alduthir.util;
+package org.alduthir.repository;
 
 import javafx.collections.ObservableList;
 

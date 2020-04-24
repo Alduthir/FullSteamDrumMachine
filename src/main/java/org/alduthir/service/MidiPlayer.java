@@ -1,10 +1,10 @@
-package org.alduthir.util;
+package org.alduthir.service;
 
 import javafx.collections.ObservableList;
-import org.alduthir.instrument.Instrument;
-import org.alduthir.instrument.InstrumentRepository;
-import org.alduthir.measure.Measure;
-import org.alduthir.song.Song;
+import org.alduthir.model.Instrument;
+import org.alduthir.repository.InstrumentRepository;
+import org.alduthir.model.Measure;
+import org.alduthir.model.Song;
 
 import javax.sound.midi.*;
 import java.sql.SQLException;

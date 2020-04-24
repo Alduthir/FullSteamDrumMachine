@@ -1,4 +1,4 @@
-package org.alduthir.measure;
+package org.alduthir.model;
 
 public class Measure {
 
@@ -30,32 +30,16 @@ public class Measure {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getBeatUnit() {
         return beatUnit;
     }
 
-    public void setBeatUnit(int beatUnit) {
-        this.beatUnit = beatUnit;
-    }
-
     public int getBeatsInMeasure() {
         return beatsInMeasure;
-    }
-
-    public void setBeatsInMeasure(int beatsInMeasure) {
-        this.beatsInMeasure = beatsInMeasure;
     }
 
     @Override

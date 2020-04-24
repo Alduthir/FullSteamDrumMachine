@@ -45,7 +45,7 @@
             <right>
                 <HBox>
                     <Label styleClass="bpm-label" text="BPM"/>
-                    <Spinner fx:id="bpmSpinner"/>
+                    <Spinner fx:id="spinner"/>
 
                 </HBox>
             </right>

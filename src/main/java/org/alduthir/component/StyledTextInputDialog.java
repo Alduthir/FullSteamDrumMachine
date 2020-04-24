@@ -1,4 +1,4 @@
-package org.alduthir.util;
+package org.alduthir.component;
 
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextInputDialog;

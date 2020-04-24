@@ -1,4 +1,4 @@
-package org.alduthir.instrument;
+package org.alduthir.component;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -10,6 +10,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
+import org.alduthir.model.Instrument;
+import org.alduthir.listener.InstrumentActionListener;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.ArrayList;
