@@ -10,7 +10,6 @@ import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.util.NoSelectionModel;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
 
@@ -92,10 +91,8 @@ public class InstrumentManageService {
      * @param measure    The Measure to which the new Instrument is added.
      */
     public void saveNewInstrument(String name, int midiNumber, Measure measure) {
-        Instrument instrument = new Instrument(name, midiNumber);
-
         try {
-            instrument = repository.createInstrument(instrument);
+            Instrument instrument = repository.createInstrument(name, midiNumber);
             repository.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,11 +115,11 @@ public class InstrumentManageService {
 
     /**
      * Initialises an Integer spinner with a value between 27 and 87 and corresponding scroll events.
+     * The value must be between 27 and 87 as those are the keys in the Midi Drum channel mapped to sounds.
      *
      * @param insturmentSpinner The Spinner UI element.
      */
     public void initializeInstrumentSpinner(Spinner<Integer> insturmentSpinner) {
-        // The value must be between 27 and 87 as those are the keys in the Midi Drum channel mapped to sounds.
         insturmentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(27, 87));
         insturmentSpinner.setOnScroll(e -> {
             double delta = e.getDeltaY();

@@ -1,19 +1,16 @@
 package org.alduthir.model;
 
+/**
+ * Class Measure
+ *
+ * A model for a Measure database object.
+ */
 public class Measure {
 
     private int id;
     private int beatUnit = 4;
     private int beatsInMeasure = 4;
     private String name;
-
-    public Measure() {
-    }
-
-    public Measure(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Measure(int id, String name, int beatUnit, int beatsInMeasure){
         this.id = id;

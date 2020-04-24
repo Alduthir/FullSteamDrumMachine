@@ -9,10 +9,18 @@ import org.alduthir.model.Song;
 import javax.sound.midi.*;
 import java.sql.SQLException;
 
+/**
+ * Class MidiPlayer
+ * <p>
+ * A service for playing Sounds using the javax MidiSystem.
+ */
 public class MidiPlayer {
     private Sequencer sequencer;
     private InstrumentRepository repository;
 
+    /**
+     * Create the InstrumentRepository from which we will be retrieving individual sounds.
+     */
     public MidiPlayer() {
         try {
             repository = new InstrumentRepository();
@@ -21,6 +29,11 @@ public class MidiPlayer {
         }
     }
 
+    /**
+     * Retrieve the sequencer from the MidiSystem
+     *
+     * @return the default sequencer, connected to a default Receiver
+     */
     public Sequencer getSequencer() {
         if (sequencer == null) {
             try {
@@ -33,10 +46,31 @@ public class MidiPlayer {
         return sequencer;
     }
 
+    /**
+     * Play the entire audio track for a song.
+     * Todo (MUST HAVE)
+     *
+     * @param song The song to play.
+     */
     public void playSong(Song song) {
     }
 
-    public void playMeasure(int bpm, Measure measure) throws InvalidMidiDataException, MidiUnavailableException, SQLException {
+    /**
+     * Play all instruments in a measure once, using the given BPM.
+     *
+     * @param bpm     the speed at which the measure will play.
+     * @param measure The measure to play all instrumens from.
+     * @throws InvalidMidiDataException Indicates that inappropriate MIDI data
+     *                                  was encountered.
+     * @throws MidiUnavailableException is thrown when a requested MIDI component
+     *                                  cannot be opened or created because it is unavailable.
+     * @throws SQLException             If the instrumentCollection cannot be retrieved.
+     */
+    public void playMeasure(
+            int bpm,
+            Measure measure
+    ) throws InvalidMidiDataException, MidiUnavailableException, SQLException {
+        stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
@@ -59,13 +93,26 @@ public class MidiPlayer {
         sequencer.start();
     }
 
+    /**
+     * Stop playing audio.
+     */
     public void stopPlayback() {
         if (getSequencer().isRunning()) {
             getSequencer().stop();
         }
     }
 
+    /**
+     * Play a single note corresponding to the given value in the midi channel.
+     *
+     * @param value The key for which to play the sound in the midi channel.
+     * @throws InvalidMidiDataException Indicates that inappropriate MIDI data
+     *                                  was encountered.
+     * @throws MidiUnavailableException is thrown when a requested MIDI component
+     *                                  cannot be opened or created because it is unavailable.
+     */
     public void playNote(Integer value) throws InvalidMidiDataException, MidiUnavailableException {
+        stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
@@ -77,17 +124,33 @@ public class MidiPlayer {
         sequencer.start();
     }
 
-    private void createNoteOnOff(Track track, int key, int tick) {
-        track.add(makeEvent(ShortMessage.NOTE_ON, key, tick));
-        track.add(makeEvent(ShortMessage.NOTE_OFF, key, tick + 1));
+    /**
+     * Create a midiEvent to play a the sound corresponding to the given midiKey on the given tick.
+     * And create an Off event one tick later asking the player to stop the sound then.
+     *
+     * @param track   The AudioTrack to which the event should be added.
+     * @param midiKey The midiKey corresponding to an index in the midi channel.
+     * @param tick    The tick within the length of the audioTrack on which the sound should play.
+     */
+    private void createNoteOnOff(Track track, int midiKey, int tick) {
+        track.add(makeEvent(ShortMessage.NOTE_ON, midiKey, tick));
+        track.add(makeEvent(ShortMessage.NOTE_OFF, midiKey, tick + 1));
     }
 
-    private MidiEvent makeEvent(int command, int firstByte, int tick) {
+    /**
+     * Create a midi Event for the given command
+     *
+     * @param command The ShortMessage Command to execute in the event.
+     * @param midiKey The midiKey corresponding to an index in the midi channel.
+     * @param tick    The tick within the length of the audioTrack on which the event should be fired.
+     * @return The newly created MidiEvent.
+     */
+    private MidiEvent makeEvent(int command, int midiKey, int tick) {
         MidiEvent event = null;
         try {
             ShortMessage message = new ShortMessage();
             // 9 is the midi percussion channel, 100 is our default value for volume.
-            message.setMessage(command, 9, firstByte, 100);
+            message.setMessage(command, 9, midiKey, 100);
             event = new MidiEvent(message, tick);
         } catch (InvalidMidiDataException e) {
             e.printStackTrace();

@@ -2,8 +2,8 @@ package org.alduthir.model;
 
 /**
  * Class Instrument
- * <p>
- * A model for the Instrument object.
+ *
+ * A model for the Instrument database object.
  */
 public class Instrument {
 
@@ -14,14 +14,6 @@ public class Instrument {
     private int midiNumber;
 
     private String beat = "0000000000000000";
-
-    public Instrument() {
-    }
-
-    public Instrument(String name, int midiNumber) {
-        this.name = name;
-        this.midiNumber = midiNumber;
-    }
 
     public Instrument(int id, String name, int midiNumber) {
         this.id = id;

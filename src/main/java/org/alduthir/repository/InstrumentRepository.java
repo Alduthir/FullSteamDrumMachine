@@ -12,14 +12,15 @@ import java.sql.Statement;
 
 /**
  * Class InstrumentRepository
- *
+ * <p>
  * A database repository class containing query functions for interacting with Instruments.
  */
-public class InstrumentRepository extends AbstractDatabaseInteractionService<Instrument> {
+public class InstrumentRepository extends DatabaseInteractionService<Instrument> {
 
     /**
      * Call the super constructor attempting to establish a database connection.
-     * @throws SQLException If no connection could be established.
+     *
+     * @throws SQLException           If no connection could be established.
      * @throws ClassNotFoundException If the jdbc Driver could not be found.
      */
     public InstrumentRepository() throws SQLException, ClassNotFoundException {
@@ -27,9 +28,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     }
 
     /**
-     * Retrieve a list of Instrument Objects containing every entry in the Instrument database table.
-     * @return An ObservableList of hydrated Insrtument objects.
-     * @throws SQLException if the Query throws an exception.
+     * @inheritDoc
      */
     @Override
     public ObservableList<Instrument> fetchAll() throws SQLException {
@@ -50,10 +49,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     }
 
     /**
-     * Find a single Instrument by its id.
-     * @param id The Id of an Instrument
-     * @return A hydrated Instrument object containing the found data.
-     * @throws SQLException If no result is found.
+     * @inheritDoc
      */
     @Override
     public Instrument findById(int id) throws SQLException {
@@ -76,9 +72,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     }
 
     /**
-     * Delete a single Instrument by it's Id.
-     * @param id the id of the Instrument to be deleted.
-     * @throws SQLException If the query throws an exception
+     * @inheritDoc
      */
     @Override
     public void deleteById(int id) throws SQLException {
@@ -91,22 +85,25 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
 
     /**
      * Insert a new Instrument into the database and update the given Instrument object with the newly inserted id.
-     * @param instrument The Instrument object to be inserted.
+     *
+     * @param name       The name given for the new Instrument.
+     * @param midiNumber the number corresponding to a key in the midiPlayer channel. (the sound to be played)
+     * @return The newly inserted Instrument
      * @throws SQLException If the query throws an exception.
-     * @return
      */
-    public Instrument createInstrument(Instrument instrument) throws SQLException {
+    public Instrument createInstrument(String name, int midiNumber) throws SQLException {
         String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
-        stmt.setString("name", instrument.getName());
-        stmt.setInt("midiNumber", instrument.getMidiNumber());
+        stmt.setString("name", name);
+        stmt.setInt("midiNumber", midiNumber);
         stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
 
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs != null && rs.next()) {
             return findById(rs.getInt(1));
         }
-        return instrument;
+
+        throw new SQLException("Unable to create new instrument");
     }
 
     /**
@@ -168,8 +165,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
      * Add the given Instrument to the Measure.
      *
      * @param instrument The instrument to add to the Measure.
-     * @param measure The measure to which the instrument must be added.
-     *
+     * @param measure    The measure to which the instrument must be added.
      * @throws SQLException if the query throws an exception.
      */
     public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
@@ -183,8 +179,8 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     /**
      * Update the beat for the MeasureInstrument linking the given Measure and Instrument.
      *
-     * @param measure the Measure for which to update the beat.
-     * @param instrument the Instrument for which to update the beat.
+     * @param measure     the Measure for which to update the beat.
+     * @param instrument  the Instrument for which to update the beat.
      * @param encodedBeat A 16 character string containing 0's and 1's.
      * @throws SQLException if the query throws an exception
      */
@@ -200,7 +196,7 @@ public class InstrumentRepository extends AbstractDatabaseInteractionService<Ins
     /**
      * Remove the given Instrument from the Measure.
      *
-     * @param measure The Measure from which to remove the Instrument
+     * @param measure    The Measure from which to remove the Instrument
      * @param instrument The instrument to be removed. It is not deleted, only decoupled from the measure.
      * @throws SQLException if the query throws an Exception.
      */

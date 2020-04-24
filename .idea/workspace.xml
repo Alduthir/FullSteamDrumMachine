@@ -2,26 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/DatabaseInteractionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/BpmSpinner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/BpmSpinner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/InstrumentCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/InstrumentCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/MeasureCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/MeasureCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/SongCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/SongCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/StyledTextInputDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/StyledTextInputDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/InstrumentCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/InstrumentCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/MeasureCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/MeasureCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/SongCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/component/factory/SongCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/listener/InstrumentActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/listener/InstrumentActionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Instrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Instrument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Measure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Measure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/Song.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/model/SongMeasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/model/SongMeasure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/AbstractDatabaseInteractionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/DatabaseInteractionInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/DatabaseInteractionInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/InstrumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/InstrumentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/MeasureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/MeasureRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/SongRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/repository/SongRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/addInstrumentDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/addInstrumentDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/beatScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/measureScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/reuseMeasureDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/reuseMeasureDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/alduthir/gui/songScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +253,7 @@
       <workItem from="1586260637573" duration="115000" />
       <workItem from="1586346196578" duration="496000" />
       <workItem from="1587449105553" duration="10937000" />
-      <workItem from="1587708573502" duration="6355000" />
+      <workItem from="1587708573502" duration="11354000" />
     </task>
     <servers />
   </component>
@@ -321,33 +317,33 @@
     <state x="526" y="173" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1585304687521" />
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1585305575071" />
     <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583773020014" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1587711040464">
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1587715687585">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587711040464" />
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587715687585" />
     <state width="637" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1587711040463">
+    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1587715687585">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.center/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587711040463" />
+    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587715687585" />
     <state width="637" height="124" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1587711040463">
+    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1587715687585">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.left/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587711040463" />
+    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587715687585" />
     <state width="637" height="124" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1587711040463">
+    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1587715687585">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.right/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587711040463" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1587715687585" />
     <state width="637" height="124" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
     <state width="1877" height="325" key="GridCell.Tab.1.bottom" timestamp="1583841386119">
       <screen x="1366" y="0" width="1920" height="1040" />

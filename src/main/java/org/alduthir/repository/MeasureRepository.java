@@ -11,11 +11,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MeasureRepository extends AbstractDatabaseInteractionService<Measure> {
-
+/**
+ * Class MeasureRepository
+ * <p>
+ * A database repository class containing query functions for interacting with Measures.
+ */
+public class MeasureRepository extends DatabaseInteractionService<Measure> {
+    /**
+     * Call the super constructor attempting to establish a database connection.
+     *
+     * @throws SQLException           If no connection could be established.
+     * @throws ClassNotFoundException If the jdbc Driver could not be found.
+     */
     public MeasureRepository() throws SQLException, ClassNotFoundException {
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public ObservableList<Measure> fetchAll() throws SQLException {
         ObservableList<Measure> measureCollection = FXCollections.observableArrayList();
@@ -35,6 +48,9 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         return measureCollection;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Measure findById(int id) throws SQLException {
         String sql = "SELECT * FROM Measure WHERE measureId = :measureId";
@@ -56,6 +72,9 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         throw new SQLException(String.format("No measure found with measureID %d.", id));
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE songId = :songId";
@@ -65,6 +84,13 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.close();
     }
 
+    /**
+     * Create a new measure and return a new object with the newly inserted Id.
+     *
+     * @param measure The measure to be inserted into the database.
+     * @return The newly inserted measure including it's Id.
+     * @throws SQLException If the query throws an exception.
+     */
     public Measure createMeasure(Measure measure) throws SQLException {
         String sql = "INSERT INTO Measure(name, beatUnit, beatsInMeasure) VALUES(:name, :beatUnit, :beatsInMeasure)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -77,9 +103,17 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         if (rs != null && rs.next()) {
             return findById(rs.getInt(1));
         }
+
         return measure;
     }
 
+    /**
+     * Fetch a hydrated list of SongMeasures for the given Song.
+     *
+     * @param song The Song for which to retrieve all SongMeasures.
+     * @return A hydrated list of SongMeasures containing both hydrated Song and Measure objects.
+     * @throws SQLException If the query raises an exception.
+     */
     public ObservableList<SongMeasure> fetchForSong(Song song) throws SQLException {
         ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
 
@@ -100,6 +134,14 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         return songMeasureCollection;
     }
 
+    /**
+     * Create a new SongMeasure linking the given measure to the given Song and set it's Sequence to the given value.
+     *
+     * @param measure  The Measure to be added to a Song.
+     * @param song     The Song to which the Measure will be added.
+     * @param sequence The position of this new Measure in the song's order.
+     * @throws SQLException If the query raises an exception.
+     */
     public void addToSong(Measure measure, Song song, int sequence) throws SQLException {
         String sql = "INSERT INTO SongMeasure(songId, measureId, sequence) VALUES(:songId, :measureId, :sequence)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -109,6 +151,14 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.executeUpdate();
     }
 
+    /**
+     * Delete a given SongMeasure, effectively removing that instance from the Song. Deletes a single SongMeasure
+     * instead of removing by combination of Song and Measure. As it is possible to have the same measure occur in
+     * different places of the song. And we don't want to remove all of them in one go.
+     *
+     * @param songMeasure The songMeasure to be removed.
+     * @throws SQLException If the query raises an Exception.
+     */
     public void removeFromSong(SongMeasure songMeasure) throws SQLException {
         String sql = "DELETE FROM SongMeasure WHERE songMeasureId = :songMeasureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -117,6 +167,12 @@ public class MeasureRepository extends AbstractDatabaseInteractionService<Measur
         stmt.close();
     }
 
-    public void updateSequence(Song song, ObservableList<SongMeasure> songMeasureCollection) {
+    /**
+     * Update All SongMeasures based on their index in the collection.
+     * ToDo (COULD HAVE)
+     *
+     * @param songMeasureCollection a list of SongMeasures organised in the UI.
+     */
+    public void updateSequence(ObservableList<SongMeasure> songMeasureCollection) {
     }
 }

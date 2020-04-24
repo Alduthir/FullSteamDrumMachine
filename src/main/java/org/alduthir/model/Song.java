@@ -1,5 +1,10 @@
 package org.alduthir.model;
 
+/**
+ * Class Song
+ *
+ * A model for a Song database object
+ */
 public class Song {
 
     private int id;
