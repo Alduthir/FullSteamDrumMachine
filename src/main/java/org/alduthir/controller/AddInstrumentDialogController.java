@@ -48,28 +48,13 @@ public class AddInstrumentDialogController {
      */
     public void initialize(Measure measure) {
         this.measure = measure;
-        ObservableList<AddInstrumentOption> newOrReuseOptionCollection = FXCollections.observableArrayList();
-        newOrReuseOptionCollection.add(AddInstrumentOption.NEW);
-        newOrReuseOptionCollection.add(AddInstrumentOption.REUSE);
-        newOrReuseSelection.getItems().setAll(newOrReuseOptionCollection);
-        newOrReuseSelection.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
-            switch (newValue) {
-                case NEW:
-                    reuseBox.setVisible(false);
-                    newBox.setVisible(true);
-                    break;
-                case REUSE:
-                    newBox.setVisible(false);
-                    reuseBox.setVisible(true);
-                    break;
-            }
-        });
-        newOrReuseSelection.getSelectionModel().selectFirst();
+        instrumentManageService.initiallizeNewOrReuseComboBox(newOrReuseSelection, reuseBox, newBox);
         instrumentManageService.initializeReuseOptionCollection(measure, reuseComboBox);
         instrumentManageService.initializeInstrumentSpinner(noteSpinner);
 
         if (reuseComboBox.getItems().toArray().length == 0) {
             selectionBox.setVisible(false);
+            newBox.setVisible(true);
         }
     }
 

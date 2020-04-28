@@ -2,8 +2,12 @@ package org.alduthir.service;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.VBox;
+import org.alduthir.controller.AddInstrumentOption;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepository;
@@ -129,6 +133,34 @@ public class InstrumentManageService {
                 insturmentSpinner.increment();
             }
         });
+    }
+
+    /**
+     * Initialize the combobox with 2 options NEW or REUSE. Depending on which is selected the corresponding
+     * VBox will be hidden or shown.
+     */
+    public void initiallizeNewOrReuseComboBox(
+            JFXComboBox<AddInstrumentOption> newOrReuseSelection,
+            VBox reuseBox,
+            VBox newBox
+    ) {
+        ObservableList<AddInstrumentOption> newOrReuseOptionCollection = FXCollections.observableArrayList();
+        newOrReuseOptionCollection.add(AddInstrumentOption.NEW);
+        newOrReuseOptionCollection.add(AddInstrumentOption.REUSE);
+        newOrReuseSelection.getItems().setAll(newOrReuseOptionCollection);
+        newOrReuseSelection.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            switch (newValue) {
+                case NEW:
+                    reuseBox.setVisible(false);
+                    newBox.setVisible(true);
+                    break;
+                case REUSE:
+                    newBox.setVisible(false);
+                    reuseBox.setVisible(true);
+                    break;
+            }
+        });
+        newOrReuseSelection.getSelectionModel().selectFirst();
     }
 
     /**
