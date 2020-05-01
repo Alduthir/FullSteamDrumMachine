@@ -18,7 +18,7 @@ import org.alduthir.service.SongManageService;
 
 /**
  * Class SongController
- *
+ * <p>
  * The homescreen of the application. Manages controls for Songs.
  */
 public class SongController extends App implements Initializable {
@@ -34,6 +34,7 @@ public class SongController extends App implements Initializable {
 
     /**
      * Redirect to the Measure management screen for the selected Song.
+     *
      * @throws IOException if no resource can be loaded from gui/measureScreen.fxml.
      */
     @FXML
@@ -53,8 +54,9 @@ public class SongController extends App implements Initializable {
 
     /**
      * Implmentation of Initializable.
+     *
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     * @param rb  The resources used to localize the root object, or null if the root object was not localized.
      */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,11 +92,10 @@ public class SongController extends App implements Initializable {
     }
 
     /**
-     * ToDo (MUST HAVE)
      * Ask the songManageService to play the audio for the entire selected Song.
      */
     public void playAction() {
-        notYetImplemented();
+        songManageService.playSelectedSong(songList);
     }
 
     /**

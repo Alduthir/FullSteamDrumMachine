@@ -2,9 +2,11 @@ package org.alduthir.service;
 
 import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
+import org.alduthir.model.SongMeasure;
 import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
+import org.alduthir.repository.MeasureRepository;
 
 import javax.sound.midi.*;
 import java.sql.SQLException;
@@ -16,14 +18,16 @@ import java.sql.SQLException;
  */
 public class MidiPlayer {
     private Sequencer sequencer;
-    private InstrumentRepository repository;
+    private InstrumentRepository instrumentRepository;
+    private MeasureRepository measureRepository;
 
     /**
      * Create the InstrumentRepository from which we will be retrieving individual sounds.
      */
     public MidiPlayer() {
         try {
-            repository = new InstrumentRepository();
+            instrumentRepository = new InstrumentRepository();
+            measureRepository = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -47,12 +51,37 @@ public class MidiPlayer {
     }
 
     /**
-     * Play the entire audio track for a song.
-     * Todo (MUST HAVE)
+     * Play the entire audio for a song. Creating individual tracks for each measure.
      *
      * @param song The song to play.
      */
-    public void playSong(Song song) {
+    public void playSong(Song song) throws SQLException, MidiUnavailableException, InvalidMidiDataException {
+        stopPlayback();
+        sequencer = this.getSequencer();
+        sequencer.open();
+        ObservableList<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(song);
+        Sequence sequence = new Sequence(Sequence.PPQ, 4);
+        Track track = sequence.createTrack();
+
+        int totalTickCount = 0;
+        for (SongMeasure songMeasure : songMeasureCollection) {
+            Measure measure = songMeasure.getMeasure();
+            ObservableList<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
+            for (Instrument instrument : instrumentCollection) {
+                int tickPosition = totalTickCount;
+                for (char shouldPlayOnTick : instrument.getBeat().toCharArray()) {
+                    if (shouldPlayOnTick == '1') {
+                        createNoteOnOff(track, instrument.getMidiNumber(), tickPosition);
+                    }
+                    tickPosition++;
+                }
+            }
+            totalTickCount += (measure.getBeatUnit() * measure.getBeatsInMeasure());
+        }
+
+        sequencer.setSequence(sequence);
+        sequencer.setTempoInBPM((float) song.getBpm());
+        sequencer.start();
     }
 
     /**
@@ -76,7 +105,7 @@ public class MidiPlayer {
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
-        ObservableList<Instrument> instrumentCollection = repository.fetchForMeasure(measure);
+        ObservableList<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
 
         for (Instrument instrument : instrumentCollection) {
             int tickIndex = 0;

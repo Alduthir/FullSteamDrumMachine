@@ -5,6 +5,8 @@ import org.alduthir.model.Song;
 import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.repository.SongRepository;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class SongManageService {
 
     private SongRepository repository;
+    private MidiPlayer midiPlayer;
 
     /**
      * Create the repository responsible for database communication.
      */
     public SongManageService() {
+        midiPlayer = new MidiPlayer();
         try {
             repository = new SongRepository();
         } catch (SQLException | ClassNotFoundException e) {
@@ -78,6 +82,22 @@ public class SongManageService {
                 e.printStackTrace();
             }
             initializeSongList(songList);
+        }
+    }
+
+    /**
+     * Play the audio for every measure in the song sequentially.
+     * @param songList The songlist from which to play the current selection.
+     */
+    public void playSelectedSong(JFXListView<Song> songList)
+    {
+        Song selectedSong = songList.getSelectionModel().getSelectedItem();
+        if (selectedSong != null) {
+            try {
+                midiPlayer.playSong(selectedSong);
+            } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
