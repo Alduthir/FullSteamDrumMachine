@@ -1,8 +1,11 @@
 package org.alduthir.service;
 
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.ObservableList;
 import org.alduthir.model.Song;
 import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.model.SongMeasure;
+import org.alduthir.repository.MeasureRepository;
 import org.alduthir.repository.SongRepository;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -17,7 +20,8 @@ import java.util.Optional;
  */
 public class SongManageService {
 
-    private SongRepository repository;
+    private SongRepository songRepository;
+    private MeasureRepository measureRepository;
     private MidiPlayer midiPlayer;
 
     /**
@@ -26,7 +30,8 @@ public class SongManageService {
     public SongManageService() {
         midiPlayer = new MidiPlayer();
         try {
-            repository = new SongRepository();
+            songRepository = new SongRepository();
+            measureRepository = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -39,7 +44,7 @@ public class SongManageService {
      */
     public void initializeSongList(JFXListView<Song> songList) {
         try {
-            songList.getItems().setAll(repository.fetchAll());
+            songList.getItems().setAll(songRepository.fetchAll());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,7 +64,7 @@ public class SongManageService {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             try {
-                repository.createSong(result.get());
+                songRepository.createSong(result.get());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -77,7 +82,12 @@ public class SongManageService {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             try {
-                repository.deleteById(selectedSong.getId());
+                ObservableList<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(selectedSong);
+
+                for (SongMeasure songMeasure : songMeasureCollection) {
+                    measureRepository.removeFromSong(songMeasure);
+                }
+                songRepository.deleteById(selectedSong.getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -87,10 +97,10 @@ public class SongManageService {
 
     /**
      * Play the audio for every measure in the song sequentially.
+     *
      * @param songList The songlist from which to play the current selection.
      */
-    public void playSelectedSong(JFXListView<Song> songList)
-    {
+    public void playSelectedSong(JFXListView<Song> songList) {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             try {
