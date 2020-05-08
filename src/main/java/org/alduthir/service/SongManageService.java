@@ -6,7 +6,9 @@ import org.alduthir.model.Song;
 import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.repository.MeasureRepository;
+import org.alduthir.repository.MeasureRepositoryInterface;
 import org.alduthir.repository.SongRepository;
+import org.alduthir.repository.SongRepositoryInterface;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -18,20 +20,20 @@ import java.util.Optional;
  * <p>
  * A service layer class containing CRUD functionality for Songs.
  */
-public class SongManageService {
+public class SongManageService implements SongManageServiceInterface {
 
-    private SongRepository songRepository;
-    private MeasureRepository measureRepository;
-    private MidiPlayer midiPlayer;
+    private SongRepositoryInterface songRepositoryInterface;
+    private MeasureRepositoryInterface measureRepositoryInterface;
+    private MusicPlayerInterface musicPlayerInterface;
 
     /**
      * Create the repository responsible for database communication.
      */
     public SongManageService() {
-        midiPlayer = new MidiPlayer();
+        musicPlayerInterface = new MidiPlayer();
         try {
-            songRepository = new SongRepository();
-            measureRepository = new MeasureRepository();
+            songRepositoryInterface = new SongRepository();
+            measureRepositoryInterface = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -42,9 +44,10 @@ public class SongManageService {
      *
      * @param songList the list to be filled.
      */
+    @Override
     public void initializeSongList(JFXListView<Song> songList) {
         try {
-            songList.getItems().setAll(songRepository.fetchAll());
+            songList.getItems().setAll(songRepositoryInterface.fetchAll());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,6 +59,7 @@ public class SongManageService {
      *
      * @param songList The list to be reinitialised including the new song.
      */
+    @Override
     public void addSong(JFXListView<Song> songList) {
         var dialog = new StyledTextInputDialog();
         dialog.setTitle("Create new Song");
@@ -64,7 +68,7 @@ public class SongManageService {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             try {
-                songRepository.createSong(result.get());
+                songRepositoryInterface.createSong(result.get());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -78,16 +82,17 @@ public class SongManageService {
      *
      * @param songList Used to retrieve the selectedItem and to be reloaded.
      */
+    @Override
     public void deleteSong(JFXListView<Song> songList) {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             try {
-                ObservableList<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(selectedSong);
+                ObservableList<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(selectedSong);
 
                 for (SongMeasure songMeasure : songMeasureCollection) {
-                    measureRepository.removeFromSong(songMeasure);
+                    measureRepositoryInterface.removeFromSong(songMeasure);
                 }
-                songRepository.deleteById(selectedSong.getId());
+                songRepositoryInterface.deleteById(selectedSong.getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -100,11 +105,12 @@ public class SongManageService {
      *
      * @param songList The songlist from which to play the current selection.
      */
+    @Override
     public void playSelectedSong(JFXListView<Song> songList) {
         Song selectedSong = songList.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             try {
-                midiPlayer.playSong(selectedSong);
+                musicPlayerInterface.playSong(selectedSong);
             } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
                 e.printStackTrace();
             }

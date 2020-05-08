@@ -12,7 +12,7 @@ import java.sql.*;
  * <p>
  * A database repository class containing query functions for interacting with Songs.
  */
-public class SongRepository extends DatabaseInteractionService<Song> {
+public class SongRepository extends DatabaseInteractionService<Song> implements SongRepositoryInterface {
     /**
      * Call the super constructor attempting to establish a database connection.
      *
@@ -84,6 +84,7 @@ public class SongRepository extends DatabaseInteractionService<Song> {
      * @param songName The given name for the new Song.
      * @throws SQLException If the query throws an exception.
      */
+    @Override
     public void createSong(String songName) throws SQLException {
         String sql = "INSERT INTO Song(name, bpm) VALUES(:name, 75)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -97,6 +98,7 @@ public class SongRepository extends DatabaseInteractionService<Song> {
      * @param song The song to update.
      * @throws SQLException If the query throws an exception.
      */
+    @Override
     public void updateBpm(Song song) throws SQLException {
         String sql = "UPDATE Song SET bpm = :bpm WHERE songId = :songId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

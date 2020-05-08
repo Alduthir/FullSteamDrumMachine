@@ -6,7 +6,9 @@ import org.alduthir.model.SongMeasure;
 import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
+import org.alduthir.repository.InstrumentRepositoryInterface;
 import org.alduthir.repository.MeasureRepository;
+import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.*;
 import java.sql.SQLException;
@@ -16,38 +18,21 @@ import java.sql.SQLException;
  * <p>
  * A service for playing Sounds using the javax MidiSystem.
  */
-public class MidiPlayer {
+public class MidiPlayer implements MusicPlayerInterface {
     private Sequencer sequencer;
-    private InstrumentRepository instrumentRepository;
-    private MeasureRepository measureRepository;
+    private InstrumentRepositoryInterface instrumentRepositoryInterface;
+    private MeasureRepositoryInterface measureRepositoryInterface;
 
     /**
      * Create the InstrumentRepository from which we will be retrieving individual sounds.
      */
     public MidiPlayer() {
         try {
-            instrumentRepository = new InstrumentRepository();
-            measureRepository = new MeasureRepository();
+            instrumentRepositoryInterface = new InstrumentRepository();
+            measureRepositoryInterface = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Retrieve the sequencer from the MidiSystem
-     *
-     * @return the default sequencer, connected to a default Receiver
-     */
-    public Sequencer getSequencer() {
-        if (sequencer == null) {
-            try {
-                sequencer = MidiSystem.getSequencer();
-            } catch (MidiUnavailableException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return sequencer;
     }
 
     /**
@@ -55,18 +40,19 @@ public class MidiPlayer {
      *
      * @param song The song to play.
      */
+    @Override
     public void playSong(Song song) throws SQLException, MidiUnavailableException, InvalidMidiDataException {
         stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
-        ObservableList<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(song);
+        ObservableList<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
         int totalTickCount = 0;
         for (SongMeasure songMeasure : songMeasureCollection) {
             Measure measure = songMeasure.getMeasure();
-            ObservableList<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
+            ObservableList<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
             for (Instrument instrument : instrumentCollection) {
                 int tickPosition = totalTickCount;
                 for (char shouldPlayOnTick : instrument.getBeat().toCharArray()) {
@@ -95,6 +81,7 @@ public class MidiPlayer {
      *                                  cannot be opened or created because it is unavailable.
      * @throws SQLException             If the instrumentCollection cannot be retrieved.
      */
+    @Override
     public void playMeasure(
             int bpm,
             Measure measure
@@ -105,7 +92,7 @@ public class MidiPlayer {
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
-        ObservableList<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
+        ObservableList<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
 
         for (Instrument instrument : instrumentCollection) {
             int tickIndex = 0;
@@ -123,15 +110,6 @@ public class MidiPlayer {
     }
 
     /**
-     * Stop playing audio.
-     */
-    public void stopPlayback() {
-        if (getSequencer().isRunning()) {
-            getSequencer().stop();
-        }
-    }
-
-    /**
      * Play a single note corresponding to the given value in the midi channel.
      *
      * @param value The key for which to play the sound in the midi channel.
@@ -140,6 +118,7 @@ public class MidiPlayer {
      * @throws MidiUnavailableException is thrown when a requested MIDI component
      *                                  cannot be opened or created because it is unavailable.
      */
+    @Override
     public void playNote(Integer value) throws InvalidMidiDataException, MidiUnavailableException {
         stopPlayback();
         sequencer = this.getSequencer();
@@ -151,6 +130,15 @@ public class MidiPlayer {
 
         sequencer.setSequence(sequence);
         sequencer.start();
+    }
+
+    /**
+     * Stop playing audio.
+     */
+    private void stopPlayback() {
+        if (getSequencer().isRunning()) {
+            getSequencer().stop();
+        }
     }
 
     /**
@@ -185,5 +173,22 @@ public class MidiPlayer {
             e.printStackTrace();
         }
         return event;
+    }
+
+    /**
+     * Retrieve the sequencer from the MidiSystem
+     *
+     * @return the default sequencer, connected to a default Receiver
+     */
+    private Sequencer getSequencer() {
+        if (sequencer == null) {
+            try {
+                sequencer = MidiSystem.getSequencer();
+            } catch (MidiUnavailableException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return sequencer;
     }
 }

@@ -16,12 +16,9 @@ import org.alduthir.component.factory.InstrumentCellFactory;
 import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
-import org.alduthir.service.MidiPlayer;
+import org.alduthir.service.InstrumentManageServiceInterface;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Class BeatController
@@ -29,8 +26,7 @@ import java.sql.SQLException;
  * Controls GUI elements pertaining to managing beats in a Measure.
  */
 public class BeatController extends App implements InstrumentActionListener {
-    private final InstrumentManageService instrumentManageService;
-    private final MidiPlayer midiPlayer;
+    private final InstrumentManageServiceInterface instrumentManageServiceInterface;
 
     @FXML
     public JFXListView<Instrument> beatList;
@@ -42,8 +38,7 @@ public class BeatController extends App implements InstrumentActionListener {
      * Create necessary service layer dependencies on construction.
      */
     public BeatController() {
-        this.instrumentManageService = new InstrumentManageService();
-        this.midiPlayer = new MidiPlayer();
+        this.instrumentManageServiceInterface = new InstrumentManageService();
     }
 
     /**
@@ -57,7 +52,7 @@ public class BeatController extends App implements InstrumentActionListener {
         this.measure = measure;
 
         beatList.setCellFactory(new InstrumentCellFactory(this));
-        instrumentManageService.initializeInstrumentCollection(measure, beatList);
+        instrumentManageServiceInterface.initializeInstrumentCollection(measure, beatList);
     }
 
     /**
@@ -96,18 +91,14 @@ public class BeatController extends App implements InstrumentActionListener {
         dialog.showAndWait();
 
 
-        instrumentManageService.initializeInstrumentCollection(measure, beatList);
+        instrumentManageServiceInterface.initializeInstrumentCollection(measure, beatList);
     }
 
     /**
      * Preview the current Measure.
      */
     public void playAction() {
-        try {
-            midiPlayer.playMeasure(song.getBpm(), measure);
-        } catch (InvalidMidiDataException | MidiUnavailableException | SQLException e) {
-            e.printStackTrace();
-        }
+        instrumentManageServiceInterface.playMeasure(measure, song.getBpm());
     }
 
     /**
@@ -117,7 +108,7 @@ public class BeatController extends App implements InstrumentActionListener {
      */
     @Override
     public void removeAction(Instrument instrument) {
-        instrumentManageService.removeInstrument(measure, instrument, beatList);
+        instrumentManageServiceInterface.removeInstrument(measure, instrument, beatList);
     }
 
     /**
@@ -130,6 +121,6 @@ public class BeatController extends App implements InstrumentActionListener {
      */
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
-        instrumentManageService.updateBeat(measure, instrument, beatNotes);
+        instrumentManageServiceInterface.updateBeat(measure, instrument, beatNotes);
     }
 }

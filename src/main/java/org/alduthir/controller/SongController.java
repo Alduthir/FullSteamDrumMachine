@@ -15,6 +15,7 @@ import org.alduthir.App;
 import org.alduthir.model.Song;
 import org.alduthir.component.factory.SongCellFactory;
 import org.alduthir.service.SongManageService;
+import org.alduthir.service.SongManageServiceInterface;
 
 /**
  * Class SongController
@@ -23,13 +24,13 @@ import org.alduthir.service.SongManageService;
  */
 public class SongController extends App implements Initializable {
 
-    private final SongManageService songManageService;
+    private final SongManageServiceInterface songManageServiceInterface;
 
     @FXML
     public JFXListView<Song> songList;
 
     public SongController() {
-        this.songManageService = new SongManageService();
+        this.songManageServiceInterface = new SongManageService();
     }
 
     /**
@@ -60,7 +61,7 @@ public class SongController extends App implements Initializable {
      */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        songManageService.initializeSongList(songList);
+        songManageServiceInterface.initializeSongList(songList);
 
         songList.setCellFactory(new SongCellFactory());
         songList.setOnMouseClicked(e -> {
@@ -81,21 +82,21 @@ public class SongController extends App implements Initializable {
      * Ask the songManageService to create a dialog for creating a new Song, and add it to the list.
      */
     public void addAction() {
-        songManageService.addSong(songList);
+        songManageServiceInterface.addSong(songList);
     }
 
     /**
      * Ask the songManageService to delete a Song and remove it from the list.
      */
     public void deleteAction() {
-        songManageService.deleteSong(songList);
+        songManageServiceInterface.deleteSong(songList);
     }
 
     /**
      * Ask the songManageService to play the audio for the entire selected Song.
      */
     public void playAction() {
-        songManageService.playSelectedSong(songList);
+        songManageServiceInterface.playSelectedSong(songList);
     }
 
     /**

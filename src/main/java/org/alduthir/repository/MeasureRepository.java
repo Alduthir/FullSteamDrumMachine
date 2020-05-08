@@ -16,7 +16,7 @@ import java.sql.Statement;
  * <p>
  * A database repository class containing query functions for interacting with Measures.
  */
-public class MeasureRepository extends DatabaseInteractionService<Measure> {
+public class MeasureRepository extends DatabaseInteractionService<Measure> implements MeasureRepositoryInterface {
     /**
      * Call the super constructor attempting to establish a database connection.
      *
@@ -91,6 +91,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> {
      * @return The newly inserted measure including it's Id.
      * @throws SQLException If the query throws an exception.
      */
+    @Override
     public Measure createMeasure(Measure measure) throws SQLException {
         String sql = "INSERT INTO Measure(name, beatUnit, beatsInMeasure) VALUES(:name, :beatUnit, :beatsInMeasure)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -114,6 +115,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> {
      * @return A hydrated list of SongMeasures containing both hydrated Song and Measure objects.
      * @throws SQLException If the query raises an exception.
      */
+    @Override
     public ObservableList<SongMeasure> fetchForSong(Song song) throws SQLException {
         ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
 
@@ -142,6 +144,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> {
      * @param sequence The position of this new Measure in the song's order.
      * @throws SQLException If the query raises an exception.
      */
+    @Override
     public void addToSong(Measure measure, Song song, int sequence) throws SQLException {
         String sql = "INSERT INTO SongMeasure(songId, measureId, sequence) VALUES(:songId, :measureId, :sequence)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -159,20 +162,12 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> {
      * @param songMeasure The songMeasure to be removed.
      * @throws SQLException If the query raises an Exception.
      */
+    @Override
     public void removeFromSong(SongMeasure songMeasure) throws SQLException {
         String sql = "DELETE FROM SongMeasure WHERE songMeasureId = :songMeasureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
         stmt.setInt("songMeasureId", songMeasure.getSongMeasureId());
         stmt.executeUpdate();
         stmt.close();
-    }
-
-    /**
-     * Update All SongMeasures based on their index in the collection.
-     * ToDo (COULD HAVE)
-     *
-     * @param songMeasureCollection a list of SongMeasures organised in the UI.
-     */
-    public void updateSequence(ObservableList<SongMeasure> songMeasureCollection) {
     }
 }

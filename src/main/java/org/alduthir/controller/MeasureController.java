@@ -16,6 +16,7 @@ import org.alduthir.model.SongMeasure;
 import org.alduthir.component.factory.MeasureCellFactory;
 import org.alduthir.model.Song;
 import org.alduthir.service.MeasureManageService;
+import org.alduthir.service.MeasureManageServiceInterface;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ import java.io.IOException;
  * or previewing these Measures.
  */
 public class MeasureController extends App {
-    private final MeasureManageService measureManageService;
+    private final MeasureManageServiceInterface measureManageServiceInterface;
     private final BpmSpinner bpmSpinner;
 
     @FXML
@@ -39,7 +40,7 @@ public class MeasureController extends App {
      * Create necessary service layer dependencies on construction.
      */
     public MeasureController() {
-        this.measureManageService = new MeasureManageService();
+        this.measureManageServiceInterface = new MeasureManageService();
         this.bpmSpinner = new BpmSpinner();
     }
 
@@ -51,7 +52,7 @@ public class MeasureController extends App {
      */
     public void initialize(Song song) {
         this.song = song;
-        measureManageService.initializeMeasureList(song, measureList);
+        measureManageServiceInterface.initializeMeasureList(song, measureList);
         bpmSpinner.initializeBpmSpinner(song, spinner);
 
         measureList.setCellFactory(new MeasureCellFactory());
@@ -113,21 +114,21 @@ public class MeasureController extends App {
      * Ask the ManageService to play the audio for the currently selected measure.
      */
     public void playAction() {
-        measureManageService.playSelectedMeasure(song, measureList);
+        measureManageServiceInterface.playSelectedSongMeasure(song, measureList);
     }
 
     /**
      * Ask the ManageService to open a dialog for creating a new measure and Add it to the song.
      */
     public void addAction() {
-        measureManageService.addMeasure(song, measureList);
+        measureManageServiceInterface.addMeasure(song, measureList);
     }
 
     /**
      * Ask the mManageService to remove a Measure from the Song.
      */
     public void deleteAction() {
-        measureManageService.deleteMeasure(song, measureList);
+        measureManageServiceInterface.deleteMeasure(song, measureList);
     }
 
     /**
@@ -147,7 +148,7 @@ public class MeasureController extends App {
         dialog.setTitle("Reuse measure");
         dialog.showAndWait();
 
-        measureManageService.initializeMeasureList(song, measureList);
+        measureManageServiceInterface.initializeMeasureList(song, measureList);
     }
 
     /**

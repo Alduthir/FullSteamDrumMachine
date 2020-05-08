@@ -3,6 +3,12 @@ package org.alduthir.component;
 import javafx.scene.control.ListCell;
 import org.alduthir.model.SongMeasure;
 
+/**
+ * Class MeasureCell
+ *
+ * A viewcomponent used to show a SongMeasure in a Listview.
+ * Any listItem for such a cell displays the name of the Measure.
+ */
 public class MeasureCell extends ListCell<SongMeasure> {
     /**
      * @inheritDoc

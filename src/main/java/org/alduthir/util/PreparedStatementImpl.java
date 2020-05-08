@@ -23,7 +23,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-class PreparedStatementImpl implements PreparedStatement {
+public class PreparedStatementImpl implements PreparedStatement {
 
     private final PreparedStatement preparedStatement;
 

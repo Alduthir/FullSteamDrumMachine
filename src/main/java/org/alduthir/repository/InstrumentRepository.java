@@ -15,7 +15,7 @@ import java.sql.Statement;
  * <p>
  * A database repository class containing query functions for interacting with Instruments.
  */
-public class InstrumentRepository extends DatabaseInteractionService<Instrument> {
+public class InstrumentRepository extends DatabaseInteractionService<Instrument> implements InstrumentRepositoryInterface {
 
     /**
      * Call the super constructor attempting to establish a database connection.
@@ -91,6 +91,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @return The newly inserted Instrument
      * @throws SQLException If the query throws an exception.
      */
+    @Override
     public Instrument createInstrument(String name, int midiNumber) throws SQLException {
         String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -113,6 +114,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @return An ObservableList of hydrated InstrumentObjects including their beat within the current measure.
      * @throws SQLException if the query throws an Exception.
      */
+    @Override
     public ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
@@ -141,6 +143,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @return A hydrated list of Instruments.
      * @throws SQLException if the query throws an exception.
      */
+    @Override
     public ObservableList<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
         ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
 
@@ -168,6 +171,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @param measure    The measure to which the instrument must be added.
      * @throws SQLException if the query throws an exception.
      */
+    @Override
     public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
         String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -184,6 +188,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @param encodedBeat A 16 character string containing 0's and 1's.
      * @throws SQLException if the query throws an exception
      */
+    @Override
     public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws SQLException {
         String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -200,6 +205,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @param instrument The instrument to be removed. It is not deleted, only decoupled from the measure.
      * @throws SQLException if the query throws an Exception.
      */
+    @Override
     public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {
         String sql = "DELETE FROM MeasureInstrument WHERE measureId = :measureId AND instrumentId = :instrumentId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

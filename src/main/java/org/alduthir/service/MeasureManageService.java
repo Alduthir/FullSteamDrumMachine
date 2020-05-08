@@ -8,6 +8,7 @@ import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
 import org.alduthir.repository.MeasureRepository;
 import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -19,15 +20,15 @@ import java.util.Optional;
  * <p>
  * A service layer class containing CRUD functionality for Measures.
  */
-public class MeasureManageService {
-    private MeasureRepository repository;
-    private final MidiPlayer midiPlayer;
+public class MeasureManageService implements MeasureManageServiceInterface {
+    private MeasureRepositoryInterface repository;
+    private final MusicPlayerInterface musicPlayerInterface;
 
     /**
      * Create dependencies for MidiPlayer and the database interaction repository.
      */
     public MeasureManageService() {
-        midiPlayer = new MidiPlayer();
+        musicPlayerInterface = new MidiPlayer();
         try {
             repository = new MeasureRepository();
         } catch (SQLException | ClassNotFoundException e) {
@@ -41,6 +42,7 @@ public class MeasureManageService {
      * @param song        The Song for which to retrieve all SongMeasures.
      * @param measureList the list to which the retrieved models should be added.
      */
+    @Override
     public void initializeMeasureList(Song song, JFXListView<SongMeasure> measureList) {
         try {
             measureList.getItems().setAll(repository.fetchForSong(song));
@@ -55,6 +57,7 @@ public class MeasureManageService {
      * @param song        The song for which the measureList must be reinitialised.
      * @param measureList The list from which the selectedItem will be deleted. And that will be reinitialised.
      */
+    @Override
     public void deleteMeasure(Song song, JFXListView<SongMeasure> measureList) {
         SongMeasure selectedItem = measureList.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -74,6 +77,7 @@ public class MeasureManageService {
      * @param song        The song to which the new measure will be added.
      * @param measureList The list to be reloaded after the new measure is added.
      */
+    @Override
     public void addMeasure(Song song, JFXListView<SongMeasure> measureList) {
         TextInputDialog textInputDialog = new StyledTextInputDialog();
         textInputDialog.setTitle("Create new Measure");
@@ -99,15 +103,27 @@ public class MeasureManageService {
      * @param song        Used to retrieve the bpm at which the measure should be played.
      * @param measureList The list from which the selected Measure is played.
      */
-    public void playSelectedMeasure(Song song, JFXListView<SongMeasure> measureList) {
+    @Override
+    public void playSelectedSongMeasure(Song song, JFXListView<SongMeasure> measureList) {
         SongMeasure songMeasure = measureList.getSelectionModel().getSelectedItem();
 
         if (songMeasure != null) {
-            try {
-                midiPlayer.playMeasure(song.getBpm(), songMeasure.getMeasure());
-            } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
-                e.printStackTrace();
-            }
+            playMeasure(songMeasure.getMeasure(), song.getBpm());
+        }
+    }
+
+    /**
+     * Play an individual measure.
+     *
+     * @param measure The measure containing multiple instruments to be played
+     * @param bpm     The speed at which the measure should be played.
+     */
+    @Override
+    public void playMeasure(Measure measure, int bpm) {
+        try {
+            musicPlayerInterface.playMeasure(bpm, measure);
+        } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -116,6 +132,7 @@ public class MeasureManageService {
      *
      * @return An ObservableList of Measure models.
      */
+    @Override
     public ObservableList<Measure> fetchAll() {
         try {
             return repository.fetchAll();
@@ -132,6 +149,7 @@ public class MeasureManageService {
      * @param measure  The Measure to be added.
      * @param sequence The position of the new Measure in the Song's order of Measures.
      */
+    @Override
     public void addToSong(Song song, Measure measure, int sequence) {
         try {
             repository.addToSong(measure, song, sequence);

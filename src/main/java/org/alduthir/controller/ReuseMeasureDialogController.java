@@ -9,11 +9,7 @@ import javafx.stage.Stage;
 import org.alduthir.model.Measure;
 import org.alduthir.service.MeasureManageService;
 import org.alduthir.model.Song;
-import org.alduthir.service.MidiPlayer;
-
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
-import java.sql.SQLException;
+import org.alduthir.service.MeasureManageServiceInterface;
 
 /**
  * Class ReuseMeasureDialogController
@@ -21,8 +17,7 @@ import java.sql.SQLException;
  * A dialog for reusing an existing Measure and adding it to the given Song.
  */
 public class ReuseMeasureDialogController {
-    private final MeasureManageService measureManageService;
-    private final MidiPlayer midiPlayer;
+    private final MeasureManageServiceInterface measureManageServiceInterface;
 
     @FXML
     public JFXComboBox<Measure> measureComboBox;
@@ -34,8 +29,7 @@ public class ReuseMeasureDialogController {
      * Create necessary Service level dependencies on construction.
      */
     public ReuseMeasureDialogController() {
-        measureManageService = new MeasureManageService();
-        midiPlayer = new MidiPlayer();
+        measureManageServiceInterface = new MeasureManageService();
     }
 
     /**
@@ -48,7 +42,7 @@ public class ReuseMeasureDialogController {
         this.song = song;
         this.sequence = sequence;
 
-        ObservableList<Measure> measureObservableList = measureManageService.fetchAll();
+        ObservableList<Measure> measureObservableList = measureManageServiceInterface.fetchAll();
         measureComboBox.getItems().setAll(measureObservableList);
         measureComboBox.getSelectionModel().selectFirst();
     }
@@ -70,11 +64,7 @@ public class ReuseMeasureDialogController {
     public void previewMeasure() {
         Measure selectedMeasure = measureComboBox.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
-            try {
-                midiPlayer.playMeasure(song.getBpm(), selectedMeasure);
-            } catch (InvalidMidiDataException | MidiUnavailableException | SQLException e) {
-                e.printStackTrace();
-            }
+            measureManageServiceInterface.playMeasure(selectedMeasure, song.getBpm());
         }
     }
 
@@ -86,7 +76,7 @@ public class ReuseMeasureDialogController {
     public void saveReuse(ActionEvent actionEvent) {
         Measure selectedMeasure = measureComboBox.getSelectionModel().getSelectedItem();
         if (selectedMeasure != null) {
-            measureManageService.addToSong(song, selectedMeasure, sequence);
+            measureManageServiceInterface.addToSong(song, selectedMeasure, sequence);
         }
         closeStage(actionEvent);
     }

@@ -4,14 +4,21 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import org.alduthir.model.Song;
 import org.alduthir.repository.SongRepository;
+import org.alduthir.repository.SongRepositoryInterface;
 
 import java.sql.SQLException;
 
-public class BpmSpinner {
+/**
+ * Class BpmSpinner
+ *
+ * A viewcomponent for a Spinner element containing an integer. This implementation is used to set the BPM of a song,
+ * and automatically update it in the database.
+ */
+public class BpmSpinner extends Spinner<Integer> {
     public static final int MIN_BPM = 20;
     public static final int MAX_BPM = 250;
 
-    private SongRepository repository;
+    private SongRepositoryInterface repository;
 
     /**
      * The constructor retrieves the repository. Exceptions may occur while creating the repository if no connection
