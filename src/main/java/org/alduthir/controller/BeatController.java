@@ -26,7 +26,7 @@ import java.io.IOException;
  * Controls GUI elements pertaining to managing beats in a Measure.
  */
 public class BeatController extends App implements InstrumentActionListener {
-    private final InstrumentManageServiceInterface instrumentManageServiceInterface;
+    private InstrumentManageServiceInterface instrumentManageServiceInterface;
 
     @FXML
     public JFXListView<Instrument> beatList;
@@ -35,10 +35,13 @@ public class BeatController extends App implements InstrumentActionListener {
     private Measure measure;
 
     /**
-     * Create necessary service layer dependencies on construction.
+     * Create service level dependencies on construction;
      */
     public BeatController() {
-        this.instrumentManageServiceInterface = new InstrumentManageService();
+        this.instrumentManageServiceInterface = new InstrumentManageService(
+                instrumentRepositoryInterface,
+                measureRepositoryInterface
+        );
     }
 
     /**

@@ -40,7 +40,10 @@ public class MeasureController extends App {
      * Create necessary service layer dependencies on construction.
      */
     public MeasureController() {
-        this.measureManageServiceInterface = new MeasureManageService();
+        this.measureManageServiceInterface = new MeasureManageService(
+                instrumentRepositoryInterface,
+                measureRepositoryInterface
+        );
         this.bpmSpinner = new BpmSpinner();
     }
 

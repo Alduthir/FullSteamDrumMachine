@@ -10,8 +10,8 @@ import javafx.scene.layout.VBox;
 import org.alduthir.controller.AddInstrumentOption;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
-import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.repository.InstrumentRepositoryInterface;
+import org.alduthir.repository.MeasureRepositoryInterface;
 import org.alduthir.util.NoSelectionModel;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -25,19 +25,18 @@ import java.sql.SQLException;
  */
 public class InstrumentManageService implements InstrumentManageServiceInterface {
     private MusicPlayerInterface musicPlayerInterface;
-    private InstrumentRepositoryInterface repository;
+    private InstrumentRepositoryInterface instrumentRepositoryInterface;
 
     /**
      * Attempt to construct the manageService with a repository. If no databaseConnection can be established or the
      * jdbc Driver cannot be found, an exception is thrown.
      */
-    public InstrumentManageService() {
-        try {
-            repository = new InstrumentRepository();
-            musicPlayerInterface = new MidiPlayer();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public InstrumentManageService(
+            InstrumentRepositoryInterface instrumentRepositoryInterface,
+            MeasureRepositoryInterface measureRepositoryInterface
+    ) {
+        this.instrumentRepositoryInterface = instrumentRepositoryInterface;
+        musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
     }
 
     /**
@@ -49,10 +48,11 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void initializeInstrumentCollection(Measure measure, JFXListView<Instrument> beatList) {
         try {
-            beatList.getItems().setAll(repository.fetchForMeasure(measure));
+            beatList.getItems().setAll(instrumentRepositoryInterface.fetchForMeasure(measure));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         // Initialised with NoSelectionModel because selection logic would break the complex InstrumentCell UI.
         beatList.setSelectionModel(new NoSelectionModel<>());
     }
@@ -66,7 +66,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void initializeReuseOptionCollection(Measure measure, JFXComboBox<Instrument> reuseComboBox) {
         try {
-            reuseComboBox.getItems().setAll(repository.fetchReuseOptionCollection(measure));
+            reuseComboBox.getItems().setAll(instrumentRepositoryInterface.fetchReuseOptionCollection(measure));
             reuseComboBox.getSelectionModel().selectFirst();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void removeInstrument(Measure measure, Instrument instrument, JFXListView<Instrument> beatList) {
         try {
-            repository.removeFromMeasure(measure, instrument);
+            instrumentRepositoryInterface.removeFromMeasure(measure, instrument);
             initializeInstrumentCollection(measure, beatList);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,8 +101,8 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void saveNewInstrument(String name, int midiNumber, Measure measure) {
         try {
-            Instrument instrument = repository.createInstrument(name, midiNumber);
-            repository.addToMeasure(instrument, measure);
+            Instrument instrument = instrumentRepositoryInterface.createInstrument(name, midiNumber);
+            instrumentRepositoryInterface.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void reuseInstrument(Instrument instrument, Measure measure) {
         try {
-            repository.addToMeasure(instrument, measure);
+            instrumentRepositoryInterface.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -181,7 +181,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void updateBeat(Measure measure, Instrument instrument, String beatNotes) {
         try {
-            repository.updateBeat(measure, instrument, beatNotes);
+            instrumentRepositoryInterface.updateBeat(measure, instrument, beatNotes);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,8 @@
+open module org.alduthir {
+    requires java.logging;
+    requires java.sql;
+    exports org.alduthir;
+
+    requires org.mockito;
+    requires org.junit.jupiter.api;
+}

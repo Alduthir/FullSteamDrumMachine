@@ -3,11 +3,9 @@ package org.alduthir.service;
 import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.SongMeasure;
-import org.alduthir.repository.InstrumentRepository;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
 import org.alduthir.repository.InstrumentRepositoryInterface;
-import org.alduthir.repository.MeasureRepository;
 import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.*;
@@ -24,15 +22,15 @@ public class MidiPlayer implements MusicPlayerInterface {
     private MeasureRepositoryInterface measureRepositoryInterface;
 
     /**
-     * Create the InstrumentRepository from which we will be retrieving individual sounds.
+     * Constructor for MidiPlayer
      */
-    public MidiPlayer() {
-        try {
-            instrumentRepositoryInterface = new InstrumentRepository();
-            measureRepositoryInterface = new MeasureRepository();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public MidiPlayer(
+            InstrumentRepositoryInterface instrumentRepositoryInterface,
+            MeasureRepositoryInterface measureRepositoryInterface
+    ) {
+        this.instrumentRepositoryInterface = instrumentRepositoryInterface;
+        this.measureRepositoryInterface = measureRepositoryInterface;
+        this.getSequencer();
     }
 
     /**

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.alduthir.App;
 import org.alduthir.model.Instrument;
 import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
@@ -19,8 +20,8 @@ import org.alduthir.service.InstrumentManageServiceInterface;
  * <p>
  * Contains and controls GUI elements pertaining to adding a new or existing Instrument to a Measure.
  */
-public class AddInstrumentDialogController {
-    private final InstrumentManageServiceInterface instrumentManageServiceInterface;
+public class AddInstrumentDialogController extends App {
+    private InstrumentManageServiceInterface instrumentManageServiceInterface;
 
     @FXML
     public JFXComboBox<AddInstrumentOption> newOrReuseSelection;
@@ -34,10 +35,13 @@ public class AddInstrumentDialogController {
     private Measure measure;
 
     /**
-     * Create the necessary service level dependencies on construction.
+     * Create service level dependency on construction.
      */
     public AddInstrumentDialogController() {
-        instrumentManageServiceInterface = new InstrumentManageService();
+        this.instrumentManageServiceInterface = new InstrumentManageService(
+                instrumentRepositoryInterface,
+                measureRepositoryInterface
+        );
     }
 
     /**
@@ -45,7 +49,10 @@ public class AddInstrumentDialogController {
      *
      * @param measure the Measure is required because that is what we will add the Instrument to.
      */
-    public void initialize(Measure measure) {
+    public void initialize(
+            Measure measure
+    ) {
+
         this.measure = measure;
         instrumentManageServiceInterface.initiallizeNewOrReuseComboBox(newOrReuseSelection, reuseBox, newBox);
         instrumentManageServiceInterface.initializeReuseOptionCollection(measure, reuseComboBox);

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import org.alduthir.App;
 import org.alduthir.model.Measure;
 import org.alduthir.service.MeasureManageService;
 import org.alduthir.model.Song;
@@ -16,7 +17,7 @@ import org.alduthir.service.MeasureManageServiceInterface;
  * <p>
  * A dialog for reusing an existing Measure and adding it to the given Song.
  */
-public class ReuseMeasureDialogController {
+public class ReuseMeasureDialogController extends App {
     private final MeasureManageServiceInterface measureManageServiceInterface;
 
     @FXML
@@ -29,7 +30,10 @@ public class ReuseMeasureDialogController {
      * Create necessary Service level dependencies on construction.
      */
     public ReuseMeasureDialogController() {
-        measureManageServiceInterface = new MeasureManageService();
+        measureManageServiceInterface = new MeasureManageService(
+                instrumentRepositoryInterface,
+                measureRepositoryInterface
+        );
     }
 
     /**

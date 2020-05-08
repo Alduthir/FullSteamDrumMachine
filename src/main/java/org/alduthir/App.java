@@ -6,24 +6,41 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.alduthir.repository.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
+    protected static InstrumentRepositoryInterface instrumentRepositoryInterface;
+    protected static MeasureRepositoryInterface measureRepositoryInterface;
+    protected static SongRepositoryInterface songRepositoryInterface;
 
     /**
      * The starting point for launching the application. Calls javafx.application.Application.launch();
+     *
      * @param args command-line arguments for launching the application.
      */
     public static void main(String[] args) {
+        try {
+            songRepositoryInterface = new SongRepository();
+            measureRepositoryInterface = new MeasureRepository();
+            instrumentRepositoryInterface = new InstrumentRepository();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         launch();
     }
 
     /**
-     * On a succesfull launch, start the application on the Song screen.
+     * On a succesfull launch, start the application on the Song screen. If no database connection can be established
+     * the application will exit;
+     *
      * @param stage The window in which the application is displayed.
      * @throws IOException if no resource can be loaded for gui/songScreen.fxml.
      */

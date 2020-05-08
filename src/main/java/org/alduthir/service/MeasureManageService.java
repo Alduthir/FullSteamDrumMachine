@@ -6,6 +6,7 @@ import javafx.scene.control.TextInputDialog;
 import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
+import org.alduthir.repository.InstrumentRepositoryInterface;
 import org.alduthir.repository.MeasureRepository;
 import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.repository.MeasureRepositoryInterface;
@@ -21,19 +22,18 @@ import java.util.Optional;
  * A service layer class containing CRUD functionality for Measures.
  */
 public class MeasureManageService implements MeasureManageServiceInterface {
-    private MeasureRepositoryInterface repository;
+    private MeasureRepositoryInterface measureRepositoryInterface;
     private final MusicPlayerInterface musicPlayerInterface;
 
     /**
-     * Create dependencies for MidiPlayer and the database interaction repository.
+     * Constructor for MeasureManageService
      */
-    public MeasureManageService() {
-        musicPlayerInterface = new MidiPlayer();
-        try {
-            repository = new MeasureRepository();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public MeasureManageService(
+            InstrumentRepositoryInterface instrumentRepositoryInterface,
+            MeasureRepositoryInterface measureRepositoryInterface
+            ) {
+        this.musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+        this.measureRepositoryInterface = measureRepositoryInterface;
     }
 
     /**
@@ -45,7 +45,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void initializeMeasureList(Song song, JFXListView<SongMeasure> measureList) {
         try {
-            measureList.getItems().setAll(repository.fetchForSong(song));
+            measureList.getItems().setAll(measureRepositoryInterface.fetchForSong(song));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
         SongMeasure selectedItem = measureList.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             try {
-                repository.removeFromSong(selectedItem);
+                measureRepositoryInterface.removeFromSong(selectedItem);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -87,8 +87,8 @@ public class MeasureManageService implements MeasureManageServiceInterface {
         if (result.isPresent()) {
             Measure measure = new Measure(result.get());
             try {
-                measure = repository.createMeasure(measure);
-                repository.addToSong(measure, song, measureList.getItems().size());
+                measure = measureRepositoryInterface.createMeasure(measure);
+                measureRepositoryInterface.addToSong(measure, song, measureList.getItems().size());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -135,7 +135,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public ObservableList<Measure> fetchAll() {
         try {
-            return repository.fetchAll();
+            return measureRepositoryInterface.fetchAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -152,7 +152,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void addToSong(Song song, Measure measure, int sequence) {
         try {
-            repository.addToSong(measure, song, sequence);
+            measureRepositoryInterface.addToSong(measure, song, sequence);
         } catch (SQLException e) {
             e.printStackTrace();
         }

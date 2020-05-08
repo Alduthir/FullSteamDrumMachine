@@ -12,13 +12,11 @@ module org.alduthir {
     requires java.desktop;
 
     exports org.alduthir;
-    exports org.alduthir.controller;
-    exports org.alduthir.component;
-    exports org.alduthir.listener;
-    exports org.alduthir.model;
     exports org.alduthir.repository;
     exports org.alduthir.service;
-    exports org.alduthir.util;
+    exports org.alduthir.controller;
+    exports org.alduthir.component;
+    exports org.alduthir.model;
 
     opens org.alduthir to javafx.fxml;
     opens org.alduthir.controller to javafx.graphics;

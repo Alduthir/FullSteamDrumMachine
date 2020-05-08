@@ -29,8 +29,15 @@ public class SongController extends App implements Initializable {
     @FXML
     public JFXListView<Song> songList;
 
+    /**
+     * Constructor for SongController
+     */
     public SongController() {
-        this.songManageServiceInterface = new SongManageService();
+        this.songManageServiceInterface = new SongManageService(
+                instrumentRepositoryInterface,
+                measureRepositoryInterface,
+                songRepositoryInterface
+        );
     }
 
     /**

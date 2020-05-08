@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import org.alduthir.model.Song;
 import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.model.SongMeasure;
-import org.alduthir.repository.MeasureRepository;
-import org.alduthir.repository.MeasureRepositoryInterface;
-import org.alduthir.repository.SongRepository;
-import org.alduthir.repository.SongRepositoryInterface;
+import org.alduthir.repository.*;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -29,14 +26,14 @@ public class SongManageService implements SongManageServiceInterface {
     /**
      * Create the repository responsible for database communication.
      */
-    public SongManageService() {
-        musicPlayerInterface = new MidiPlayer();
-        try {
-            songRepositoryInterface = new SongRepository();
-            measureRepositoryInterface = new MeasureRepository();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public SongManageService(
+            InstrumentRepositoryInterface instrumentRepositoryInterface,
+            MeasureRepositoryInterface measureRepositoryInterface,
+            SongRepositoryInterface songRepositoryInterface
+    ) {
+        this.musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+        this.songRepositoryInterface = songRepositoryInterface;
+        this.measureRepositoryInterface = measureRepositoryInterface;
     }
 
     /**
