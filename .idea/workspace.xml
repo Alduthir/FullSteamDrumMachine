@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/module-info.test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/org.alduthir/service/MusicPlayerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/alduthir/service/MusicPlayerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/AddInstrumentDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/BeatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/MeasureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/ReuseMeasureDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/controller/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/module-info.test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/module-info.test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/org.alduthir/service/MusicPlayerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +86,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/service" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/org/alduthir/gui" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -111,13 +102,14 @@
       <recent name="org.alduthir" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\java" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\org\alduthir" />
       <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test" />
-      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\resources" />
-      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\org.alduthir" />
-      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\org.alduthir\service" />
-      <recent name="C:\JavaProjects\FullSteamDrumMachine\src" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\java\" />
+      <recent name="C:\JavaProjects\FullSteamDrumMachine\src\test\java\org\alduthir\service" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.alduthir.service" />
       <recent name="org.alduthir.Song" />
       <recent name="org.alduthir.Measure" />
       <recent name="org.alduthir.Beat" />
@@ -141,7 +133,85 @@
       <recent name="org.alduthir.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.fullsteamdrummachine [clean,javafx:run]">
+  <component name="RunManager" selected="JUnit.MusicPlayerTest.testPlayMeasure">
+    <configuration name="MusicPlayerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="java.org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="java.org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="java.org.alduthir.service.MusicPlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MusicPlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="org.alduthir.service.MusicPlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MusicPlayerTest.playNote (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="java.org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="java.org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="java.org.alduthir.service.MusicPlayerTest" />
+      <option name="METHOD_NAME" value="playNote" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MusicPlayerTest.playNote (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="org.alduthir.service.MusicPlayerTest" />
+      <option name="METHOD_NAME" value="playNote" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MusicPlayerTest.testPlayMeasure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="org.alduthir.service.MusicPlayerTest" />
+      <option name="METHOD_NAME" value="testPlayMeasure" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="fullsteamdrummachine []" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -220,7 +290,21 @@
       <item itemvalue="Maven.fullsteamdrummachine [package]" />
       <item itemvalue="Maven.fullsteamdrummachine []" />
       <item itemvalue="Maven.fullsteamdrummachine [clean,javafx:run]" />
+      <item itemvalue="JUnit.MusicPlayerTest (1)" />
+      <item itemvalue="JUnit.MusicPlayerTest.playNote (1)" />
+      <item itemvalue="JUnit.MusicPlayerTest (2)" />
+      <item itemvalue="JUnit.MusicPlayerTest.playNote (2)" />
+      <item itemvalue="JUnit.MusicPlayerTest.testPlayMeasure" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MusicPlayerTest.testPlayMeasure" />
+        <item itemvalue="JUnit.MusicPlayerTest.playNote (2)" />
+        <item itemvalue="JUnit.MusicPlayerTest (2)" />
+        <item itemvalue="JUnit.MusicPlayerTest.playNote (1)" />
+        <item itemvalue="JUnit.MusicPlayerTest (1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -303,21 +387,33 @@
     </state>
     <state x="1754" y="137" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583833312234" />
     <state x="295" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583781922915" />
+    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1589275305198">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589275305198" />
     <state x="2053" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588924483196">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2053" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588924483196" />
-    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1588928744239">
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1589276060106">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="544" y="135" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1584433769895" />
     <state x="544" y="135" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1585042677539" />
-    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588928744239" />
+    <state x="2131" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589276060106" />
     <state x="544" y="135" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1584092053876" />
-    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1583479232610">
+    <state x="1993" y="436" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1589273177967">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583479232610" />
+    <state x="1993" y="436" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589273177967" />
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589274154705">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2117" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589274154705" />
+    <state x="2117" y="389" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1589273180585">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2117" y="389" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589273180585" />
     <state x="2080" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588929121321">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -336,33 +432,33 @@
     <state x="526" y="173" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1585304687521" />
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588926730799" />
     <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583773020014" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1588930825092">
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1589277204178">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588930825092" />
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589277204178" />
     <state width="637" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1588930825092">
+    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1589277204178">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.center/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588930825092" />
+    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589277204178" />
     <state width="637" height="124" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1588930825092">
+    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1589277204178">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.left/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588930825092" />
+    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589277204178" />
     <state width="637" height="124" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1588930825092">
+    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1589277204178">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.right/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
     <state width="1323" height="168" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1586260757031" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588930825092" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589277204178" />
     <state width="637" height="124" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
     <state width="1877" height="325" key="GridCell.Tab.1.bottom" timestamp="1583841386119">
       <screen x="1366" y="0" width="1920" height="1040" />
@@ -407,6 +503,10 @@
     <state x="264" y="18" key="SettingsEditor/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584434312217" />
     <state x="1827" y="163" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588926428320" />
     <state x="264" y="18" width="1040" height="708" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583783957751" />
+    <state x="2142" y="298" key="chooseDestDirectoryDialog" timestamp="1589274008769">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2142" y="298" key="chooseDestDirectoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589274008769" />
     <state x="2042" y="157" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1583833283951">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -432,10 +532,10 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1858" y="251" key="com.intellij.javaee.MapExternalResourceDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583489517869" />
-    <state x="0" y="0" width="1382" height="704" key="dock-window-1" timestamp="1585908683296">
+    <state x="0" y="0" width="1382" height="830" maximized="true" key="dock-window-1" timestamp="1589275519266">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="0" y="0" width="1382" height="704" key="dock-window-1/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1585908683296" />
+    <state x="0" y="0" width="1382" height="830" maximized="true" key="dock-window-1/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589275519266" />
     <state x="2056" y="265" key="extract.method.dialog" timestamp="1588314947217">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -449,15 +549,15 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2035" y="144" key="refactoring.ChangeSignatureDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588925862549" />
-    <state x="1982" y="240" key="run.anything.popup" timestamp="1588929880614">
+    <state x="1982" y="240" key="run.anything.popup" timestamp="1589276857053">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1982" y="240" key="run.anything.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588929880614" />
-    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588919795257">
+    <state x="1982" y="240" key="run.anything.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589276857053" />
+    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1589276212948">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="443" y="158" width="672" height="475" key="search.everywhere.popup/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584441159688" />
-    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588919795257" />
+    <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589276212948" />
     <state x="443" y="158" width="672" height="475" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1583178046051" />
   </component>
 </project>

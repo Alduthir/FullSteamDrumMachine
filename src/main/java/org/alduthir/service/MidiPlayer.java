@@ -34,6 +34,23 @@ public class MidiPlayer implements MusicPlayerInterface {
     }
 
     /**
+     * Retrieve the sequencer from the MidiSystem
+     *
+     * @return the default sequencer, connected to a default Receiver
+     */
+    public Sequencer getSequencer() {
+        if (sequencer == null) {
+            try {
+                sequencer = MidiSystem.getSequencer();
+            } catch (MidiUnavailableException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return sequencer;
+    }
+
+    /**
      * Play the entire audio for a song. Creating individual tracks for each measure.
      *
      * @param song The song to play.
@@ -171,22 +188,5 @@ public class MidiPlayer implements MusicPlayerInterface {
             e.printStackTrace();
         }
         return event;
-    }
-
-    /**
-     * Retrieve the sequencer from the MidiSystem
-     *
-     * @return the default sequencer, connected to a default Receiver
-     */
-    private Sequencer getSequencer() {
-        if (sequencer == null) {
-            try {
-                sequencer = MidiSystem.getSequencer();
-            } catch (MidiUnavailableException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return sequencer;
     }
 }
