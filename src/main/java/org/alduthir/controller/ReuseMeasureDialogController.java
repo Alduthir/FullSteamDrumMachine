@@ -31,8 +31,8 @@ public class ReuseMeasureDialogController extends App {
      */
     public ReuseMeasureDialogController() {
         measureManageServiceInterface = new MeasureManageService(
-                instrumentRepositoryInterface,
-                measureRepositoryInterface
+                measureRepositoryInterface,
+                musicPlayerInterface
         );
     }
 

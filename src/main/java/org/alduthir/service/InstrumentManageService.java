@@ -33,10 +33,10 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      */
     public InstrumentManageService(
             InstrumentRepositoryInterface instrumentRepositoryInterface,
-            MeasureRepositoryInterface measureRepositoryInterface
+            MusicPlayerInterface musicPlayerInterface
     ) {
         this.instrumentRepositoryInterface = instrumentRepositoryInterface;
-        musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+        this.musicPlayerInterface = musicPlayerInterface;
     }
 
     /**

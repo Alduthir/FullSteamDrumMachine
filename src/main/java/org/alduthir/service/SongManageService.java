@@ -27,11 +27,11 @@ public class SongManageService implements SongManageServiceInterface {
      * Create the repository responsible for database communication.
      */
     public SongManageService(
-            InstrumentRepositoryInterface instrumentRepositoryInterface,
             MeasureRepositoryInterface measureRepositoryInterface,
-            SongRepositoryInterface songRepositoryInterface
+            SongRepositoryInterface songRepositoryInterface,
+            MusicPlayerInterface musicPlayerInterface
     ) {
-        this.musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+        this.musicPlayerInterface = musicPlayerInterface;
         this.songRepositoryInterface = songRepositoryInterface;
         this.measureRepositoryInterface = measureRepositoryInterface;
     }

@@ -40,7 +40,7 @@ public class BeatController extends App implements InstrumentActionListener {
     public BeatController() {
         this.instrumentManageServiceInterface = new InstrumentManageService(
                 instrumentRepositoryInterface,
-                measureRepositoryInterface
+                musicPlayerInterface
         );
     }
 

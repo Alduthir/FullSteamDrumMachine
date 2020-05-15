@@ -34,9 +34,9 @@ public class SongController extends App implements Initializable {
      */
     public SongController() {
         this.songManageServiceInterface = new SongManageService(
-                instrumentRepositoryInterface,
                 measureRepositoryInterface,
-                songRepositoryInterface
+                songRepositoryInterface,
+                musicPlayerInterface
         );
     }
 

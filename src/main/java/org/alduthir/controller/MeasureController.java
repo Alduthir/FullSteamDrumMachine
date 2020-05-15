@@ -41,8 +41,8 @@ public class MeasureController extends App {
      */
     public MeasureController() {
         this.measureManageServiceInterface = new MeasureManageService(
-                instrumentRepositoryInterface,
-                measureRepositoryInterface
+                measureRepositoryInterface,
+                musicPlayerInterface
         );
         this.bpmSpinner = new BpmSpinner();
     }

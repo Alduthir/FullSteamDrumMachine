@@ -40,7 +40,7 @@ public class AddInstrumentDialogController extends App {
     public AddInstrumentDialogController() {
         this.instrumentManageServiceInterface = new InstrumentManageService(
                 instrumentRepositoryInterface,
-                measureRepositoryInterface
+                musicPlayerInterface
         );
     }
 

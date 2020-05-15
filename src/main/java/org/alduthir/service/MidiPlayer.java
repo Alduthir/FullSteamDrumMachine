@@ -27,7 +27,7 @@ public class MidiPlayer implements MusicPlayerInterface {
     public MidiPlayer(
             InstrumentRepositoryInterface instrumentRepositoryInterface,
             MeasureRepositoryInterface measureRepositoryInterface
-    ) {
+    ) throws MidiUnavailableException {
         this.instrumentRepositoryInterface = instrumentRepositoryInterface;
         this.measureRepositoryInterface = measureRepositoryInterface;
         this.getSequencer();
@@ -38,13 +38,9 @@ public class MidiPlayer implements MusicPlayerInterface {
      *
      * @return the default sequencer, connected to a default Receiver
      */
-    public Sequencer getSequencer() {
+    public Sequencer getSequencer() throws MidiUnavailableException {
         if (sequencer == null) {
-            try {
-                sequencer = MidiSystem.getSequencer();
-            } catch (MidiUnavailableException e) {
-                e.printStackTrace();
-            }
+            sequencer = MidiSystem.getSequencer();
         }
 
         return sequencer;
@@ -150,7 +146,7 @@ public class MidiPlayer implements MusicPlayerInterface {
     /**
      * Stop playing audio.
      */
-    private void stopPlayback() {
+    private void stopPlayback() throws MidiUnavailableException {
         if (getSequencer().isRunning()) {
             getSequencer().stop();
         }

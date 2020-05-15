@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.alduthir.repository.*;
+import org.alduthir.service.MidiPlayer;
+import org.alduthir.service.MusicPlayerInterface;
 
+import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -18,6 +21,7 @@ public class App extends Application {
     protected static InstrumentRepositoryInterface instrumentRepositoryInterface;
     protected static MeasureRepositoryInterface measureRepositoryInterface;
     protected static SongRepositoryInterface songRepositoryInterface;
+    protected static MusicPlayerInterface musicPlayerInterface;
 
     /**
      * The starting point for launching the application. Calls javafx.application.Application.launch();
@@ -29,7 +33,8 @@ public class App extends Application {
             songRepositoryInterface = new SongRepository();
             measureRepositoryInterface = new MeasureRepository();
             instrumentRepositoryInterface = new InstrumentRepository();
-        } catch (SQLException | ClassNotFoundException e) {
+            musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+        } catch (SQLException | ClassNotFoundException | MidiUnavailableException e) {
             e.printStackTrace();
             System.exit(1);
         }

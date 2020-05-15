@@ -29,10 +29,10 @@ public class MeasureManageService implements MeasureManageServiceInterface {
      * Constructor for MeasureManageService
      */
     public MeasureManageService(
-            InstrumentRepositoryInterface instrumentRepositoryInterface,
-            MeasureRepositoryInterface measureRepositoryInterface
-            ) {
-        this.musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+            MeasureRepositoryInterface measureRepositoryInterface,
+            MusicPlayerInterface musicPlayerInterface
+    ) {
+        this.musicPlayerInterface = musicPlayerInterface;
         this.measureRepositoryInterface = measureRepositoryInterface;
     }
 
