@@ -2,7 +2,10 @@ open module org.alduthir {
     requires java.logging;
     requires java.sql;
     exports org.alduthir;
+    exports javafx.graphics;
 
     requires org.mockito;
     requires org.junit.jupiter.api;
+    requires org.testfx;
+
 }

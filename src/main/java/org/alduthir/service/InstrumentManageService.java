@@ -11,7 +11,6 @@ import org.alduthir.controller.AddInstrumentOption;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepositoryInterface;
-import org.alduthir.repository.MeasureRepositoryInterface;
 import org.alduthir.util.NoSelectionModel;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -127,17 +126,17 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      * Initialises an Integer spinner with a value between 27 and 87 and corresponding scroll events.
      * The value must be between 27 and 87 as those are the keys in the Midi Drum channel mapped to sounds.
      *
-     * @param insturmentSpinner The Spinner UI element.
+     * @param instrumentSpinner The Spinner UI element.
      */
     @Override
-    public void initializeInstrumentSpinner(Spinner<Integer> insturmentSpinner) {
-        insturmentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(27, 87));
-        insturmentSpinner.setOnScroll(e -> {
+    public void initializeInstrumentSpinner(Spinner<Integer> instrumentSpinner) {
+        instrumentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(27, 87));
+        instrumentSpinner.setOnScroll(e -> {
             double delta = e.getDeltaY();
             if (delta < 0) {
-                insturmentSpinner.decrement();
+                instrumentSpinner.decrement();
             } else if (delta > 0) {
-                insturmentSpinner.increment();
+                instrumentSpinner.increment();
             }
         });
     }
