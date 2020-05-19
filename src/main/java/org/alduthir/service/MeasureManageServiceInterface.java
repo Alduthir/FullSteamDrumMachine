@@ -1,23 +1,21 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXListView;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
 import org.alduthir.model.SongMeasure;
 
+import java.util.List;
+
 public interface MeasureManageServiceInterface {
-    void initializeMeasureList(Song song, JFXListView<SongMeasure> measureList);
+    List<SongMeasure> getSongMeasureCollection(Song song);
 
-    void deleteMeasure(Song song, JFXListView<SongMeasure> measureList);
-
-    void addMeasure(Song song, JFXListView<SongMeasure> measureList);
-
-    void playSelectedSongMeasure(Song song, JFXListView<SongMeasure> measureList);
+    void deleteMeasure(SongMeasure songMeasure);
 
     void playMeasure(Measure measure, int bpm);
 
-    ObservableList<Measure> fetchAll();
+    List<Measure> getAllMeasures();
 
     void addToSong(Song song, Measure measure, int sequence);
+
+    void createForSong(Measure measure, Song song, int sequence);
 }

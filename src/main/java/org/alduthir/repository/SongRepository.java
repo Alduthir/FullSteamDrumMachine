@@ -6,6 +6,8 @@ import org.alduthir.model.Song;
 import org.alduthir.util.NamedPreparedStatement;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class SongRepository
@@ -26,8 +28,8 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
      * @inheritDoc
      */
     @Override
-    public ObservableList<Song> fetchAll() throws SQLException {
-        ObservableList<Song> songCollection = FXCollections.observableArrayList();
+    public List<Song> fetchAll() throws SQLException {
+        List<Song> songCollection = new ArrayList<>();
 
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Song");

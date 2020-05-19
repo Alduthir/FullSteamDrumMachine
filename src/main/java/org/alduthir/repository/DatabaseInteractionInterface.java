@@ -1,8 +1,7 @@
 package org.alduthir.repository;
 
-import javafx.collections.ObservableList;
-
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Interface DatabaseInteractionInterface
@@ -18,7 +17,7 @@ public interface DatabaseInteractionInterface<T> {
      * @return An ObservableList of objects for the expected type.
      * @throws SQLException If the query raises an exception.
      */
-    ObservableList<T> fetchAll() throws SQLException;
+    List<T> fetchAll() throws SQLException;
 
     /**
      * Fetch a single databaseRecord and hydrate it into an object of the expected Type.

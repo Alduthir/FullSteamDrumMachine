@@ -2,9 +2,11 @@ package org.alduthir.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.alduthir.App;
+import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.listener.BpmActionListener;
 import org.alduthir.model.Song;
 import org.alduthir.component.factory.SongCellFactory;
 import org.alduthir.service.SongManageService;
@@ -22,7 +26,7 @@ import org.alduthir.service.SongManageServiceInterface;
  * <p>
  * The homescreen of the application. Manages controls for Songs.
  */
-public class SongController extends App implements Initializable {
+public class SongController extends App implements Initializable, BpmActionListener {
 
     private final SongManageServiceInterface songManageServiceInterface;
 
@@ -68,7 +72,7 @@ public class SongController extends App implements Initializable {
      */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        songManageServiceInterface.initializeSongList(songList);
+        initializeSongList();
 
         songList.setCellFactory(new SongCellFactory());
         songList.setOnMouseClicked(e -> {
@@ -89,28 +93,51 @@ public class SongController extends App implements Initializable {
      * Ask the songManageService to create a dialog for creating a new Song, and add it to the list.
      */
     public void addAction() {
-        songManageServiceInterface.addSong(songList);
+        var dialog = new StyledTextInputDialog();
+        dialog.setTitle("Create new Song");
+        dialog.setContentText("Enter the name of your new song.");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            songManageServiceInterface.createSong(result.get());
+            initializeSongList();
+        }
     }
 
     /**
      * Ask the songManageService to delete a Song and remove it from the list.
      */
     public void deleteAction() {
-        songManageServiceInterface.deleteSong(songList);
+        Song toDelete = songList.getSelectionModel().getSelectedItem();
+        if (toDelete != null) {
+            songManageServiceInterface.deleteSong(toDelete);
+            initializeSongList();
+        }
     }
 
     /**
      * Ask the songManageService to play the audio for the entire selected Song.
      */
     public void playAction() {
-        songManageServiceInterface.playSelectedSong(songList);
+        Song toBePlayed = songList.getSelectionModel().getSelectedItem();
+        if (toBePlayed != null) {
+            songManageServiceInterface.playSong(toBePlayed);
+        }
     }
 
     /**
-     * ToDo (COULD HAVE)
-     * Export the song to an audio file.
+     * Fill the songList with an ObservableList of hydrated Song Objects.
      */
-    public void exportAction() {
-        notYetImplemented();
+    public void initializeSongList() {
+        songList.getItems().setAll(
+                FXCollections.observableArrayList(
+                        songManageServiceInterface.getSongCollection()
+                )
+        );
+    }
+
+    @Override
+    public void updateAction(Song song) {
+        songManageServiceInterface.updateBpm(song);
     }
 }

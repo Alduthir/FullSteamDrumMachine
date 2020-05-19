@@ -1,7 +1,5 @@
 package org.alduthir.repository;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.util.NamedPreparedStatement;
@@ -9,6 +7,8 @@ import org.alduthir.util.NamedPreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class InstrumentRepository
@@ -31,8 +31,8 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @inheritDoc
      */
     @Override
-    public ObservableList<Instrument> fetchAll() throws SQLException {
-        ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+    public List<Instrument> fetchAll() throws SQLException {
+        List<Instrument> instrumentCollection = new ArrayList<>();
 
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Instrument");
@@ -115,8 +115,8 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @throws SQLException if the query throws an Exception.
      */
     @Override
-    public ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException {
-        ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+    public List<Instrument> fetchForMeasure(Measure measure) throws SQLException {
+        List<Instrument> instrumentCollection = new ArrayList<>();
 
         String sql = "SELECT i.instrumentId, i.name, i.midiNumber, mi.beat FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
@@ -144,8 +144,8 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @throws SQLException if the query throws an exception.
      */
     @Override
-    public ObservableList<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
-        ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+    public List<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
+        List<Instrument> instrumentCollection = new ArrayList<>();
 
         String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

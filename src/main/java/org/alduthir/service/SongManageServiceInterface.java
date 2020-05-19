@@ -1,14 +1,18 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXListView;
 import org.alduthir.model.Song;
 
+import java.util.List;
+
 public interface SongManageServiceInterface {
-    void initializeSongList(JFXListView<Song> songList);
+    List<Song> getSongCollection();
 
-    void addSong(JFXListView<Song> songList);
+    void createSong(String songName);
 
-    void deleteSong(JFXListView<Song> songList);
+    void deleteSong(Song song);
 
-    void playSelectedSong(JFXListView<Song> songList);
+    void playSong(Song song);
+
+    void updateBpm(Song song);
 }
+

@@ -1,17 +1,17 @@
 package org.alduthir.repository;
 
-import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface InstrumentRepositoryInterface extends DatabaseInteractionInterface<Instrument> {
     Instrument createInstrument(String name, int midiNumber) throws SQLException;
 
-    ObservableList<Instrument> fetchForMeasure(Measure measure) throws SQLException;
+    List<Instrument> fetchForMeasure(Measure measure) throws SQLException;
 
-    ObservableList<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException;
+    List<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException;
 
     void addToMeasure(Instrument instrument, Measure measure) throws SQLException;
 

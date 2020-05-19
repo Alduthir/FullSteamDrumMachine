@@ -1,7 +1,5 @@
 package org.alduthir.repository;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
@@ -10,6 +8,8 @@ import org.alduthir.util.NamedPreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class MeasureRepository
@@ -30,8 +30,8 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
      * @inheritDoc
      */
     @Override
-    public ObservableList<Measure> fetchAll() throws SQLException {
-        ObservableList<Measure> measureCollection = FXCollections.observableArrayList();
+    public List<Measure> fetchAll() throws SQLException {
+        List<Measure> measureCollection = new ArrayList<>();
 
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Measure");
@@ -116,8 +116,8 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
      * @throws SQLException If the query raises an exception.
      */
     @Override
-    public ObservableList<SongMeasure> fetchForSong(Song song) throws SQLException {
-        ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
+    public List<SongMeasure> fetchForSong(Song song) throws SQLException {
+        List<SongMeasure> songMeasureCollection = new ArrayList<>();
 
         String sql = "SELECT * FROM SongMeasure sm WHERE sm.songId = :songId ORDER BY sm.sequence";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);

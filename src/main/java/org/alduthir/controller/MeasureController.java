@@ -1,17 +1,20 @@
 package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.component.BpmSpinner;
+import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.component.factory.MeasureCellFactory;
 import org.alduthir.model.Song;
@@ -19,6 +22,7 @@ import org.alduthir.service.MeasureManageService;
 import org.alduthir.service.MeasureManageServiceInterface;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Class MeasureController
@@ -28,11 +32,10 @@ import java.io.IOException;
  */
 public class MeasureController extends App {
     private final MeasureManageServiceInterface measureManageServiceInterface;
-    private final BpmSpinner bpmSpinner;
 
     @FXML
     public JFXListView<SongMeasure> measureList;
-    public Spinner<Integer> spinner;
+    public BpmSpinner bpmSpinner;
 
     private Song song;
 
@@ -44,7 +47,6 @@ public class MeasureController extends App {
                 measureRepositoryInterface,
                 musicPlayerInterface
         );
-        this.bpmSpinner = new BpmSpinner();
     }
 
     /**
@@ -53,10 +55,15 @@ public class MeasureController extends App {
      * @param song This determines which measures must be retrieved and is passed down the chain to other controller
      *             initialize functions.
      */
-    public void initialize(Song song) {
+    public void initialize(Song song) throws IOException {
         this.song = song;
-        measureManageServiceInterface.initializeMeasureList(song, measureList);
-        bpmSpinner.initializeBpmSpinner(song, spinner);
+        initializeMeasureList(song, measureList);
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
+        loader.load();
+        SongController songController = loader.getController();
+        bpmSpinner.addListener(songController);
+        bpmSpinner.initializeBpmSpinner(song, bpmSpinner);
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {
@@ -117,21 +124,39 @@ public class MeasureController extends App {
      * Ask the ManageService to play the audio for the currently selected measure.
      */
     public void playAction() {
-        measureManageServiceInterface.playSelectedSongMeasure(song, measureList);
+        SongMeasure songMeasure = measureList.getSelectionModel().getSelectedItem();
+
+        if (songMeasure != null) {
+            measureManageServiceInterface.playMeasure(songMeasure.getMeasure(), song.getBpm());
+        }
     }
 
     /**
      * Ask the ManageService to open a dialog for creating a new measure and Add it to the song.
      */
     public void addAction() {
-        measureManageServiceInterface.addMeasure(song, measureList);
+        TextInputDialog textInputDialog = new StyledTextInputDialog();
+        textInputDialog.setTitle("Create new Measure");
+        textInputDialog.setContentText("Enter the name of your new measure.");
+
+        Optional<String> result = textInputDialog.showAndWait();
+        if (result.isPresent()) {
+            Measure measure = new Measure(result.get());
+            measureManageServiceInterface.createForSong(measure, song, measureList.getItems().size());
+        }
+
+        initializeMeasureList(song, measureList);
     }
 
     /**
      * Ask the mManageService to remove a Measure from the Song.
      */
     public void deleteAction() {
-        measureManageServiceInterface.deleteMeasure(song, measureList);
+        SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
+        if (toDelete != null) {
+            this.measureManageServiceInterface.deleteMeasure(toDelete);
+            initializeMeasureList(song, measureList);
+        }
     }
 
     /**
@@ -151,14 +176,20 @@ public class MeasureController extends App {
         dialog.setTitle("Reuse measure");
         dialog.showAndWait();
 
-        measureManageServiceInterface.initializeMeasureList(song, measureList);
+        initializeMeasureList(song, measureList);
     }
 
     /**
-     * ToDo (COULD HAVE) not yet implemented.
-     * Save the sequence of all measures based on their current order in the ListView.
+     * Initialise a list of SongMeasure models fetched through the repository.
+     *
+     * @param song        The Song for which to retrieve all SongMeasures.
+     * @param measureList the list to which the retrieved models should be added.
      */
-    public void saveSequence() {
-        notYetImplemented();
+    private void initializeMeasureList(Song song, JFXListView<SongMeasure> measureList) {
+        measureList.getItems().setAll(
+                FXCollections.observableArrayList(
+                        measureManageServiceInterface.getSongMeasureCollection(song)
+                )
+        );
     }
 }

@@ -1,21 +1,15 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.layout.VBox;
-import org.alduthir.controller.AddInstrumentOption;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepositoryInterface;
-import org.alduthir.util.NoSelectionModel;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Class InstrumentManageService
@@ -39,52 +33,50 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     }
 
     /**
-     * Retrieve all Instruments linked to the current Measure as well their encoded beats.
+     * Retrieve an observableArrayList of instruments found in a measure.
      *
-     * @param measure  required to retrieve the correct MeasureInstrument collection.
-     * @param beatList A list of InstrumentObjects to be initialised with the retrieved ObservableList of Instruments.
+     * @param measure the measure for which to search for instruments.
+     * @return An arraylist of instruments.
      */
     @Override
-    public void initializeInstrumentCollection(Measure measure, JFXListView<Instrument> beatList) {
+    public List<Instrument> getInstrumentCollectionForMeasure(Measure measure) {
+        ObservableList<Instrument> instrumentList = FXCollections.observableArrayList();
         try {
-            beatList.getItems().setAll(instrumentRepositoryInterface.fetchForMeasure(measure));
+            return instrumentRepositoryInterface.fetchForMeasure(measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // Initialised with NoSelectionModel because selection logic would break the complex InstrumentCell UI.
-        beatList.setSelectionModel(new NoSelectionModel<>());
+        return instrumentList;
     }
 
     /**
      * The reuseOptionCollection contains all Instruments that are NOT within the current Measure.
      *
-     * @param measure       The measure from which all Instruments should be excluded.
-     * @param reuseComboBox The combobox for which the retrieved Instruments should be set as options.s
+     * @param measure The measure from which all Instruments should be excluded.
+     * @return a list of reuseable instruments for the measure.
      */
     @Override
-    public void initializeReuseOptionCollection(Measure measure, JFXComboBox<Instrument> reuseComboBox) {
+    public List<Instrument> getReuseOptionCollection(Measure measure) {
+        ObservableList<Instrument> reuseOptionCollection = FXCollections.observableArrayList();
         try {
-            reuseComboBox.getItems().setAll(instrumentRepositoryInterface.fetchReuseOptionCollection(measure));
-            reuseComboBox.getSelectionModel().selectFirst();
+            return instrumentRepositoryInterface.fetchReuseOptionCollection(measure);
         } catch (SQLException e) {
             e.printStackTrace();
+            return reuseOptionCollection;
         }
     }
 
     /**
-     * Remove an instrument from the Measure and update the beatList.
+     * Remove an instrument from the Measure and update the instrumentList.
      *
      * @param measure    The measure from which the instrument should be removed.
      * @param instrument The instrument to be removed. Only the link between it and the Measure is removed. It is not
      *                   deleted.
-     * @param beatList   The beatlist which must be updated to no longer include the removed Instrument.
      */
     @Override
-    public void removeInstrument(Measure measure, Instrument instrument, JFXListView<Instrument> beatList) {
+    public void removeInstrument(Measure measure, Instrument instrument) {
         try {
             instrumentRepositoryInterface.removeFromMeasure(measure, instrument);
-            initializeInstrumentCollection(measure, beatList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,54 +112,6 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Initialises an Integer spinner with a value between 27 and 87 and corresponding scroll events.
-     * The value must be between 27 and 87 as those are the keys in the Midi Drum channel mapped to sounds.
-     *
-     * @param instrumentSpinner The Spinner UI element.
-     */
-    @Override
-    public void initializeInstrumentSpinner(Spinner<Integer> instrumentSpinner) {
-        instrumentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(27, 87));
-        instrumentSpinner.setOnScroll(e -> {
-            double delta = e.getDeltaY();
-            if (delta < 0) {
-                instrumentSpinner.decrement();
-            } else if (delta > 0) {
-                instrumentSpinner.increment();
-            }
-        });
-    }
-
-    /**
-     * Initialize the combobox with 2 options NEW or REUSE. Depending on which is selected the corresponding
-     * VBox will be hidden or shown.
-     */
-    @Override
-    public void initiallizeNewOrReuseComboBox(
-            JFXComboBox<AddInstrumentOption> newOrReuseSelection,
-            VBox reuseBox,
-            VBox newBox
-    ) {
-        ObservableList<AddInstrumentOption> newOrReuseOptionCollection = FXCollections.observableArrayList();
-        newOrReuseOptionCollection.add(AddInstrumentOption.NEW);
-        newOrReuseOptionCollection.add(AddInstrumentOption.REUSE);
-        newOrReuseSelection.getItems().setAll(newOrReuseOptionCollection);
-        newOrReuseSelection.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
-            switch (newValue) {
-                case NEW:
-                    reuseBox.setVisible(false);
-                    newBox.setVisible(true);
-                    break;
-                case REUSE:
-                    newBox.setVisible(false);
-                    reuseBox.setVisible(true);
-                    break;
-            }
-        });
-        newOrReuseSelection.getSelectionModel().selectFirst();
     }
 
     /**

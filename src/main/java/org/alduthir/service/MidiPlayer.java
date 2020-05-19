@@ -1,6 +1,5 @@
 package org.alduthir.service;
 
-import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Measure;
@@ -10,6 +9,7 @@ import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.*;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Class MidiPlayer
@@ -38,6 +38,7 @@ public class MidiPlayer implements MusicPlayerInterface {
      *
      * @return the default sequencer, connected to a default Receiver
      */
+    @Override
     public Sequencer getSequencer() throws MidiUnavailableException {
         if (sequencer == null) {
             sequencer = MidiSystem.getSequencer();
@@ -56,14 +57,14 @@ public class MidiPlayer implements MusicPlayerInterface {
         stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
-        ObservableList<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
+        List<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
         int totalTickCount = 0;
         for (SongMeasure songMeasure : songMeasureCollection) {
             Measure measure = songMeasure.getMeasure();
-            ObservableList<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
+            List<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
             for (Instrument instrument : instrumentCollection) {
                 int tickPosition = totalTickCount;
                 for (char shouldPlayOnTick : instrument.getBeat().toCharArray()) {
@@ -103,7 +104,7 @@ public class MidiPlayer implements MusicPlayerInterface {
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
-        ObservableList<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
+        List<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
 
         for (Instrument instrument : instrumentCollection) {
             int tickIndex = 0;

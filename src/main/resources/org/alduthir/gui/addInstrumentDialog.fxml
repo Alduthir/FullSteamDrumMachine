@@ -12,6 +12,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.control.Spinner?>
 
+<?import org.alduthir.component.InstrumentSpinner?>
 <GridPane
         xmlns="http://javafx.com/javafx/8.0.171"
         xmlns:fx="http://javafx.com/fxml/1"
@@ -43,7 +44,7 @@
             </HBox>
             <HBox>
                 <Label text="sound"/>
-                <Spinner fx:id="noteSpinner"/>
+                <InstrumentSpinner fx:id="instrumentSpinner"/>
                 <JFXButton onAction="#playMidiNote">
                     <graphic>
                         <FontIcon iconLiteral="fa-play" iconSize="20" iconColor="white"/>

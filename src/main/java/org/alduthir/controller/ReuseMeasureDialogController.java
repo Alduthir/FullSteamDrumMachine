@@ -1,7 +1,7 @@
 package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXComboBox;
-import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -46,8 +46,11 @@ public class ReuseMeasureDialogController extends App {
         this.song = song;
         this.sequence = sequence;
 
-        ObservableList<Measure> measureObservableList = measureManageServiceInterface.fetchAll();
-        measureComboBox.getItems().setAll(measureObservableList);
+        measureComboBox.getItems().setAll(
+                FXCollections.observableArrayList(
+                        measureManageServiceInterface.getAllMeasures()
+                )
+        );
         measureComboBox.getSelectionModel().selectFirst();
     }
 

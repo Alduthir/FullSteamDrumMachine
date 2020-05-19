@@ -1,16 +1,14 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXListView;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Song;
-import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.repository.*;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class SongManageService
@@ -37,80 +35,71 @@ public class SongManageService implements SongManageServiceInterface {
     }
 
     /**
-     * Fill the songList with an ObservableList of hydrated Song Objects.
-     *
-     * @param songList the list to be filled.
+     * @return An ObservableList containing all Song records in the database.
      */
-    @Override
-    public void initializeSongList(JFXListView<Song> songList) {
+    public List<Song> getSongCollection() {
+        List<Song> songList = new ArrayList<>();
         try {
-            songList.getItems().setAll(songRepositoryInterface.fetchAll());
+            return songRepositoryInterface.fetchAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return songList;
+    }
+
+    /**
+     * Request the datalayer to create a record for a new song.
+     *
+     * @param songName the name of the new song. Other values use defaults
+     */
+    public void createSong(String songName) {
+        try {
+            songRepositoryInterface.createSong(songName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Create a dialog requesting a name for the new song. If the dialog is given a result, creates the new song and
-     * re-initialises the list so the new song is included.
+     * Request the repostory to delete the selected item in the songList. Including each SongMeasure it is linked to.
      *
-     * @param songList The list to be reinitialised including the new song.
+     * @param song The song to be deleted
      */
-    @Override
-    public void addSong(JFXListView<Song> songList) {
-        var dialog = new StyledTextInputDialog();
-        dialog.setTitle("Create new Song");
-        dialog.setContentText("Enter the name of your new song.");
+    public void deleteSong(Song song) {
+        try {
+            List<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
 
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            try {
-                songRepositoryInterface.createSong(result.get());
-            } catch (SQLException e) {
-                e.printStackTrace();
+            for (SongMeasure songMeasure : songMeasureCollection) {
+                measureRepositoryInterface.removeFromSong(songMeasure);
             }
-            initializeSongList(songList);
+            songRepositoryInterface.deleteById(song.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Request the repostory to delete the selected item in the songList. Then re-initialises the songList so the
-     * removed song is no longer in it.
+     * Use the musicplayer to play the given song.
      *
-     * @param songList Used to retrieve the selectedItem and to be reloaded.
+     * @param song the song to be played.
      */
-    @Override
-    public void deleteSong(JFXListView<Song> songList) {
-        Song selectedSong = songList.getSelectionModel().getSelectedItem();
-        if (selectedSong != null) {
-            try {
-                ObservableList<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(selectedSong);
-
-                for (SongMeasure songMeasure : songMeasureCollection) {
-                    measureRepositoryInterface.removeFromSong(songMeasure);
-                }
-                songRepositoryInterface.deleteById(selectedSong.getId());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            initializeSongList(songList);
+    public void playSong(Song song) {
+        try {
+            musicPlayerInterface.playSong(song);
+        } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Play the audio for every measure in the song sequentially.
-     *
-     * @param songList The songlist from which to play the current selection.
+     * @param song the song of which the bpm should be saved.
      */
     @Override
-    public void playSelectedSong(JFXListView<Song> songList) {
-        Song selectedSong = songList.getSelectionModel().getSelectedItem();
-        if (selectedSong != null) {
-            try {
-                musicPlayerInterface.playSong(selectedSong);
-            } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
-                e.printStackTrace();
-            }
+    public void updateBpm(Song song) {
+        try {
+            songRepositoryInterface.updateBpm(song);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

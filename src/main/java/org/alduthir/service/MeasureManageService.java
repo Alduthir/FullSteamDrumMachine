@@ -1,20 +1,16 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextInputDialog;
 import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
-import org.alduthir.repository.InstrumentRepositoryInterface;
-import org.alduthir.repository.MeasureRepository;
-import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Class MeasureManageService
@@ -37,78 +33,50 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     }
 
     /**
-     * Initialise a list of SongMeasure models fetched through the repository.
-     *
-     * @param song        The Song for which to retrieve all SongMeasures.
-     * @param measureList the list to which the retrieved models should be added.
+     * @param song The song for which all SongMeasures should be fetched.
+     * @return Returns a list of SongMeasures for the given Song.
      */
     @Override
-    public void initializeMeasureList(Song song, JFXListView<SongMeasure> measureList) {
+    public List<SongMeasure> getSongMeasureCollection(Song song) {
+        ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
         try {
-            measureList.getItems().setAll(measureRepositoryInterface.fetchForSong(song));
+            return measureRepositoryInterface.fetchForSong(song);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return songMeasureCollection;
+    }
+
+    /**
+     * Delete a SongMeasure. Use this instead of removing the Measure, since removing a measure would also delete
+     * all it's reused occurences across different songs.
+     *
+     * @param songMeasure The SongMeasure to be deleted.
+     */
+    @Override
+    public void deleteMeasure(SongMeasure songMeasure) {
+        try {
+            measureRepositoryInterface.removeFromSong(songMeasure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Request the removal of the selected SongMeasure from the database and reload the list of SongMeasures.
+     * Creates the measure object in the db so that it's ID is set. Then use that ID as a foreign key to link it to
+     * a song.
      *
-     * @param song        The song for which the measureList must be reinitialised.
-     * @param measureList The list from which the selectedItem will be deleted. And that will be reinitialised.
+     * @param measure  The newly created measure object.
+     * @param song     The song to which the measure should be linked
+     * @param sequence The position in the list to which the new measure should be added.
      */
     @Override
-    public void deleteMeasure(Song song, JFXListView<SongMeasure> measureList) {
-        SongMeasure selectedItem = measureList.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                measureRepositoryInterface.removeFromSong(selectedItem);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            initializeMeasureList(song, measureList);
-        }
-    }
-
-    /**
-     * Create a dialog requesting a name for the new measure. Once the dialog resolves use the result to create a
-     * new measure to add to the song. And reinitialise the measureList so it includes this new measure.
-     *
-     * @param song        The song to which the new measure will be added.
-     * @param measureList The list to be reloaded after the new measure is added.
-     */
-    @Override
-    public void addMeasure(Song song, JFXListView<SongMeasure> measureList) {
-        TextInputDialog textInputDialog = new StyledTextInputDialog();
-        textInputDialog.setTitle("Create new Measure");
-        textInputDialog.setContentText("Enter the name of your new measure.");
-
-        Optional<String> result = textInputDialog.showAndWait();
-        if (result.isPresent()) {
-            Measure measure = new Measure(result.get());
-            try {
-                measure = measureRepositoryInterface.createMeasure(measure);
-                measureRepositoryInterface.addToSong(measure, song, measureList.getItems().size());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            initializeMeasureList(song, measureList);
-        }
-    }
-
-    /**
-     * Retrieve the selected Measure from the measureList and request the midiPlayer to
-     *
-     * @param song        Used to retrieve the bpm at which the measure should be played.
-     * @param measureList The list from which the selected Measure is played.
-     */
-    @Override
-    public void playSelectedSongMeasure(Song song, JFXListView<SongMeasure> measureList) {
-        SongMeasure songMeasure = measureList.getSelectionModel().getSelectedItem();
-
-        if (songMeasure != null) {
-            playMeasure(songMeasure.getMeasure(), song.getBpm());
+    public void createForSong(Measure measure, Song song, int sequence) {
+        try {
+            measure = measureRepositoryInterface.createMeasure(measure);
+            measureRepositoryInterface.addToSong(measure, song, sequence);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -133,7 +101,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
      * @return An ObservableList of Measure models.
      */
     @Override
-    public ObservableList<Measure> fetchAll() {
+    public List<Measure> getAllMeasures() {
         try {
             return measureRepositoryInterface.fetchAll();
         } catch (SQLException e) {

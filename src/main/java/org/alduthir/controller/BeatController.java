@@ -1,6 +1,7 @@
 package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
 import org.alduthir.service.InstrumentManageServiceInterface;
+import org.alduthir.util.NoSelectionModel;
 
 import java.io.IOException;
 
@@ -55,7 +57,7 @@ public class BeatController extends App implements InstrumentActionListener {
         this.measure = measure;
 
         beatList.setCellFactory(new InstrumentCellFactory(this));
-        instrumentManageServiceInterface.initializeInstrumentCollection(measure, beatList);
+        initializeInstrumentCollection(measure, beatList);
     }
 
     /**
@@ -93,8 +95,7 @@ public class BeatController extends App implements InstrumentActionListener {
         dialog.setTitle("Add instrument");
         dialog.showAndWait();
 
-
-        instrumentManageServiceInterface.initializeInstrumentCollection(measure, beatList);
+        this.initializeInstrumentCollection(measure, beatList);
     }
 
     /**
@@ -111,7 +112,8 @@ public class BeatController extends App implements InstrumentActionListener {
      */
     @Override
     public void removeAction(Instrument instrument) {
-        instrumentManageServiceInterface.removeInstrument(measure, instrument, beatList);
+        instrumentManageServiceInterface.removeInstrument(measure, instrument);
+        this.initializeInstrumentCollection(measure, beatList);
     }
 
     /**
@@ -125,5 +127,21 @@ public class BeatController extends App implements InstrumentActionListener {
     @Override
     public void updateAction(String beatNotes, Instrument instrument) {
         instrumentManageServiceInterface.updateBeat(measure, instrument, beatNotes);
+    }
+
+    /**
+     * Retrieve all Instruments linked to the current Measure as well their encoded beats.
+     *
+     * @param measure  required to retrieve the correct MeasureInstrument collection.
+     * @param beatList A list of InstrumentObjects to be initialised with the retrieved ObservableList of Instruments.
+     */
+    public void initializeInstrumentCollection(Measure measure, JFXListView<Instrument> beatList) {
+        beatList.getItems().setAll(
+                FXCollections.observableArrayList(
+                        instrumentManageServiceInterface.getInstrumentCollectionForMeasure(measure)
+                )
+        );
+        // Initialised with NoSelectionModel because selection logic would break the complex InstrumentCell UI.
+        beatList.setSelectionModel(new NoSelectionModel<>());
     }
 }

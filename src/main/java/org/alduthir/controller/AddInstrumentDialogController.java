@@ -1,15 +1,17 @@
 package org.alduthir.controller;
 
 import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.alduthir.App;
+import org.alduthir.component.InstrumentSpinner;
 import org.alduthir.model.Instrument;
 import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
@@ -30,7 +32,7 @@ public class AddInstrumentDialogController extends App {
     public VBox reuseBox;
     public VBox newBox;
     public HBox selectionBox;
-    public Spinner<Integer> noteSpinner;
+    public InstrumentSpinner instrumentSpinner;
 
     private Measure measure;
 
@@ -52,11 +54,28 @@ public class AddInstrumentDialogController extends App {
     public void initialize(
             Measure measure
     ) {
-
         this.measure = measure;
-        instrumentManageServiceInterface.initiallizeNewOrReuseComboBox(newOrReuseSelection, reuseBox, newBox);
-        instrumentManageServiceInterface.initializeReuseOptionCollection(measure, reuseComboBox);
-        instrumentManageServiceInterface.initializeInstrumentSpinner(noteSpinner);
+
+        ObservableList<AddInstrumentOption> newOrReuseOptionCollection = FXCollections.observableArrayList();
+        newOrReuseOptionCollection.add(AddInstrumentOption.NEW);
+        newOrReuseOptionCollection.add(AddInstrumentOption.REUSE);
+        newOrReuseSelection.getItems().setAll(newOrReuseOptionCollection);
+        newOrReuseSelection.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            switch (newValue) {
+                case NEW:
+                    reuseBox.setVisible(false);
+                    newBox.setVisible(true);
+                    break;
+                case REUSE:
+                    newBox.setVisible(false);
+                    reuseBox.setVisible(true);
+                    break;
+            }
+        });
+        newOrReuseSelection.getSelectionModel().selectFirst();
+
+        reuseComboBox.getItems().setAll(instrumentManageServiceInterface.getReuseOptionCollection(measure));
+        reuseComboBox.getSelectionModel().selectFirst();
 
         if (reuseComboBox.getItems().toArray().length == 0) {
             selectionBox.setVisible(false);
@@ -73,8 +92,8 @@ public class AddInstrumentDialogController extends App {
         if (newNameField.getText().isEmpty()) {
             return;
         }
+        instrumentManageServiceInterface.saveNewInstrument(newNameField.getText(), instrumentSpinner.getValue(), measure);
 
-        instrumentManageServiceInterface.saveNewInstrument(newNameField.getText(), noteSpinner.getValue(), measure);
         closeStage(actionEvent);
     }
 
@@ -92,6 +111,13 @@ public class AddInstrumentDialogController extends App {
     }
 
     /**
+     * Ask the midiplayer to play a single note with the midiKey equal to the value of the spinner.
+     */
+    public void playMidiNote() {
+        instrumentManageServiceInterface.playNote(instrumentSpinner.getValue());
+    }
+
+    /**
      * Close the modal.
      *
      * @param actionEvent required to retrieve the Node to be closed.
@@ -100,12 +126,5 @@ public class AddInstrumentDialogController extends App {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-    }
-
-    /**
-     * Ask the midiplayer to play a single note with the midiKey equal to the value of the spinner.
-     */
-    public void playMidiNote() {
-        instrumentManageServiceInterface.playNote(noteSpinner.getValue());
     }
 }

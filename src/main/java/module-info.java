@@ -17,6 +17,7 @@ module org.alduthir {
     exports org.alduthir.controller;
     exports org.alduthir.component;
     exports org.alduthir.model;
+    exports org.alduthir.listener;
 
     opens org.alduthir to javafx.fxml;
     opens org.alduthir.controller to javafx.graphics;

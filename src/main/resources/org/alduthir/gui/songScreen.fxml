@@ -38,7 +38,7 @@
             </graphic>
         </JFXButton>
         <Separator/>
-        <JFXButton text="Export" onAction="#exportAction" buttonType="FLAT"
+        <JFXButton text="Export" disable="true" buttonType="FLAT"
                    styleClass="menu-button">
             <graphic>
                 <FontIcon iconLiteral="fa-external-link" iconSize="40" iconColor="white"/>

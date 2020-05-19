@@ -31,7 +31,7 @@ public class InstrumentCell extends ListCell<Instrument> {
     private HBox checkboxContainer = new HBox();
     private ObservableList<JFXCheckBox> checkBoxCollection = FXCollections.observableArrayList();
     private Instrument instrument;
-    private List<InstrumentActionListener> listeners = new ArrayList<InstrumentActionListener>();
+    private List<InstrumentActionListener> listeners = new ArrayList<>();
 
     /**
      * Create the ListCell element. And make sure it's UI elements are correctly created.
