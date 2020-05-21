@@ -101,10 +101,10 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
      * @throws SQLException If the query throws an exception.
      */
     @Override
-    public void updateBpm(Song song) throws SQLException {
+    public void updateBpm(Song song, int bpmValue) throws SQLException {
         String sql = "UPDATE Song SET bpm = :bpm WHERE songId = :songId";
         NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
-        stmt.setInt("bpm", song.getBpm());
+        stmt.setInt("bpm", bpmValue);
         stmt.setInt("songId", song.getId());
         stmt.executeUpdate();
         stmt.close();

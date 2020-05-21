@@ -13,6 +13,6 @@ public interface SongManageServiceInterface {
 
     void playSong(Song song);
 
-    void updateBpm(Song song);
+    void updateBpm(Song song, int bpmValue);
 }
 

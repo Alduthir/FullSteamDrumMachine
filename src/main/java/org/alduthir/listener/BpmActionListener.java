@@ -13,5 +13,5 @@ public interface BpmActionListener {
      * Update the BPM of the passed song.
      * @param song the song for which the BPM should be updated
      */
-    void updateAction(Song song);
+    void updateAction(Song song, int bpmValue);
 }

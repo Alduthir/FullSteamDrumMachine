@@ -2,7 +2,7 @@ package org.alduthir.model;
 
 /**
  * Class Song
- *
+ * <p>
  * A model for a Song database object
  */
 public class Song {
@@ -32,10 +32,6 @@ public class Song {
 
     public int getBpm() {
         return bpm;
-    }
-
-    public void setBpm(int bpm) {
-        this.bpm = bpm;
     }
 
     @Override

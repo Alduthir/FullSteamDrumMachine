@@ -40,10 +40,8 @@ public class BpmSpinner extends Spinner<Integer> {
                         bpmSpinner.increment();
                     }
 
-                    song.setBpm(bpmSpinner.getValue());
-
                     for (BpmActionListener listener : listeners) {
-                        listener.updateAction(song);
+                        listener.updateAction(song, bpmSpinner.getValue());
                     }
                 }
         );

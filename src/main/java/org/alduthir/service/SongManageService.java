@@ -95,9 +95,9 @@ public class SongManageService implements SongManageServiceInterface {
      * @param song the song of which the bpm should be saved.
      */
     @Override
-    public void updateBpm(Song song) {
+    public void updateBpm(Song song, int bpmValue) {
         try {
-            songRepositoryInterface.updateBpm(song);
+            songRepositoryInterface.updateBpm(song, bpmValue);
         } catch (SQLException e) {
             e.printStackTrace();
         }

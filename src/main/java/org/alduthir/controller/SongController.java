@@ -124,7 +124,7 @@ public class SongController extends App implements Initializable, BpmActionListe
     }
 
     @Override
-    public void updateAction(Song song) {
-        songManageServiceInterface.updateBpm(song);
+    public void updateAction(Song song, int bpmValue) {
+        songManageServiceInterface.updateBpm(song, bpmValue);
     }
 }

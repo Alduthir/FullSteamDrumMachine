@@ -7,5 +7,5 @@ import java.sql.SQLException;
 public interface SongRepositoryInterface extends DatabaseInteractionInterface<Song> {
     void createSong(String songName) throws SQLException;
 
-    void updateBpm(Song song) throws SQLException;
+    void updateBpm(Song song, int bpmValue) throws SQLException;
 }
