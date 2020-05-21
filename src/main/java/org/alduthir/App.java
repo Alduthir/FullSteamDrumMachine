@@ -7,8 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.alduthir.repository.*;
-import org.alduthir.service.MidiPlayer;
-import org.alduthir.service.MusicPlayerInterface;
+import org.alduthir.service.*;
 
 import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
@@ -18,6 +17,9 @@ import java.sql.SQLException;
  * JavaFX App
  */
 public class App extends Application {
+    protected static InstrumentManageServiceInterface instrumentManageServiceInterface;
+    protected static MeasureManageServiceInterface measureManageServiceInterface;
+    protected static SongManageServiceInterface songManageServiceInterface;
     protected static InstrumentRepositoryInterface instrumentRepositoryInterface;
     protected static MeasureRepositoryInterface measureRepositoryInterface;
     protected static SongRepositoryInterface songRepositoryInterface;
@@ -33,7 +35,18 @@ public class App extends Application {
             songRepositoryInterface = new SongRepository();
             measureRepositoryInterface = new MeasureRepository();
             instrumentRepositoryInterface = new InstrumentRepository();
+
             musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
+            songManageServiceInterface = new SongManageService(
+                    measureRepositoryInterface,
+                    songRepositoryInterface,
+                    musicPlayerInterface
+            );
+            measureManageServiceInterface = new MeasureManageService(measureRepositoryInterface, musicPlayerInterface);
+            instrumentManageServiceInterface = new InstrumentManageService(
+                    instrumentRepositoryInterface,
+                    musicPlayerInterface
+            );
         } catch (SQLException | ClassNotFoundException | MidiUnavailableException e) {
             e.printStackTrace();
             System.exit(1);

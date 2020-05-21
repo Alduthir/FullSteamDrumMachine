@@ -1,7 +1,5 @@
 package org.alduthir.service;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepositoryInterface;
@@ -9,6 +7,7 @@ import org.alduthir.repository.InstrumentRepositoryInterface;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      */
     @Override
     public List<Instrument> getInstrumentCollectionForMeasure(Measure measure) {
-        ObservableList<Instrument> instrumentList = FXCollections.observableArrayList();
+        List<Instrument> instrumentList = new ArrayList<>();
         try {
             return instrumentRepositoryInterface.fetchForMeasure(measure);
         } catch (SQLException e) {
@@ -57,7 +56,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      */
     @Override
     public List<Instrument> getReuseOptionCollection(Measure measure) {
-        ObservableList<Instrument> reuseOptionCollection = FXCollections.observableArrayList();
+        List<Instrument> reuseOptionCollection = new ArrayList<>();
         try {
             return instrumentRepositoryInterface.fetchReuseOptionCollection(measure);
         } catch (SQLException e) {

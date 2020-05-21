@@ -18,8 +18,6 @@ import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.component.factory.MeasureCellFactory;
 import org.alduthir.model.Song;
-import org.alduthir.service.MeasureManageService;
-import org.alduthir.service.MeasureManageServiceInterface;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -31,23 +29,12 @@ import java.util.Optional;
  * or previewing these Measures.
  */
 public class MeasureController extends App {
-    private final MeasureManageServiceInterface measureManageServiceInterface;
 
     @FXML
     public JFXListView<SongMeasure> measureList;
     public BpmSpinner bpmSpinner;
 
     private Song song;
-
-    /**
-     * Create necessary service layer dependencies on construction.
-     */
-    public MeasureController() {
-        this.measureManageServiceInterface = new MeasureManageService(
-                measureRepositoryInterface,
-                musicPlayerInterface
-        );
-    }
 
     /**
      * Initialise the ListCell Factories, ListView and BPM Spinner UI elements.

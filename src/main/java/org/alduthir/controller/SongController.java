@@ -28,21 +28,8 @@ import org.alduthir.service.SongManageServiceInterface;
  */
 public class SongController extends App implements Initializable, BpmActionListener {
 
-    private final SongManageServiceInterface songManageServiceInterface;
-
     @FXML
     public JFXListView<Song> songList;
-
-    /**
-     * Constructor for SongController
-     */
-    public SongController() {
-        this.songManageServiceInterface = new SongManageService(
-                measureRepositoryInterface,
-                songRepositoryInterface,
-                musicPlayerInterface
-        );
-    }
 
     /**
      * Redirect to the Measure management screen for the selected Song.

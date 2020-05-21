@@ -18,23 +18,12 @@ import org.alduthir.service.MeasureManageServiceInterface;
  * A dialog for reusing an existing Measure and adding it to the given Song.
  */
 public class ReuseMeasureDialogController extends App {
-    private final MeasureManageServiceInterface measureManageServiceInterface;
 
     @FXML
     public JFXComboBox<Measure> measureComboBox;
 
     private Song song;
     private int sequence;
-
-    /**
-     * Create necessary Service level dependencies on construction.
-     */
-    public ReuseMeasureDialogController() {
-        measureManageServiceInterface = new MeasureManageService(
-                measureRepositoryInterface,
-                musicPlayerInterface
-        );
-    }
 
     /**
      * Initialise the ObservableLists with data and set required fields.

@@ -14,10 +14,8 @@ import org.alduthir.App;
 import org.alduthir.model.Instrument;
 import org.alduthir.listener.InstrumentActionListener;
 import org.alduthir.component.factory.InstrumentCellFactory;
-import org.alduthir.service.InstrumentManageService;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
-import org.alduthir.service.InstrumentManageServiceInterface;
 import org.alduthir.util.NoSelectionModel;
 
 import java.io.IOException;
@@ -28,23 +26,12 @@ import java.io.IOException;
  * Controls GUI elements pertaining to managing beats in a Measure.
  */
 public class BeatController extends App implements InstrumentActionListener {
-    private InstrumentManageServiceInterface instrumentManageServiceInterface;
 
     @FXML
     public JFXListView<Instrument> beatList;
 
     private Song song;
     private Measure measure;
-
-    /**
-     * Create service level dependencies on construction;
-     */
-    public BeatController() {
-        this.instrumentManageServiceInterface = new InstrumentManageService(
-                instrumentRepositoryInterface,
-                musicPlayerInterface
-        );
-    }
 
     /**
      * Setup the collection of instruments and couple the CellFactory for individual instruments.
