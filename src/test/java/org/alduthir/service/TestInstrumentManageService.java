@@ -1,26 +1,8 @@
 package org.alduthir.service;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.VBox;
-import org.alduthir.controller.AddInstrumentOption;
-import org.alduthir.model.Instrument;
-import org.alduthir.model.Measure;
 import org.alduthir.repository.InstrumentRepositoryInterface;
-import org.alduthir.util.NoSelectionModel;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.framework.junit5.ApplicationExtension;
-
-import java.sql.SQLException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(ApplicationExtension.class)
 public class TestInstrumentManageService {
     InstrumentRepositoryInterface instrumentRepositoryInterface = mock(InstrumentRepositoryInterface.class);
 

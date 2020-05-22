@@ -18,18 +18,18 @@ import java.util.List;
  */
 public class MidiPlayer implements MusicPlayerInterface {
     private Sequencer sequencer;
-    private InstrumentRepositoryInterface instrumentRepositoryInterface;
-    private MeasureRepositoryInterface measureRepositoryInterface;
+    private InstrumentRepositoryInterface instrumentRepository;
+    private MeasureRepositoryInterface measureRepository;
 
     /**
      * Constructor for MidiPlayer
      */
     public MidiPlayer(
-            InstrumentRepositoryInterface instrumentRepositoryInterface,
-            MeasureRepositoryInterface measureRepositoryInterface
+            InstrumentRepositoryInterface instrumentRepository,
+            MeasureRepositoryInterface measureRepository
     ) throws MidiUnavailableException {
-        this.instrumentRepositoryInterface = instrumentRepositoryInterface;
-        this.measureRepositoryInterface = measureRepositoryInterface;
+        this.instrumentRepository = instrumentRepository;
+        this.measureRepository = measureRepository;
         this.getSequencer();
     }
 
@@ -57,14 +57,14 @@ public class MidiPlayer implements MusicPlayerInterface {
         stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
-        List<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
+        List<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(song);
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
         int totalTickCount = 0;
         for (SongMeasure songMeasure : songMeasureCollection) {
             Measure measure = songMeasure.getMeasure();
-            List<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
+            List<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
             for (Instrument instrument : instrumentCollection) {
                 int tickPosition = totalTickCount;
                 for (char shouldPlayOnTick : instrument.getBeat().toCharArray()) {
@@ -104,7 +104,7 @@ public class MidiPlayer implements MusicPlayerInterface {
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
         Track track = sequence.createTrack();
 
-        List<Instrument> instrumentCollection = instrumentRepositoryInterface.fetchForMeasure(measure);
+        List<Instrument> instrumentCollection = instrumentRepository.fetchForMeasure(measure);
 
         for (Instrument instrument : instrumentCollection) {
             int tickIndex = 0;

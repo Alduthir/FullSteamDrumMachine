@@ -1,7 +1,5 @@
 package org.alduthir.service;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
@@ -13,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import javax.sound.midi.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -62,7 +62,7 @@ public class TestMidiPlayer {
             int bpm = 75;
 
             Instrument hiHat = new Instrument(1, "Hihat", 35, "1010101010101011");
-            ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+            List<Instrument> instrumentCollection = new ArrayList<>();
             instrumentCollection.add(hiHat);
 
             // Stub the fetchForMeasure method to return a list of both our instruments.
@@ -94,7 +94,7 @@ public class TestMidiPlayer {
             int bpm = 75;
 
             Instrument hiHat = new Instrument(1, "Hihat", 35, "0000000000000000");
-            ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+            List<Instrument> instrumentCollection = new ArrayList<>();
             instrumentCollection.add(hiHat);
 
             // Stub the fetchForMeasure method to return a list of both our instruments.
@@ -129,16 +129,17 @@ public class TestMidiPlayer {
             SongMeasure firstSongMeasure = new SongMeasure(1, song, firstMeasure);
             SongMeasure secondSongMeasure = new SongMeasure(2, song, secondMeasure);
 
-            ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
+            List<SongMeasure> songMeasureCollection = new ArrayList<>();
             songMeasureCollection.add(firstSongMeasure);
             songMeasureCollection.add(secondSongMeasure);
 
             Instrument hiHat = new Instrument(1, "Hihat", 35, "1111111111111111");
-            ObservableList<Instrument> instrumentCollection = FXCollections.observableArrayList();
+            List<Instrument> instrumentCollection = new ArrayList<>();
             instrumentCollection.add(hiHat);
 
             // Stub the fetchForSong method to return the SongMeasureCollection.
             when(measureRepository.fetchForSong(song)).thenReturn(songMeasureCollection);
+
             // Stub the fetchForMeasure method to return the instrumentCollection for both measures.
             when(instrumentRepository.fetchForMeasure(firstMeasure)).thenReturn(instrumentCollection);
             when(instrumentRepository.fetchForMeasure(secondMeasure)).thenReturn(instrumentCollection);

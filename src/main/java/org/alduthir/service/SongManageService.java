@@ -17,30 +17,31 @@ import java.util.List;
  */
 public class SongManageService implements SongManageServiceInterface {
 
-    private SongRepositoryInterface songRepositoryInterface;
-    private MeasureRepositoryInterface measureRepositoryInterface;
-    private MusicPlayerInterface musicPlayerInterface;
+    private SongRepositoryInterface songRepository;
+    private MeasureRepositoryInterface measureRepository;
+    private MusicPlayerInterface musicPlayer;
 
     /**
      * Create the repository responsible for database communication.
      */
     public SongManageService(
-            MeasureRepositoryInterface measureRepositoryInterface,
-            SongRepositoryInterface songRepositoryInterface,
-            MusicPlayerInterface musicPlayerInterface
+            MeasureRepositoryInterface measureRepository,
+            SongRepositoryInterface songRepository,
+            MusicPlayerInterface musicPlayer
     ) {
-        this.musicPlayerInterface = musicPlayerInterface;
-        this.songRepositoryInterface = songRepositoryInterface;
-        this.measureRepositoryInterface = measureRepositoryInterface;
+        this.musicPlayer = musicPlayer;
+        this.songRepository = songRepository;
+        this.measureRepository = measureRepository;
     }
 
     /**
      * @return An ObservableList containing all Song records in the database.
      */
+    @Override
     public List<Song> getSongCollection() {
         List<Song> songList = new ArrayList<>();
         try {
-            return songRepositoryInterface.fetchAll();
+            return songRepository.fetchAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,9 +53,10 @@ public class SongManageService implements SongManageServiceInterface {
      *
      * @param songName the name of the new song. Other values use defaults
      */
+    @Override
     public void createSong(String songName) {
         try {
-            songRepositoryInterface.createSong(songName);
+            songRepository.createSong(songName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,14 +67,15 @@ public class SongManageService implements SongManageServiceInterface {
      *
      * @param song The song to be deleted
      */
+    @Override
     public void deleteSong(Song song) {
         try {
-            List<SongMeasure> songMeasureCollection = measureRepositoryInterface.fetchForSong(song);
+            List<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(song);
 
             for (SongMeasure songMeasure : songMeasureCollection) {
-                measureRepositoryInterface.removeFromSong(songMeasure);
+                measureRepository.removeFromSong(songMeasure);
             }
-            songRepositoryInterface.deleteById(song.getId());
+            songRepository.deleteById(song.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,9 +86,10 @@ public class SongManageService implements SongManageServiceInterface {
      *
      * @param song the song to be played.
      */
+    @Override
     public void playSong(Song song) {
         try {
-            musicPlayerInterface.playSong(song);
+            musicPlayer.playSong(song);
         } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
             e.printStackTrace();
         }
@@ -97,7 +101,7 @@ public class SongManageService implements SongManageServiceInterface {
     @Override
     public void updateBpm(Song song, int bpmValue) {
         try {
-            songRepositoryInterface.updateBpm(song, bpmValue);
+            songRepository.updateBpm(song, bpmValue);
         } catch (SQLException e) {
             e.printStackTrace();
         }

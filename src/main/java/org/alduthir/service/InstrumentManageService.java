@@ -16,19 +16,19 @@ import java.util.List;
  * A service layer class containing CRUD functionality for Instruments.
  */
 public class InstrumentManageService implements InstrumentManageServiceInterface {
-    private MusicPlayerInterface musicPlayerInterface;
-    private InstrumentRepositoryInterface instrumentRepositoryInterface;
+    private MusicPlayerInterface musicPlayer;
+    private InstrumentRepositoryInterface instrumentRepository;
 
     /**
      * Attempt to construct the manageService with a repository. If no databaseConnection can be established or the
      * jdbc Driver cannot be found, an exception is thrown.
      */
     public InstrumentManageService(
-            InstrumentRepositoryInterface instrumentRepositoryInterface,
-            MusicPlayerInterface musicPlayerInterface
+            InstrumentRepositoryInterface instrumentRepository,
+            MusicPlayerInterface musicPlayer
     ) {
-        this.instrumentRepositoryInterface = instrumentRepositoryInterface;
-        this.musicPlayerInterface = musicPlayerInterface;
+        this.instrumentRepository = instrumentRepository;
+        this.musicPlayer = musicPlayer;
     }
 
     /**
@@ -41,7 +41,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     public List<Instrument> getInstrumentCollectionForMeasure(Measure measure) {
         List<Instrument> instrumentList = new ArrayList<>();
         try {
-            return instrumentRepositoryInterface.fetchForMeasure(measure);
+            return instrumentRepository.fetchForMeasure(measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     public List<Instrument> getReuseOptionCollection(Measure measure) {
         List<Instrument> reuseOptionCollection = new ArrayList<>();
         try {
-            return instrumentRepositoryInterface.fetchReuseOptionCollection(measure);
+            return instrumentRepository.fetchReuseOptionCollection(measure);
         } catch (SQLException e) {
             e.printStackTrace();
             return reuseOptionCollection;
@@ -75,7 +75,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void removeInstrument(Measure measure, Instrument instrument) {
         try {
-            instrumentRepositoryInterface.removeFromMeasure(measure, instrument);
+            instrumentRepository.removeFromMeasure(measure, instrument);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,8 +91,8 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void saveNewInstrument(String name, int midiNumber, Measure measure) {
         try {
-            Instrument instrument = instrumentRepositoryInterface.createInstrument(name, midiNumber);
-            instrumentRepositoryInterface.addToMeasure(instrument, measure);
+            Instrument instrument = instrumentRepository.createInstrument(name, midiNumber);
+            instrumentRepository.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void reuseInstrument(Instrument instrument, Measure measure) {
         try {
-            instrumentRepositoryInterface.addToMeasure(instrument, measure);
+            instrumentRepository.addToMeasure(instrument, measure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void updateBeat(Measure measure, Instrument instrument, String beatNotes) {
         try {
-            instrumentRepositoryInterface.updateBeat(measure, instrument, beatNotes);
+            instrumentRepository.updateBeat(measure, instrument, beatNotes);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void playNote(int midiKey) {
         try {
-            musicPlayerInterface.playNote(midiKey);
+            musicPlayer.playNote(midiKey);
         } catch (InvalidMidiDataException | MidiUnavailableException e) {
             e.printStackTrace();
         }
@@ -152,7 +152,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     @Override
     public void playMeasure(Measure measure, int bpm) {
         try {
-            musicPlayerInterface.playMeasure(bpm, measure);
+            musicPlayer.playMeasure(bpm, measure);
         } catch (InvalidMidiDataException | MidiUnavailableException | SQLException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,5 @@ open module org.alduthir {
 
     requires org.mockito;
     requires org.junit.jupiter.api;
-    requires org.testfx;
 
 }

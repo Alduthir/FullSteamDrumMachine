@@ -18,18 +18,18 @@ import java.util.List;
  * A service layer class containing CRUD functionality for Measures.
  */
 public class MeasureManageService implements MeasureManageServiceInterface {
-    private MeasureRepositoryInterface measureRepositoryInterface;
-    private final MusicPlayerInterface musicPlayerInterface;
+    private MeasureRepositoryInterface measureRepository;
+    private final MusicPlayerInterface musicPlayer;
 
     /**
      * Constructor for MeasureManageService
      */
     public MeasureManageService(
-            MeasureRepositoryInterface measureRepositoryInterface,
-            MusicPlayerInterface musicPlayerInterface
+            MeasureRepositoryInterface measureRepository,
+            MusicPlayerInterface musicPlayer
     ) {
-        this.musicPlayerInterface = musicPlayerInterface;
-        this.measureRepositoryInterface = measureRepositoryInterface;
+        this.musicPlayer = musicPlayer;
+        this.measureRepository = measureRepository;
     }
 
     /**
@@ -40,7 +40,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     public List<SongMeasure> getSongMeasureCollection(Song song) {
         ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
         try {
-            return measureRepositoryInterface.fetchForSong(song);
+            return measureRepository.fetchForSong(song);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void deleteMeasure(SongMeasure songMeasure) {
         try {
-            measureRepositoryInterface.removeFromSong(songMeasure);
+            measureRepository.removeFromSong(songMeasure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,8 +73,8 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void createForSong(Measure measure, Song song, int sequence) {
         try {
-            measure = measureRepositoryInterface.createMeasure(measure);
-            measureRepositoryInterface.addToSong(measure, song, sequence);
+            measure = measureRepository.createMeasure(measure);
+            measureRepository.addToSong(measure, song, sequence);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void playMeasure(Measure measure, int bpm) {
         try {
-            musicPlayerInterface.playMeasure(bpm, measure);
+            musicPlayer.playMeasure(bpm, measure);
         } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public List<Measure> getAllMeasures() {
         try {
-            return measureRepositoryInterface.fetchAll();
+            return measureRepository.fetchAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     @Override
     public void addToSong(Song song, Measure measure, int sequence) {
         try {
-            measureRepositoryInterface.addToSong(measure, song, sequence);
+            measureRepository.addToSong(measure, song, sequence);
         } catch (SQLException e) {
             e.printStackTrace();
         }
