@@ -146,6 +146,7 @@ public class TestMidiPlayer {
 
             midiPlayer.playSong(song);
 
+            // Assert the bpm is set and the track contains enough ticks to account for two measures of 16 notes.
             assertEquals(song.getBpm(), (int) sequencer.getTempoInBPM());
             Track[] trackList = sequencer.getSequence().getTracks();
             assertEquals(1, trackList.length);

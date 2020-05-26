@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 public class TestSongManageService {
@@ -22,37 +23,46 @@ public class TestSongManageService {
 
     MusicPlayerInterface musicPlayerInterface = mock(MusicPlayerInterface.class);
 
+    /**
+     * Tests that before the song is removed from the database, each songMeasure is also deleted to prevent failing
+     * foreign key constraints.
+     */
     @Test
-    protected void testDeleteSong() throws SQLException {
-        SongManageService songManageService = new SongManageService(
-                measureRepositoryInterface,
-                songRepositoryInterface,
-                musicPlayerInterface
-        );
+    protected void testDeleteSong() {
+        try {
+            SongManageService songManageService = new SongManageService(
+                    measureRepositoryInterface,
+                    songRepositoryInterface,
+                    musicPlayerInterface
+            );
 
-        Song song = new Song(1, "TestSong", 75);
-        Measure measure = new Measure("TestMeasure");
+            Song song = new Song(1, "TestSong", 75);
+            Measure measure = new Measure("TestMeasure");
 
-        List<SongMeasure> songMeasureCollection = new ArrayList<>();
-        SongMeasure firstSongMeasure = new SongMeasure(1, song, measure);
-        SongMeasure secondSongMeasure = new SongMeasure(2, song, measure);
+            List<SongMeasure> songMeasureCollection = new ArrayList<>();
+            SongMeasure firstSongMeasure = new SongMeasure(1, song, measure);
+            SongMeasure secondSongMeasure = new SongMeasure(2, song, measure);
 
-        songMeasureCollection.add(firstSongMeasure);
-        songMeasureCollection.add(secondSongMeasure);
+            songMeasureCollection.add(firstSongMeasure);
+            songMeasureCollection.add(secondSongMeasure);
 
-        when(measureRepositoryInterface.fetchForSong(song)).thenReturn(songMeasureCollection);
+            when(measureRepositoryInterface.fetchForSong(song)).thenReturn(songMeasureCollection);
 
-        ArgumentCaptor<SongMeasure> argument = ArgumentCaptor.forClass(SongMeasure.class);
+            ArgumentCaptor<SongMeasure> argument = ArgumentCaptor.forClass(SongMeasure.class);
 
-        verify(measureRepositoryInterface, times(2)).removeFromSong(argument.capture());
-        verify(measureRepositoryInterface, times(2)).removeFromSong(argument.capture());
+            songManageService.deleteSong(song);
 
-        verify(songRepositoryInterface, times(1)).deleteById(1);
+            verify(measureRepositoryInterface, times(2)).removeFromSong(argument.capture());
+            verify(measureRepositoryInterface, times(2)).removeFromSong(argument.capture());
 
-        songManageService.deleteSong(song);
+            verify(songRepositoryInterface, times(1)).deleteById(1);
 
-        List<SongMeasure> values = argument.getAllValues();
-        assertTrue(values.contains(firstSongMeasure));
-        assertTrue(values.contains(secondSongMeasure));
+            // Assert that removeFromSong was called with these two arguments, the order does not matter.
+            List<SongMeasure> values = argument.getAllValues();
+            assertTrue(values.contains(firstSongMeasure));
+            assertTrue(values.contains(secondSongMeasure));
+        } catch (SQLException e) {
+            fail("exception thrown");
+        }
     }
 }

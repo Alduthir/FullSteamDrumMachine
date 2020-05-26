@@ -17,6 +17,10 @@ import java.util.List;
  * A service for playing Sounds using the javax MidiSystem.
  */
 public class MidiPlayer implements MusicPlayerInterface {
+    // This is the percussion channel. Obviously we use this channel because this is a drumloop application
+    final int MIDI_CHANNEL = 9;
+    final int VOLUME = 100;
+
     private Sequencer sequencer;
     private InstrumentRepositoryInterface instrumentRepository;
     private MeasureRepositoryInterface measureRepository;
@@ -178,8 +182,7 @@ public class MidiPlayer implements MusicPlayerInterface {
         MidiEvent event = null;
         try {
             ShortMessage message = new ShortMessage();
-            // 9 is the midi percussion channel, 100 is our default value for volume.
-            message.setMessage(command, 9, midiKey, 100);
+            message.setMessage(command, this.MIDI_CHANNEL, midiKey, this.VOLUME);
             event = new MidiEvent(message, tick);
         } catch (InvalidMidiDataException e) {
             e.printStackTrace();

@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c95cc461-e637-4dfd-bf56-c1f3c8392c84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/InstrumentManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MeasureManageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/MidiPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/alduthir/service/SongManageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/module-info.test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/module-info.test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestInstrumentManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestInstrumentManageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestMidiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestMidiPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestSongManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/alduthir/service/TestSongManageService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,22 +131,7 @@
       <recent name="org.alduthir.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestMidiPlayer.testPlaySong">
-    <configuration name="TestInstrumentManageService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FullSteamDrumMachine" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.alduthir.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.alduthir.service" />
-      <option name="MAIN_CLASS_NAME" value="org.alduthir.service.TestInstrumentManageService" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.TestMidiPlayer.testPlayNote">
     <configuration name="TestInstrumentManageService.testRemoveInstrument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FullSteamDrumMachine" />
       <extension name="coverage">
@@ -178,6 +159,22 @@
       <option name="PACKAGE_NAME" value="org.alduthir.service" />
       <option name="MAIN_CLASS_NAME" value="org.alduthir.service.TestMidiPlayer" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMidiPlayer.testPlayNote" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FullSteamDrumMachine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.alduthir.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.alduthir.service" />
+      <option name="MAIN_CLASS_NAME" value="org.alduthir.service.TestMidiPlayer" />
+      <option name="METHOD_NAME" value="testPlayNote" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -290,21 +287,21 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.TestInstrumentManageService.testRemoveInstrument" />
-      <item itemvalue="JUnit.TestInstrumentManageService" />
       <item itemvalue="JUnit.TestMidiPlayer" />
       <item itemvalue="JUnit.TestSongManageService.testDeleteSong" />
+      <item itemvalue="JUnit.TestMidiPlayer.testPlaySong" />
       <item itemvalue="Maven.fullsteamdrummachine [package]" />
       <item itemvalue="Maven.fullsteamdrummachine []" />
       <item itemvalue="Maven.fullsteamdrummachine [clean,javafx:run]" />
-      <item itemvalue="JUnit.TestMidiPlayer.testPlaySong" />
+      <item itemvalue="JUnit.TestMidiPlayer.testPlayNote" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestMidiPlayer.testPlaySong" />
+        <item itemvalue="JUnit.TestMidiPlayer.testPlayNote" />
         <item itemvalue="JUnit.TestSongManageService.testDeleteSong" />
+        <item itemvalue="JUnit.TestMidiPlayer.testPlaySong" />
         <item itemvalue="JUnit.TestMidiPlayer" />
         <item itemvalue="JUnit.TestInstrumentManageService.testRemoveInstrument" />
-        <item itemvalue="JUnit.TestInstrumentManageService" />
       </list>
     </recent_temporary>
   </component>
@@ -360,7 +357,8 @@
       <workItem from="1589552016859" duration="192000" />
       <workItem from="1589868603137" duration="11206000" />
       <workItem from="1590046483288" duration="9203000" />
-      <workItem from="1590127980788" duration="6709000" />
+      <workItem from="1590127980788" duration="6937000" />
+      <workItem from="1590474176371" duration="5535000" />
     </task>
     <servers />
   </component>
@@ -394,10 +392,10 @@
     </state>
     <state x="1754" y="137" width="1092" height="853" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583833312234" />
     <state x="295" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583781922915" />
-    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1589275305198">
+    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1590479012931">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589275305198" />
+    <state x="1458" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590479012931" />
     <state x="2053" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588924483196">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -440,33 +438,33 @@
     <state x="526" y="173" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1585304687521" />
     <state x="2106" y="276" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1588926730799" />
     <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583773020014" />
-    <state width="1323" height="167" key="GridCell.Tab.0.bottom" timestamp="1590138658128">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1590479146815">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
-    <state width="1323" height="167" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590138658128" />
-    <state width="1877" height="325" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589882598959" />
+    <state width="1323" height="167" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590139162772" />
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590479146815" />
     <state width="637" height="124" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1323" height="167" key="GridCell.Tab.0.center" timestamp="1590138658128">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1590479146815">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.center/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
-    <state width="1323" height="167" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590138658128" />
-    <state width="1877" height="325" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589882598959" />
+    <state width="1323" height="167" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590139162772" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590479146815" />
     <state width="637" height="124" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1323" height="167" key="GridCell.Tab.0.left" timestamp="1590138658128">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1590479146815">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.left/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
-    <state width="1323" height="167" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590138658128" />
-    <state width="1877" height="325" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589882598959" />
+    <state width="1323" height="167" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590139162772" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590479146815" />
     <state width="637" height="124" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
-    <state width="1323" height="167" key="GridCell.Tab.0.right" timestamp="1590138658128">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1590479146815">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="124" key="GridCell.Tab.0.right/0.0.1366.728/-343.-1080.1920.1040@0.0.1366.728" timestamp="1584442280857" />
-    <state width="1323" height="167" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590138658128" />
-    <state width="1877" height="325" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589882598959" />
+    <state width="1323" height="167" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1590139162772" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590479146815" />
     <state width="637" height="124" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584097112647" />
     <state width="1877" height="325" key="GridCell.Tab.1.bottom" timestamp="1589882598959">
       <screen x="1366" y="0" width="1920" height="1040" />
@@ -540,14 +538,14 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1858" y="251" key="com.intellij.javaee.MapExternalResourceDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1583489517869" />
-    <state x="0" y="0" width="1382" height="705" maximized="true" key="dock-window-1" timestamp="1589870971860">
+    <state x="0" y="0" width="1382" height="706" key="dock-window-1" timestamp="1590474357183">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="0" y="0" width="1382" height="705" maximized="true" key="dock-window-1/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589870971860" />
-    <state x="0" y="0" width="1382" height="830" key="dock-window-2" timestamp="1589871374410">
+    <state x="0" y="0" width="1382" height="706" key="dock-window-1/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590474357183" />
+    <state x="0" y="0" width="1382" height="706" maximized="true" key="dock-window-2" timestamp="1590478358056">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="0" y="0" width="1382" height="830" key="dock-window-2/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1589871374410" />
+    <state x="0" y="0" width="1382" height="706" maximized="true" key="dock-window-2/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1590478358056" />
     <state x="0" y="0" width="1382" height="830" key="dock-window-3" timestamp="1589872456641">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
