@@ -1,10 +1,9 @@
 package org.alduthir.repository;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Song;
 import org.alduthir.util.NamedPreparedStatement;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +15,12 @@ import java.util.List;
  */
 public class SongRepository extends DatabaseInteractionService<Song> implements SongRepositoryInterface {
     /**
-     * Call the super constructor attempting to establish a database connection.
+     * Call the super constructor setting the dataSource object.
      *
-     * @throws SQLException           If no connection could be established.
-     * @throws ClassNotFoundException If the jdbc Driver could not be found.
+     * @param dataSource The Connection object for the database.
      */
-    public SongRepository() throws SQLException, ClassNotFoundException {
+    public SongRepository(DataSource dataSource) {
+        super(dataSource);
     }
 
     /**
@@ -31,7 +30,7 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
     public List<Song> fetchAll() throws SQLException {
         List<Song> songCollection = new ArrayList<>();
 
-        Statement stmt = connection.createStatement();
+        Statement stmt = this.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Song");
         while (rs.next()) {
             Song song = new Song(
@@ -51,7 +50,7 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
     @Override
     public Song findById(int id) throws SQLException {
         String sql = "SELECT * FROM Song WHERE songId = :songId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songId", id);
         ResultSet rs = stmt.executeQuery();
 
@@ -74,7 +73,7 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
     @Override
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE songId = :songId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songId", id);
         stmt.executeUpdate();
         stmt.close();
@@ -89,7 +88,7 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
     @Override
     public void createSong(String songName) throws SQLException {
         String sql = "INSERT INTO Song(name, bpm) VALUES(:name, 75)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setString("name", songName);
         stmt.executeUpdate();
     }
@@ -103,7 +102,7 @@ public class SongRepository extends DatabaseInteractionService<Song> implements 
     @Override
     public void updateBpm(Song song, int bpmValue) throws SQLException {
         String sql = "UPDATE Song SET bpm = :bpm WHERE songId = :songId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("bpm", bpmValue);
         stmt.setInt("songId", song.getId());
         stmt.executeUpdate();

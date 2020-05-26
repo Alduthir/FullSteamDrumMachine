@@ -10,6 +10,7 @@ module org.alduthir {
     requires java.naming;
     requires java.sql;
     requires java.desktop;
+    requires mysql.connector.java;
 
     exports org.alduthir;
     exports org.alduthir.repository;

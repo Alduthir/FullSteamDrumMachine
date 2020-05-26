@@ -81,6 +81,7 @@ public class SongController extends App implements Initializable, BpmActionListe
      */
     public void addAction() {
         var dialog = new StyledTextInputDialog();
+        dialog.getDialogPane().getStylesheets().add(App.class.getResource("styles.css").toExternalForm());
         dialog.setTitle("Create new Song");
         dialog.setContentText("Enter the name of your new song.");
 

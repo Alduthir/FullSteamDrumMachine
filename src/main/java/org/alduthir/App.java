@@ -1,5 +1,6 @@
 package org.alduthir;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,6 @@ import org.alduthir.service.*;
 
 import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * JavaFX App
@@ -32,9 +32,14 @@ public class App extends Application {
      */
     public static void main(String[] args) {
         try {
-            songRepositoryInterface = new SongRepository();
-            measureRepositoryInterface = new MeasureRepository();
-            instrumentRepositoryInterface = new InstrumentRepository();
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUrl("jdbc:mysql://localhost:3306/full-steam-drum-machine?useLegacyDatetimeCode=false&serverTimezone=UTC");
+            dataSource.setUser("root");
+            dataSource.setPassword("password");
+
+            songRepositoryInterface = new SongRepository(dataSource);
+            measureRepositoryInterface = new MeasureRepository(dataSource);
+            instrumentRepositoryInterface = new InstrumentRepository(dataSource);
 
             musicPlayerInterface = new MidiPlayer(instrumentRepositoryInterface, measureRepositoryInterface);
             songManageServiceInterface = new SongManageService(
@@ -47,7 +52,7 @@ public class App extends Application {
                     instrumentRepositoryInterface,
                     musicPlayerInterface
             );
-        } catch (SQLException | ClassNotFoundException | MidiUnavailableException e) {
+        } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.exit(1);
         }

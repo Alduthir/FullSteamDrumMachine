@@ -4,6 +4,7 @@ import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.util.NamedPreparedStatement;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,15 +17,13 @@ import java.util.List;
  * A database repository class containing query functions for interacting with Instruments.
  */
 public class InstrumentRepository extends DatabaseInteractionService<Instrument> implements InstrumentRepositoryInterface {
-
     /**
-     * Call the super constructor attempting to establish a database connection.
+     * Call the super constructor setting the dataSource object.
      *
-     * @throws SQLException           If no connection could be established.
-     * @throws ClassNotFoundException If the jdbc Driver could not be found.
+     * @param dataSource The Connection object for the database.
      */
-    public InstrumentRepository() throws SQLException, ClassNotFoundException {
-        super();
+    public InstrumentRepository(DataSource dataSource) {
+        super(dataSource);
     }
 
     /**
@@ -34,7 +33,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     public List<Instrument> fetchAll() throws SQLException {
         List<Instrument> instrumentCollection = new ArrayList<>();
 
-        Statement stmt = connection.createStatement();
+        Statement stmt = this.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Instrument");
         while (rs.next()) {
             Instrument instrument = new Instrument(
@@ -54,7 +53,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public Instrument findById(int id) throws SQLException {
         String sql = "SELECT * FROM Instrument WHERE instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("instrumentId", id);
         ResultSet rs = stmt.executeQuery();
 
@@ -77,7 +76,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Instrument WHERE instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("instrumentId", id);
         stmt.executeUpdate();
         stmt.close();
@@ -94,7 +93,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public Instrument createInstrument(String name, int midiNumber) throws SQLException {
         String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setString("name", name);
         stmt.setInt("midiNumber", midiNumber);
         stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
@@ -119,7 +118,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
         List<Instrument> instrumentCollection = new ArrayList<>();
 
         String sql = "SELECT i.instrumentId, i.name, i.midiNumber, mi.beat FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("measureId", measure.getId());
         ResultSet rs = stmt.executeQuery();
 
@@ -148,7 +147,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
         List<Instrument> instrumentCollection = new ArrayList<>();
 
         String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("measureId", measure.getId());
         ResultSet rs = stmt.executeQuery();
 
@@ -174,7 +173,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
         String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("measureId", measure.getId());
         stmt.setInt("instrumentId", instrument.getId());
         stmt.executeUpdate();
@@ -191,7 +190,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws SQLException {
         String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setString("beat", encodedBeat);
         stmt.setInt("measureId", measure.getId());
         stmt.setInt("instrumentId", instrument.getId());
@@ -208,7 +207,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
     @Override
     public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {
         String sql = "DELETE FROM MeasureInstrument WHERE measureId = :measureId AND instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("measureId", measure.getId());
         stmt.setInt("instrumentId", instrument.getId());
         stmt.executeUpdate();

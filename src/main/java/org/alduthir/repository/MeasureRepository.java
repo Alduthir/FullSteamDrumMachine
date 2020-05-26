@@ -5,6 +5,7 @@ import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
 import org.alduthir.util.NamedPreparedStatement;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +19,12 @@ import java.util.List;
  */
 public class MeasureRepository extends DatabaseInteractionService<Measure> implements MeasureRepositoryInterface {
     /**
-     * Call the super constructor attempting to establish a database connection.
+     * Call the super constructor setting the dataSource object.
      *
-     * @throws SQLException           If no connection could be established.
-     * @throws ClassNotFoundException If the jdbc Driver could not be found.
+     * @param dataSource The Connection object for the database.
      */
-    public MeasureRepository() throws SQLException, ClassNotFoundException {
+    public MeasureRepository(DataSource dataSource) {
+        super(dataSource);
     }
 
     /**
@@ -33,7 +34,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     public List<Measure> fetchAll() throws SQLException {
         List<Measure> measureCollection = new ArrayList<>();
 
-        Statement stmt = connection.createStatement();
+        Statement stmt = this.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Measure");
         while (rs.next()) {
             Measure measure = new Measure(
@@ -54,7 +55,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public Measure findById(int id) throws SQLException {
         String sql = "SELECT * FROM Measure WHERE measureId = :measureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("measureId", id);
         ResultSet rs = stmt.executeQuery();
 
@@ -78,7 +79,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE songId = :songId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songId", id);
         stmt.executeUpdate();
         stmt.close();
@@ -94,7 +95,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public Measure createMeasure(Measure measure) throws SQLException {
         String sql = "INSERT INTO Measure(name, beatUnit, beatsInMeasure) VALUES(:name, :beatUnit, :beatsInMeasure)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setString("name", measure.getName());
         stmt.setInt("beatUnit", measure.getBeatUnit());
         stmt.setInt("beatsInMeasure", measure.getBeatsInMeasure());
@@ -120,7 +121,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
         List<SongMeasure> songMeasureCollection = new ArrayList<>();
 
         String sql = "SELECT * FROM SongMeasure sm WHERE sm.songId = :songId ORDER BY sm.sequence";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songId", song.getId());
         ResultSet rs = stmt.executeQuery();
 
@@ -147,7 +148,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public void addToSong(Measure measure, Song song, int sequence) throws SQLException {
         String sql = "INSERT INTO SongMeasure(songId, measureId, sequence) VALUES(:songId, :measureId, :sequence)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songId", song.getId());
         stmt.setInt("measureId", measure.getId());
         stmt.setInt("sequence", sequence);
@@ -165,7 +166,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public void removeFromSong(SongMeasure songMeasure) throws SQLException {
         String sql = "DELETE FROM SongMeasure WHERE songMeasureId = :songMeasureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(connection, sql);
+        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
         stmt.setInt("songMeasureId", songMeasure.getSongMeasureId());
         stmt.executeUpdate();
         stmt.close();

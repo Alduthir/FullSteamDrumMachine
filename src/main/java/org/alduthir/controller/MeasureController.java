@@ -123,6 +123,7 @@ public class MeasureController extends App {
      */
     public void addAction() {
         TextInputDialog textInputDialog = new StyledTextInputDialog();
+        textInputDialog.getDialogPane().getStylesheets().add(App.class.getResource("styles.css").toExternalForm());
         textInputDialog.setTitle("Create new Measure");
         textInputDialog.setContentText("Enter the name of your new measure.");
 
