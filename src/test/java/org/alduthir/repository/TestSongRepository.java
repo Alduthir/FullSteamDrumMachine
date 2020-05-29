@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestSongRepository {
@@ -44,8 +44,27 @@ public class TestSongRepository {
             assertEquals(songId, song.getId());
             assertEquals(songName, song.getName());
             assertEquals(bpm, song.getBpm());
+        } catch (SQLException | DataRetrievalException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void testFetchAllWithSqlException() {
+        try {
+            songRepository = new SongRepository(dataSource);
+
+            when(dataSource.getConnection()).thenReturn(dbConnection);
+            when(dbConnection.createStatement()).thenReturn(statement);
+            when(statement.executeQuery(Mockito.any())).thenThrow(SQLException.class);
+
+            assertThrows(DataRetrievalException.class, () -> {
+                songRepository.fetchAll();
+            });
         } catch (SQLException e) {
             e.printStackTrace();
+            fail();
         }
     }
 }

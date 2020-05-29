@@ -3,17 +3,17 @@ package org.alduthir.service;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
 import org.alduthir.model.SongMeasure;
+import org.alduthir.repository.DataRemovalException;
+import org.alduthir.repository.DataRetrievalException;
 import org.alduthir.repository.MeasureRepositoryInterface;
 import org.alduthir.repository.SongRepositoryInterface;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestSongManageService {
@@ -61,8 +61,56 @@ public class TestSongManageService {
             List<SongMeasure> values = argument.getAllValues();
             assertTrue(values.contains(firstSongMeasure));
             assertTrue(values.contains(secondSongMeasure));
-        } catch (SQLException e) {
+        } catch (DataRetrievalException | DataRemovalException e) {
             fail("exception thrown");
         }
+    }
+
+    @Test
+    protected void testGetSongCollection() {
+        try {
+            SongManageService songManageService = new SongManageService(
+                    measureRepositoryInterface,
+                    songRepositoryInterface,
+                    musicPlayerInterface
+            );
+
+            Song song = new Song(1, "TestSong", 75);
+            List<Song> songCollection = new ArrayList<>();
+            songCollection.add(song);
+
+            when(songRepositoryInterface.fetchAll()).thenReturn(songCollection);
+
+            List<Song> result = songManageService.getSongCollection();
+
+            assertEquals(1, result.size());
+            assertEquals(1, result.get(0).getId());
+            assertEquals("TestSong", result.get(0).getName());
+            assertEquals(75, result.get(0).getBpm());
+        } catch (DataRetrievalException e) {
+            e.printStackTrace();
+            fail("The exception should be caught by the manage service.");
+        }
+    }
+
+    @Test
+    protected void testgetSongCollectionWithException() {
+        try {
+            SongManageService songManageService = new SongManageService(
+                    measureRepositoryInterface,
+                    songRepositoryInterface,
+                    musicPlayerInterface
+            );
+
+            when(songRepositoryInterface.fetchAll()).thenThrow(DataRetrievalException.class);
+
+            List<Song> result = songManageService.getSongCollection();
+            assertEquals(0, result.size());
+        } catch (DataRetrievalException e) {
+            e.printStackTrace();
+            fail("The exception should be caught by the manage service.");
+        }
+
+
     }
 }

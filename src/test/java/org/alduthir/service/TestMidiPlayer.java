@@ -4,13 +4,13 @@ import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
 import org.alduthir.model.SongMeasure;
+import org.alduthir.repository.DataRetrievalException;
 import org.alduthir.repository.InstrumentRepositoryInterface;
 import org.alduthir.repository.MeasureRepositoryInterface;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class TestMidiPlayer {
             assertEquals(1, trackList.length);
             Track track = trackList[0];
             assertEquals(16, track.ticks());
-        } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
+        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
             e.printStackTrace();
             fail("Exception thrown");
         }
@@ -107,7 +107,7 @@ public class TestMidiPlayer {
             assertEquals(1, trackList.length);
             Track track = trackList[0];
             assertEquals(0, track.ticks());
-        } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
+        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
             e.printStackTrace();
             fail("Exception thrown");
         }
@@ -152,7 +152,7 @@ public class TestMidiPlayer {
             assertEquals(1, trackList.length);
             Track track = trackList[0];
             assertEquals(32, track.ticks());
-        } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
+        } catch (MidiUnavailableException | DataRetrievalException | InvalidMidiDataException e) {
             e.printStackTrace();
             fail("Exception thrown");
         }
