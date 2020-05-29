@@ -1,15 +1,16 @@
 package org.alduthir.service;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Song;
+import org.alduthir.repository.DataPersistanceException;
+import org.alduthir.repository.DataRemovalException;
+import org.alduthir.repository.DataRetrievalException;
 import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,17 +35,17 @@ public class MeasureManageService implements MeasureManageServiceInterface {
 
     /**
      * @param song The song for which all SongMeasures should be fetched.
-     * @return Returns a list of SongMeasures for the given Song.
+     * @return Returns a list of SongMeasures for the given Song. If the repository throws an exception, return an
+     * empty arraylist
      */
     @Override
     public List<SongMeasure> getSongMeasureCollection(Song song) {
-        ObservableList<SongMeasure> songMeasureCollection = FXCollections.observableArrayList();
         try {
             return measureRepository.fetchForSong(song);
-        } catch (SQLException e) {
+        } catch (DataRetrievalException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return songMeasureCollection;
     }
 
     /**
@@ -57,7 +58,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     public void deleteMeasure(SongMeasure songMeasure) {
         try {
             measureRepository.removeFromSong(songMeasure);
-        } catch (SQLException e) {
+        } catch (DataRemovalException e) {
             e.printStackTrace();
         }
     }
@@ -75,7 +76,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
         try {
             measure = measureRepository.createMeasure(measure);
             measureRepository.addToSong(measure, song, sequence);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }
@@ -90,7 +91,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     public void playMeasure(Measure measure, int bpm) {
         try {
             musicPlayer.playMeasure(bpm, measure);
-        } catch (MidiUnavailableException | InvalidMidiDataException | SQLException e) {
+        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
             e.printStackTrace();
         }
     }
@@ -98,16 +99,16 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     /**
      * Request the repository to retrieve a hydrated list of Measures.
      *
-     * @return An ObservableList of Measure models.
+     * @return An ObservableList of Measure models. If the repository throws an exception, returns an empty arraylist.
      */
     @Override
     public List<Measure> getAllMeasures() {
         try {
             return measureRepository.fetchAll();
-        } catch (SQLException e) {
+        } catch (DataRetrievalException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 
     /**
@@ -121,7 +122,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     public void addToSong(Song song, Measure measure, int sequence) {
         try {
             measureRepository.addToSong(measure, song, sequence);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }

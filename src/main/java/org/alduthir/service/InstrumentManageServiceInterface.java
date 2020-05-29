@@ -16,8 +16,6 @@ public interface InstrumentManageServiceInterface {
 
     void playNote(int midiKey);
 
-    void playMeasure(Measure measure, int bpm);
-
     List<Instrument> getReuseOptionCollection(Measure measure);
 
     List<Instrument> getInstrumentCollectionForMeasure(Measure measure);

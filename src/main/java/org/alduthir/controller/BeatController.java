@@ -89,7 +89,7 @@ public class BeatController extends App implements InstrumentActionListener {
      * Preview the current Measure.
      */
     public void playAction() {
-        instrumentManageServiceInterface.playMeasure(measure, song.getBpm());
+        measureManageServiceInterface.playMeasure(measure, song.getBpm());
     }
 
     /**

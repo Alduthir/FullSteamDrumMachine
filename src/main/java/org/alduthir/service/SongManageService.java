@@ -6,7 +6,6 @@ import org.alduthir.repository.*;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +38,12 @@ public class SongManageService implements SongManageServiceInterface {
      */
     @Override
     public List<Song> getSongCollection() {
-        List<Song> songList = new ArrayList<>();
         try {
             return songRepository.fetchAll();
-        } catch (SQLException e) {
+        } catch (DataRetrievalException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return songList;
     }
 
     /**
@@ -57,7 +55,7 @@ public class SongManageService implements SongManageServiceInterface {
     public void createSong(String songName) {
         try {
             songRepository.createSong(songName);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }
@@ -76,9 +74,10 @@ public class SongManageService implements SongManageServiceInterface {
                 measureRepository.removeFromSong(songMeasure);
             }
             songRepository.deleteById(song.getId());
-        } catch (SQLException e) {
+        } catch (DataRetrievalException | DataRemovalException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -87,12 +86,14 @@ public class SongManageService implements SongManageServiceInterface {
      * @param song the song to be played.
      */
     @Override
-    public void playSong(Song song) {
+    public Boolean playSong(Song song) {
         try {
             musicPlayer.playSong(song);
-        } catch (MidiUnavailableException | SQLException | InvalidMidiDataException e) {
+        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     /**
@@ -102,7 +103,7 @@ public class SongManageService implements SongManageServiceInterface {
     public void updateBpm(Song song, int bpmValue) {
         try {
             songRepository.updateBpm(song, bpmValue);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }

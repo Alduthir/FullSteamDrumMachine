@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface MeasureRepositoryInterface extends DatabaseInteractionInterface<Measure> {
-    Measure createMeasure(Measure measure) throws SQLException;
+    Measure createMeasure(Measure measure) throws DataPersistanceException;
 
-    List<SongMeasure> fetchForSong(Song song) throws SQLException;
+    List<SongMeasure> fetchForSong(Song song) throws DataRetrievalException;
 
-    void addToSong(Measure measure, Song song, int sequence) throws SQLException;
+    void addToSong(Measure measure, Song song, int sequence) throws DataPersistanceException;
 
-    void removeFromSong(SongMeasure songMeasure) throws SQLException;
+    void removeFromSong(SongMeasure songMeasure) throws DataRemovalException;
 }

@@ -2,11 +2,13 @@ package org.alduthir.service;
 
 import org.alduthir.model.Instrument;
 import org.alduthir.model.Measure;
+import org.alduthir.repository.DataPersistanceException;
+import org.alduthir.repository.DataRemovalException;
+import org.alduthir.repository.DataRetrievalException;
 import org.alduthir.repository.InstrumentRepositoryInterface;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +41,12 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      */
     @Override
     public List<Instrument> getInstrumentCollectionForMeasure(Measure measure) {
-        List<Instrument> instrumentList = new ArrayList<>();
         try {
             return instrumentRepository.fetchForMeasure(measure);
-        } catch (SQLException e) {
+        } catch (DataRetrievalException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return instrumentList;
     }
 
     /**
@@ -56,12 +57,11 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
      */
     @Override
     public List<Instrument> getReuseOptionCollection(Measure measure) {
-        List<Instrument> reuseOptionCollection = new ArrayList<>();
         try {
             return instrumentRepository.fetchReuseOptionCollection(measure);
-        } catch (SQLException e) {
+        } catch (DataRetrievalException e) {
             e.printStackTrace();
-            return reuseOptionCollection;
+            return new ArrayList<>();
         }
     }
 
@@ -76,7 +76,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     public void removeInstrument(Measure measure, Instrument instrument) {
         try {
             instrumentRepository.removeFromMeasure(measure, instrument);
-        } catch (SQLException e) {
+        } catch (DataRemovalException e) {
             e.printStackTrace();
         }
     }
@@ -93,7 +93,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
         try {
             Instrument instrument = instrumentRepository.createInstrument(name, midiNumber);
             instrumentRepository.addToMeasure(instrument, measure);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }
@@ -108,7 +108,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     public void reuseInstrument(Instrument instrument, Measure measure) {
         try {
             instrumentRepository.addToMeasure(instrument, measure);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }
@@ -124,7 +124,7 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
     public void updateBeat(Measure measure, Instrument instrument, String beatNotes) {
         try {
             instrumentRepository.updateBeat(measure, instrument, beatNotes);
-        } catch (SQLException e) {
+        } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
     }
@@ -139,21 +139,6 @@ public class InstrumentManageService implements InstrumentManageServiceInterface
         try {
             musicPlayer.playNote(midiKey);
         } catch (InvalidMidiDataException | MidiUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Play the given measure at the given bpm.
-     *
-     * @param measure the measure containing multiple Instruments and their timing to be played.
-     * @param bpm     The speed at which the measure should be played.
-     */
-    @Override
-    public void playMeasure(Measure measure, int bpm) {
-        try {
-            musicPlayer.playMeasure(bpm, measure);
-        } catch (InvalidMidiDataException | MidiUnavailableException | SQLException e) {
             e.printStackTrace();
         }
     }

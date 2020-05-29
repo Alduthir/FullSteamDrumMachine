@@ -30,56 +30,69 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @inheritDoc
      */
     @Override
-    public List<Instrument> fetchAll() throws SQLException {
+    public List<Instrument> fetchAll() throws DataRetrievalException {
         List<Instrument> instrumentCollection = new ArrayList<>();
 
-        Statement stmt = this.getConnection().createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Instrument");
-        while (rs.next()) {
-            Instrument instrument = new Instrument(
-                    rs.getInt("instrumentId"),
-                    rs.getString("name"),
-                    rs.getInt("midiNumber")
-            );
-            instrumentCollection.add(instrument);
-        }
-        stmt.close();
-        return instrumentCollection;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public Instrument findById(int id) throws SQLException {
-        String sql = "SELECT * FROM Instrument WHERE instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("instrumentId", id);
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            Instrument instrument = new Instrument(
-                    rs.getInt("instrumentId"),
-                    rs.getString("name"),
-                    rs.getInt("midiNumber")
-            );
+        try {
+            Statement stmt = this.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Instrument");
+            while (rs.next()) {
+                Instrument instrument = new Instrument(
+                        rs.getInt("instrumentId"),
+                        rs.getString("name"),
+                        rs.getInt("midiNumber")
+                );
+                instrumentCollection.add(instrument);
+            }
             stmt.close();
-            return instrument;
+            return instrumentCollection;
+        } catch (SQLException e) {
+            throw new DataRetrievalException("Unable to retrieve instruments", e);
         }
-        rs.close();
-        throw new SQLException(String.format("No instrument found with instrumentId %d.", id));
+
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void deleteById(int id) throws SQLException {
-        String sql = "DELETE FROM Instrument WHERE instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("instrumentId", id);
-        stmt.executeUpdate();
-        stmt.close();
+    public Instrument findById(int id) throws DataRetrievalException {
+        try {
+            String sql = "SELECT * FROM Instrument WHERE instrumentId = :instrumentId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("instrumentId", id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Instrument instrument = new Instrument(
+                        rs.getInt("instrumentId"),
+                        rs.getString("name"),
+                        rs.getInt("midiNumber")
+                );
+                stmt.close();
+                return instrument;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new DataRetrievalException(String.format("No measure found with measureId %d.", id), e);
+        }
+        throw new DataRetrievalException(String.format("No song found with measureId %d.", id));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void deleteById(int id) throws DataRemovalException {
+        try {
+            String sql = "DELETE FROM Instrument WHERE instrumentId = :instrumentId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("instrumentId", id);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new DataRemovalException("Deleting instrument from failed", e);
+        }
     }
 
     /**
@@ -88,22 +101,25 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @param name       The name given for the new Instrument.
      * @param midiNumber the number corresponding to a key in the midiPlayer channel. (the sound to be played)
      * @return The newly inserted Instrument
-     * @throws SQLException If the query throws an exception.
      */
     @Override
-    public Instrument createInstrument(String name, int midiNumber) throws SQLException {
-        String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setString("name", name);
-        stmt.setInt("midiNumber", midiNumber);
-        stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
+    public Instrument createInstrument(String name, int midiNumber) throws DataPersistanceException {
+        try {
+            String sql = "INSERT INTO Instrument(name, midiNumber) VALUES(:name, :midiNumber)";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setString("name", name);
+            stmt.setInt("midiNumber", midiNumber);
+            stmt.executeUpdate(stmt.getQuery(), Statement.RETURN_GENERATED_KEYS);
 
-        ResultSet rs = stmt.getGeneratedKeys();
-        if (rs != null && rs.next()) {
-            return findById(rs.getInt(1));
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs != null && rs.next()) {
+                return findById(rs.getInt(1));
+            }
+
+            throw new DataPersistanceException("Unable to create new Instrument");
+        } catch (SQLException | DataRetrievalException e) {
+            throw new DataPersistanceException("Unable to create new Instrument", e);
         }
-
-        throw new SQLException("Unable to create new instrument");
     }
 
     /**
@@ -111,28 +127,31 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      *
      * @param measure The measure for which to fetch all linked Instruments.
      * @return An ObservableList of hydrated InstrumentObjects including their beat within the current measure.
-     * @throws SQLException if the query throws an Exception.
      */
     @Override
-    public List<Instrument> fetchForMeasure(Measure measure) throws SQLException {
+    public List<Instrument> fetchForMeasure(Measure measure) throws DataRetrievalException {
         List<Instrument> instrumentCollection = new ArrayList<>();
 
-        String sql = "SELECT i.instrumentId, i.name, i.midiNumber, mi.beat FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("measureId", measure.getId());
-        ResultSet rs = stmt.executeQuery();
+        try {
+            String sql = "SELECT i.instrumentId, i.name, i.midiNumber, mi.beat FROM Instrument i JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId = :measureId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("measureId", measure.getId());
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Instrument instrument = new Instrument(
-                    rs.getInt("instrumentId"),
-                    rs.getString("name"),
-                    rs.getInt("midiNumber"),
-                    rs.getString("beat")
-            );
-            instrumentCollection.add(instrument);
+            while (rs.next()) {
+                Instrument instrument = new Instrument(
+                        rs.getInt("instrumentId"),
+                        rs.getString("name"),
+                        rs.getInt("midiNumber"),
+                        rs.getString("beat")
+                );
+                instrumentCollection.add(instrument);
+            }
+            stmt.close();
+            return instrumentCollection;
+        } catch (SQLException e) {
+            throw new DataRetrievalException(String.format("Unable to retrieve instruments for measure %s", measure.getName()), e);
         }
-        stmt.close();
-        return instrumentCollection;
     }
 
     /**
@@ -140,27 +159,30 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      *
      * @param measure The measure from which to exclude Instruments.
      * @return A hydrated list of Instruments.
-     * @throws SQLException if the query throws an exception.
      */
     @Override
-    public List<Instrument> fetchReuseOptionCollection(Measure measure) throws SQLException {
+    public List<Instrument> fetchReuseOptionCollection(Measure measure) throws DataRetrievalException {
         List<Instrument> instrumentCollection = new ArrayList<>();
 
-        String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("measureId", measure.getId());
-        ResultSet rs = stmt.executeQuery();
+        try {
+            String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("measureId", measure.getId());
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Instrument instrument = new Instrument(
-                    rs.getInt("instrumentId"),
-                    rs.getString("name"),
-                    rs.getInt("midiNumber")
-            );
-            instrumentCollection.add(instrument);
+            while (rs.next()) {
+                Instrument instrument = new Instrument(
+                        rs.getInt("instrumentId"),
+                        rs.getString("name"),
+                        rs.getInt("midiNumber")
+                );
+                instrumentCollection.add(instrument);
+            }
+            stmt.close();
+            return instrumentCollection;
+        } catch (SQLException e) {
+            throw new DataRetrievalException("Unable to retrieve reuse option collection", e);
         }
-        stmt.close();
-        return instrumentCollection;
     }
 
     /**
@@ -168,15 +190,18 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      *
      * @param instrument The instrument to add to the Measure.
      * @param measure    The measure to which the instrument must be added.
-     * @throws SQLException if the query throws an exception.
      */
     @Override
-    public void addToMeasure(Instrument instrument, Measure measure) throws SQLException {
-        String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("measureId", measure.getId());
-        stmt.setInt("instrumentId", instrument.getId());
-        stmt.executeUpdate();
+    public void addToMeasure(Instrument instrument, Measure measure) throws DataPersistanceException {
+        try {
+            String sql = "INSERT INTO MeasureInstrument(measureId, instrumentId) VALUES(:measureId, :instrumentId)";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("measureId", measure.getId());
+            stmt.setInt("instrumentId", instrument.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataPersistanceException("Instrument could not be added to measure", e);
+        }
     }
 
     /**
@@ -185,16 +210,19 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      * @param measure     the Measure for which to update the beat.
      * @param instrument  the Instrument for which to update the beat.
      * @param encodedBeat A 16 character string containing 0's and 1's.
-     * @throws SQLException if the query throws an exception
      */
     @Override
-    public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws SQLException {
-        String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setString("beat", encodedBeat);
-        stmt.setInt("measureId", measure.getId());
-        stmt.setInt("instrumentId", instrument.getId());
-        stmt.executeUpdate();
+    public void updateBeat(Measure measure, Instrument instrument, String encodedBeat) throws DataPersistanceException {
+        try {
+            String sql = "UPDATE MeasureInstrument SET beat = :beat WHERE measureId = :measureId AND instrumentId = :instrumentId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setString("beat", encodedBeat);
+            stmt.setInt("measureId", measure.getId());
+            stmt.setInt("instrumentId", instrument.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataPersistanceException("The beat could not be saved", e);
+        }
     }
 
     /**
@@ -202,15 +230,18 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
      *
      * @param measure    The Measure from which to remove the Instrument
      * @param instrument The instrument to be removed. It is not deleted, only decoupled from the measure.
-     * @throws SQLException if the query throws an Exception.
      */
     @Override
-    public void removeFromMeasure(Measure measure, Instrument instrument) throws SQLException {
-        String sql = "DELETE FROM MeasureInstrument WHERE measureId = :measureId AND instrumentId = :instrumentId";
-        NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
-        stmt.setInt("measureId", measure.getId());
-        stmt.setInt("instrumentId", instrument.getId());
-        stmt.executeUpdate();
-        stmt.close();
+    public void removeFromMeasure(Measure measure, Instrument instrument) throws DataRemovalException {
+        try {
+            String sql = "DELETE FROM MeasureInstrument WHERE measureId = :measureId AND instrumentId = :instrumentId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("measureId", measure.getId());
+            stmt.setInt("instrumentId", instrument.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new DataRemovalException("Instrument could not be removed from measure", e);
+        }
     }
 }

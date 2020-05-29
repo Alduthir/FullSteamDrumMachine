@@ -12,14 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.component.StyledTextInputDialog;
 import org.alduthir.listener.BpmActionListener;
 import org.alduthir.model.Song;
 import org.alduthir.component.factory.SongCellFactory;
-import org.alduthir.service.SongManageService;
-import org.alduthir.service.SongManageServiceInterface;
 
 /**
  * Class SongController
@@ -109,7 +108,14 @@ public class SongController extends App implements Initializable, BpmActionListe
     public void playAction() {
         Song toBePlayed = songList.getSelectionModel().getSelectedItem();
         if (toBePlayed != null) {
-            songManageServiceInterface.playSong(toBePlayed);
+            Boolean success = songManageServiceInterface.playSong(toBePlayed);
+            if (!success) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Something went wrong");
+                alert.setContentText("The selected song was unable to be played. The application will close");
+                System.exit(1);
+            }
         }
     }
 

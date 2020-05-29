@@ -4,11 +4,11 @@ import org.alduthir.model.Instrument;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.model.Measure;
 import org.alduthir.model.Song;
+import org.alduthir.repository.DataRetrievalException;
 import org.alduthir.repository.InstrumentRepositoryInterface;
 import org.alduthir.repository.MeasureRepositoryInterface;
 
 import javax.sound.midi.*;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -57,7 +57,7 @@ public class MidiPlayer implements MusicPlayerInterface {
      * @param song The song to play.
      */
     @Override
-    public void playSong(Song song) throws SQLException, MidiUnavailableException, InvalidMidiDataException {
+    public void playSong(Song song) throws MidiUnavailableException, InvalidMidiDataException, DataRetrievalException {
         stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
@@ -95,13 +95,12 @@ public class MidiPlayer implements MusicPlayerInterface {
      *                                  was encountered.
      * @throws MidiUnavailableException is thrown when a requested MIDI component
      *                                  cannot be opened or created because it is unavailable.
-     * @throws SQLException             If the instrumentCollection cannot be retrieved.
      */
     @Override
     public void playMeasure(
             int bpm,
             Measure measure
-    ) throws InvalidMidiDataException, MidiUnavailableException, SQLException {
+    ) throws InvalidMidiDataException, MidiUnavailableException, DataRetrievalException {
         stopPlayback();
         sequencer = this.getSequencer();
         sequencer.open();
