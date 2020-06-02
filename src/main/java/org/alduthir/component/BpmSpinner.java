@@ -39,12 +39,15 @@ public class BpmSpinner extends Spinner<Integer> {
                     } else if (delta > 0) {
                         bpmSpinner.increment();
                     }
-
-                    for (BpmActionListener listener : listeners) {
-                        listener.updateAction(song, bpmSpinner.getValue());
-                    }
                 }
         );
+        bpmSpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                for (BpmActionListener listener : listeners) {
+                    listener.updateAction(song, bpmSpinner.getValue());
+                }
+            }
+        });
     }
 
     public void addListener(BpmActionListener actionListener) {

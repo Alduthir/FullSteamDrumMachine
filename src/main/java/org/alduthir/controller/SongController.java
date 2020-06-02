@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.component.StyledTextInputDialog;
@@ -85,7 +86,7 @@ public class SongController extends App implements Initializable, BpmActionListe
         dialog.setContentText("Enter the name of your new song.");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
+        if (result.isPresent() && !result.get().isEmpty()) {
             songManageServiceInterface.createSong(result.get());
             initializeSongList();
         }
@@ -95,10 +96,19 @@ public class SongController extends App implements Initializable, BpmActionListe
      * Ask the songManageService to delete a Song and remove it from the list.
      */
     public void deleteAction() {
-        Song toDelete = songList.getSelectionModel().getSelectedItem();
-        if (toDelete != null) {
-            songManageServiceInterface.deleteSong(toDelete);
-            initializeSongList();
+        var alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm delete");
+        alert.setHeaderText("The selected song will be permanently deleted");
+        alert.setContentText("Is this okay?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Song toDelete = songList.getSelectionModel().getSelectedItem();
+            if (toDelete != null) {
+                songManageServiceInterface.deleteSong(toDelete);
+                initializeSongList();
+            }
         }
     }
 

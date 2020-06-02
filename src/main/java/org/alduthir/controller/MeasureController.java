@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -140,10 +142,19 @@ public class MeasureController extends App {
      * Ask the mManageService to remove a Measure from the Song.
      */
     public void deleteAction() {
-        SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
-        if (toDelete != null) {
-            this.measureManageServiceInterface.deleteMeasure(toDelete);
-            initializeMeasureList(song, measureList);
+        var alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm delete");
+        alert.setHeaderText("The selected measure will be removed from the song. It will still be available for later" +
+                "reuse.");
+        alert.setContentText("Is this okay?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
+            if (toDelete != null) {
+                measureManageServiceInterface.deleteMeasure(toDelete);
+                initializeMeasureList(song, measureList);
+            }
         }
     }
 
