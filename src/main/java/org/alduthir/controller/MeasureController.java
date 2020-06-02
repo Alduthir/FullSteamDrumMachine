@@ -87,7 +87,7 @@ public class MeasureController extends App {
                     String.format(
                             "Full Steam Drum Machine - %s - %s",
                             song.toString(),
-                            songMeasure.toString()
+                            songMeasure.getMeasure().toString()
                     )
             );
             stage.show();
