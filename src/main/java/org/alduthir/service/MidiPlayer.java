@@ -58,7 +58,11 @@ public class MidiPlayer implements MusicPlayerInterface {
      */
     @Override
     public void playSong(Song song) throws MidiUnavailableException, InvalidMidiDataException, DataRetrievalException {
-        stopPlayback();
+        if (getSequencer().isRunning()) {
+            getSequencer().stop();
+            return;
+        }
+
         sequencer = this.getSequencer();
         sequencer.open();
         List<SongMeasure> songMeasureCollection = measureRepository.fetchForSong(song);
@@ -101,7 +105,11 @@ public class MidiPlayer implements MusicPlayerInterface {
             int bpm,
             Measure measure
     ) throws InvalidMidiDataException, MidiUnavailableException, DataRetrievalException {
-        stopPlayback();
+        if (getSequencer().isRunning()) {
+            getSequencer().stop();
+            return;
+        }
+
         sequencer = this.getSequencer();
         sequencer.open();
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
@@ -135,7 +143,11 @@ public class MidiPlayer implements MusicPlayerInterface {
      */
     @Override
     public void playNote(Integer value) throws InvalidMidiDataException, MidiUnavailableException {
-        stopPlayback();
+        if (getSequencer().isRunning()) {
+            getSequencer().stop();
+            return;
+        }
+
         sequencer = this.getSequencer();
         sequencer.open();
         Sequence sequence = new Sequence(Sequence.PPQ, 4);
@@ -145,15 +157,6 @@ public class MidiPlayer implements MusicPlayerInterface {
 
         sequencer.setSequence(sequence);
         sequencer.start();
-    }
-
-    /**
-     * Stop playing audio.
-     */
-    private void stopPlayback() throws MidiUnavailableException {
-        if (getSequencer().isRunning()) {
-            getSequencer().stop();
-        }
     }
 
     /**
