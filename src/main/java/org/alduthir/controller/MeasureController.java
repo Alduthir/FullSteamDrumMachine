@@ -145,7 +145,7 @@ public class MeasureController extends App {
         SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
         if (toDelete != null) {
             Measure measure = toDelete.getMeasure();
-            boolean isOnlyInstance = measureManageServiceInterface.isMeasureUsedInMultiplePlaces(measure);
+            boolean isOnlyInstance = measureManageServiceInterface.isOnlyInstance(measure);
             var alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm delete");
 

@@ -19,7 +19,7 @@ public interface MeasureManageServiceInterface {
 
     void createForSong(Measure measure, Song song, int sequence);
 
-    boolean isMeasureUsedInMultiplePlaces(Measure measure);
+    boolean isOnlyInstance(Measure measure);
 
     void deleteMeasure(Measure measure);
 }

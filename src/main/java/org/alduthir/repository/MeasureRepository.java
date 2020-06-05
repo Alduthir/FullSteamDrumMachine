@@ -200,7 +200,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
     @Override
     public int countUseages(Measure measure) throws DataRetrievalException {
         try {
-            String sql = "SELECT COUNT(*) as useagesFROM SongMeasure WHERE weasureId = :measureId";
+            String sql = "SELECT COUNT(*) as useages FROM SongMeasure WHERE measureId = :measureId";
             NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
             stmt.setInt("measureId", measure.getId());
             ResultSet rs = stmt.executeQuery();

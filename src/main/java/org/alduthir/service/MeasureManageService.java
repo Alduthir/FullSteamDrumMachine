@@ -82,17 +82,17 @@ public class MeasureManageService implements MeasureManageServiceInterface {
     }
 
     @Override
-    public boolean isMeasureUsedInMultiplePlaces(Measure measure) {
+    public boolean isOnlyInstance(Measure measure) {
         try {
             int useages = measureRepository.countUseages(measure);
-            return useages > 1;
+            return useages == 1;
         } catch (DataRetrievalException e) {
             e.printStackTrace();
         }
 
         // Return true so the system doesn't delete more than it should in any case.
         // It's easier to remove unnecesary data than to try and restore necessary data that was removed.
-        return true;
+        return false;
     }
 
     @Override
