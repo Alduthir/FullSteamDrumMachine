@@ -6,6 +6,7 @@ import org.alduthir.repository.*;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +107,16 @@ public class SongManageService implements SongManageServiceInterface {
         } catch (DataPersistanceException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Song findSong(int id) {
+        try {
+            return songRepository.findById(id);
+        } catch (DataRetrievalException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return null;
     }
 }

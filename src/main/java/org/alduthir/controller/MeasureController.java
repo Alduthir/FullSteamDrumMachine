@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.component.BpmSpinner;
 import org.alduthir.component.StyledTextInputDialog;
+import org.alduthir.listener.BpmActionListener;
 import org.alduthir.model.Measure;
 import org.alduthir.model.SongMeasure;
 import org.alduthir.component.factory.MeasureCellFactory;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * The MeasureController contains a list of all Measures within the Song. And controls UI elements for adding, managing
  * or previewing these Measures.
  */
-public class MeasureController extends App {
+public class MeasureController extends App implements BpmActionListener {
 
     @FXML
     public JFXListView<SongMeasure> measureList;
@@ -50,9 +51,8 @@ public class MeasureController extends App {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("gui/songScreen.fxml"));
         loader.load();
-        SongController songController = loader.getController();
-        bpmSpinner.addListener(songController);
-        bpmSpinner.initializeBpmSpinner(song, bpmSpinner);
+        bpmSpinner.addListener(this);
+        bpmSpinner.initializeBpmSpinner(song);
 
         measureList.setCellFactory(new MeasureCellFactory());
         measureList.setOnMouseClicked(e -> {
@@ -202,5 +202,11 @@ public class MeasureController extends App {
                         measureManageServiceInterface.getSongMeasureCollection(song)
                 )
         );
+    }
+
+    @Override
+    public void updateAction(Song song, int bpmValue) {
+        songManageServiceInterface.updateBpm(song, bpmValue);
+        this.song = songManageServiceInterface.findSong(song.getId());
     }
 }

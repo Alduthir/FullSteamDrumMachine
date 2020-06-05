@@ -17,6 +17,7 @@ import java.util.List;
 public class BpmSpinner extends Spinner<Integer> {
     public static final int MIN_BPM = 20;
     public static final int MAX_BPM = 250;
+    public boolean isInitialised = false;
 
     private List<BpmActionListener> listeners = new ArrayList<>();
 
@@ -25,29 +26,29 @@ public class BpmSpinner extends Spinner<Integer> {
      * value. Whenever the scrollEvent is triggered the repository is called to update the BPM value in the database.
      *
      * @param song       required to set the initial value of the spinner and to know what to bind the bpm to.
-     * @param bpmSpinner the UI element to be initialized.
      */
-    public void initializeBpmSpinner(Song song, Spinner<Integer> bpmSpinner) {
-        bpmSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(MIN_BPM, MAX_BPM));
-        bpmSpinner.getValueFactory().setValue(song.getBpm());
-        bpmSpinner.setOnScroll(
+    public void initializeBpmSpinner(Song song) {
+        this.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(MIN_BPM, MAX_BPM));
+        this.getValueFactory().setValue(song.getBpm());
+        this.setOnScroll(
                 (e) -> {
                     double delta = e.getDeltaY();
 
                     if (delta < 0) {
-                        bpmSpinner.decrement();
+                        this.decrement();
                     } else if (delta > 0) {
-                        bpmSpinner.increment();
+                        this.increment();
                     }
                 }
         );
-        bpmSpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+        this.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) {
                 for (BpmActionListener listener : listeners) {
-                    listener.updateAction(song, bpmSpinner.getValue());
+                    listener.updateAction(song, Integer.parseInt(newValue));
                 }
             }
         });
+        isInitialised = true;
     }
 
     public void addListener(BpmActionListener actionListener) {

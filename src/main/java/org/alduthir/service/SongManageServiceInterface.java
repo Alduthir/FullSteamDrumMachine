@@ -14,5 +14,7 @@ public interface SongManageServiceInterface {
     Boolean playSong(Song song);
 
     void updateBpm(Song song, int bpmValue);
+
+    Song findSong(int id);
 }
 

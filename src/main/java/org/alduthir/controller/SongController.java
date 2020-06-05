@@ -17,7 +17,6 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.alduthir.App;
 import org.alduthir.component.StyledTextInputDialog;
-import org.alduthir.listener.BpmActionListener;
 import org.alduthir.model.Song;
 import org.alduthir.component.factory.SongCellFactory;
 
@@ -26,7 +25,7 @@ import org.alduthir.component.factory.SongCellFactory;
  * <p>
  * The homescreen of the application. Manages controls for Songs.
  */
-public class SongController extends App implements Initializable, BpmActionListener {
+public class SongController extends App implements Initializable{
 
     @FXML
     public JFXListView<Song> songList;
@@ -138,10 +137,5 @@ public class SongController extends App implements Initializable, BpmActionListe
                         songManageServiceInterface.getSongCollection()
                 )
         );
-    }
-
-    @Override
-    public void updateAction(Song song, int bpmValue) {
-        songManageServiceInterface.updateBpm(song, bpmValue);
     }
 }
