@@ -142,17 +142,29 @@ public class MeasureController extends App {
      * Ask the mManageService to remove a Measure from the Song.
      */
     public void deleteAction() {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm delete");
-        alert.setHeaderText("The selected measure will be removed from the song. It will still be available for later" +
-                "reuse.");
-        alert.setContentText("Is this okay?");
+        SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
+        if (toDelete != null) {
+            Measure measure = toDelete.getMeasure();
+            boolean isOnlyInstance = measureManageServiceInterface.isMeasureUsedInMultiplePlaces(measure);
+            var alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm delete");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            SongMeasure toDelete = measureList.getSelectionModel().getSelectedItem();
-            if (toDelete != null) {
-                measureManageServiceInterface.deleteMeasure(toDelete);
+            if (isOnlyInstance) {
+                alert.setHeaderText("This is the only instance of this measure. Once removed it will be gone completely.");
+            } else {
+                alert.setHeaderText("The selected measure will be removed from the song. It will still be available for later" +
+                        " reuse.");
+            }
+
+            alert.setContentText("Is this okay?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                measureManageServiceInterface.deleteSongMeasure(toDelete);
+
+                if(isOnlyInstance){
+                    measureManageServiceInterface.deleteMeasure(measure);
+                }
                 initializeMeasureList(song, measureList);
             }
         }

@@ -165,7 +165,7 @@ public class InstrumentRepository extends DatabaseInteractionService<Instrument>
         List<Instrument> instrumentCollection = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM Instrument i LEFT JOIN MeasureInstrument mi ON i.instrumentId = mi.instrumentId WHERE mi.measureId <> :measureId";
+            String sql = "SELECT * FROM Instrument i WHERE instrumentId NOT IN (SELECT instrumentId FROM MeasureInstrument WHERE measureId = :measureId) ORDER BY i.name ASC;";
             NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
             stmt.setInt("measureId", measure.getId());
             ResultSet rs = stmt.executeQuery();

@@ -9,7 +9,7 @@ import java.util.List;
 public interface MeasureManageServiceInterface {
     List<SongMeasure> getSongMeasureCollection(Song song);
 
-    void deleteMeasure(SongMeasure songMeasure);
+    void deleteSongMeasure(SongMeasure songMeasure);
 
     void playMeasure(Measure measure, int bpm);
 
@@ -18,4 +18,8 @@ public interface MeasureManageServiceInterface {
     void addToSong(Song song, Measure measure, int sequence);
 
     void createForSong(Measure measure, Song song, int sequence);
+
+    boolean isMeasureUsedInMultiplePlaces(Measure measure);
+
+    void deleteMeasure(Measure measure);
 }

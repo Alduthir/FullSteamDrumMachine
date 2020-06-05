@@ -36,7 +36,7 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
 
         try {
             Statement stmt = this.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Measure");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Measure ORDER BY name ASC");
             while (rs.next()) {
                 Measure measure = new Measure(
                         rs.getInt("measureId"),
@@ -194,6 +194,27 @@ public class MeasureRepository extends DatabaseInteractionService<Measure> imple
             stmt.close();
         } catch (SQLException e) {
             throw new DataRemovalException("Unable to delete songMeasure", e);
+        }
+    }
+
+    @Override
+    public int countUseages(Measure measure) throws DataRetrievalException {
+        try {
+            String sql = "SELECT COUNT(*) as useagesFROM SongMeasure WHERE weasureId = :measureId";
+            NamedPreparedStatement stmt = NamedPreparedStatement.prepareStatement(this.getConnection(), sql);
+            stmt.setInt("measureId", measure.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int useages = rs.getInt("useages");
+                stmt.close();
+                return useages;
+            }
+            rs.close();
+            throw new DataRetrievalException("Attempted to count useages of Measure, no result given");
+        } catch (SQLException | DataRetrievalException e) {
+            e.printStackTrace();
+            throw new DataRetrievalException("Unable to count useages of measure", e);
         }
     }
 }

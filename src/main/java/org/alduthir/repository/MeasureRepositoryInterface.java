@@ -15,4 +15,6 @@ public interface MeasureRepositoryInterface extends DatabaseInteractionInterface
     void addToSong(Measure measure, Song song, int sequence) throws DataPersistanceException;
 
     void removeFromSong(SongMeasure songMeasure) throws DataRemovalException;
+
+    int countUseages(Measure measure) throws DataRetrievalException;
 }

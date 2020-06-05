@@ -55,7 +55,7 @@ public class MeasureManageService implements MeasureManageServiceInterface {
      * @param songMeasure The SongMeasure to be deleted.
      */
     @Override
-    public void deleteMeasure(SongMeasure songMeasure) {
+    public void deleteSongMeasure(SongMeasure songMeasure) {
         try {
             measureRepository.removeFromSong(songMeasure);
         } catch (DataRemovalException e) {
@@ -77,6 +77,29 @@ public class MeasureManageService implements MeasureManageServiceInterface {
             measure = measureRepository.createMeasure(measure);
             measureRepository.addToSong(measure, song, sequence);
         } catch (DataPersistanceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isMeasureUsedInMultiplePlaces(Measure measure) {
+        try {
+            int useages = measureRepository.countUseages(measure);
+            return useages > 1;
+        } catch (DataRetrievalException e) {
+            e.printStackTrace();
+        }
+
+        // Return true so the system doesn't delete more than it should in any case.
+        // It's easier to remove unnecesary data than to try and restore necessary data that was removed.
+        return true;
+    }
+
+    @Override
+    public void deleteMeasure(Measure measure) {
+        try {
+            measureRepository.deleteById(measure.getId());
+        } catch (DataRemovalException e) {
             e.printStackTrace();
         }
     }
