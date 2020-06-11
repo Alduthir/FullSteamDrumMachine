@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -30,21 +29,16 @@ public class TestMidiPlayer {
      * Tests that to play a note, a single track with a single tick is created in the Sequencer.
      */
     @Test
-    protected void testPlayNote() {
-        try {
-            MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
-            Sequencer sequencer = midiPlayer.getSequencer();
-            int noteValue = 4;
-            midiPlayer.playNote(noteValue);
+    protected void testPlayNote() throws MidiUnavailableException, InvalidMidiDataException {
+        MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
+        Sequencer sequencer = midiPlayer.getSequencer();
+        int noteValue = 4;
+        midiPlayer.playNote(noteValue);
 
-            Track[] trackList = sequencer.getSequence().getTracks();
-            assertEquals(1, trackList.length);
-            Track track = trackList[0];
-            assertEquals(1, track.ticks());
-        } catch (MidiUnavailableException | InvalidMidiDataException e) {
-            e.printStackTrace();
-            fail("Exception thrown");
-        }
+        Track[] trackList = sequencer.getSequence().getTracks();
+        assertEquals(1, trackList.length);
+        Track track = trackList[0];
+        assertEquals(1, track.ticks());
     }
 
     /**
@@ -53,72 +47,62 @@ public class TestMidiPlayer {
      * active note the pause should still registered as a tick.
      */
     @Test
-    protected void testPlayMeasure() {
-        try {
-            MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
-            Sequencer sequencer = midiPlayer.getSequencer();
+    protected void testPlayMeasure() throws DataRetrievalException, InvalidMidiDataException, MidiUnavailableException {
+        MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
+        Sequencer sequencer = midiPlayer.getSequencer();
 
-            Measure measure = new Measure("TestMeasure");
-            int bpm = 75;
+        Measure measure = new Measure("TestMeasure");
+        int bpm = 75;
 
-            Instrument hiHat = new Instrument(1, "Hihat", 35, "1010101010101011");
-            List<Instrument> instrumentCollection = new ArrayList<>();
-            instrumentCollection.add(hiHat);
+        Instrument hiHat = new Instrument(1, "Hihat", 35, "1010101010101011");
+        List<Instrument> instrumentCollection = new ArrayList<>();
+        instrumentCollection.add(hiHat);
 
-            // Stub the fetchForMeasure method to return a list of both our instruments.
-            when(instrumentRepository.fetchForMeasure(measure)).thenReturn(instrumentCollection);
+        // Stub the fetchForMeasure method to return a list of both our instruments.
+        when(instrumentRepository.fetchForMeasure(measure)).thenReturn(instrumentCollection);
 
-            midiPlayer.playMeasure(bpm, measure);
+        midiPlayer.playMeasure(bpm, measure);
 
-            assertEquals(bpm, (int) sequencer.getTempoInBPM());
-            Track[] trackList = sequencer.getSequence().getTracks();
-            assertEquals(1, trackList.length);
-            Track track = trackList[0];
-            assertEquals(16, track.ticks());
-        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
-            e.printStackTrace();
-            fail("Exception thrown");
-        }
+        assertEquals(bpm, (int) sequencer.getTempoInBPM());
+        Track[] trackList = sequencer.getSequence().getTracks();
+        assertEquals(1, trackList.length);
+        Track track = trackList[0];
+        assertEquals(16, track.ticks());
     }
 
     /**
      * Tests that if an Instrument has no active notes in it's beat string, no ticks are added to the track.
      */
     @Test
-    protected void testPlayMeasureWithNoActiveNotes() {
-        try {
-            MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
-            Sequencer sequencer = midiPlayer.getSequencer();
+    protected void testPlayMeasureWithNoActiveNotes()
+            throws MidiUnavailableException, InvalidMidiDataException, DataRetrievalException {
+        MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
+        Sequencer sequencer = midiPlayer.getSequencer();
 
-            Measure measure = new Measure("EmptyTestMeasure");
-            int bpm = 75;
+        Measure measure = new Measure("EmptyTestMeasure");
+        int bpm = 75;
 
-            Instrument hiHat = new Instrument(1, "Hihat", 35, "0000000000000000");
-            List<Instrument> instrumentCollection = new ArrayList<>();
-            instrumentCollection.add(hiHat);
+        Instrument hiHat = new Instrument(1, "Hihat", 35, "0000000000000000");
+        List<Instrument> instrumentCollection = new ArrayList<>();
+        instrumentCollection.add(hiHat);
 
-            // Stub the fetchForMeasure method to return a list of both our instruments.
-            when(instrumentRepository.fetchForMeasure(measure)).thenReturn(instrumentCollection);
+        // Stub the fetchForMeasure method to return a list of both our instruments.
+        when(instrumentRepository.fetchForMeasure(measure)).thenReturn(instrumentCollection);
 
-            midiPlayer.playMeasure(bpm, measure);
+        midiPlayer.playMeasure(bpm, measure);
 
-            assertEquals(bpm, (int) sequencer.getTempoInBPM());
-            Track[] trackList = sequencer.getSequence().getTracks();
-            assertEquals(1, trackList.length);
-            Track track = trackList[0];
-            assertEquals(0, track.ticks());
-        } catch (MidiUnavailableException | InvalidMidiDataException | DataRetrievalException e) {
-            e.printStackTrace();
-            fail("Exception thrown");
-        }
+        assertEquals(bpm, (int) sequencer.getTempoInBPM());
+        Track[] trackList = sequencer.getSequence().getTracks();
+        assertEquals(1, trackList.length);
+        Track track = trackList[0];
+        assertEquals(0, track.ticks());
     }
 
     /**
      * Tests that the amount of ticks in the track are equal to the sum of both measure's beats.
      */
     @Test
-    protected void testPlaySong() {
-        try {
+    protected void testPlaySong() throws MidiUnavailableException, InvalidMidiDataException, DataRetrievalException {
             MidiPlayer midiPlayer = new MidiPlayer(instrumentRepository, measureRepository);
             Sequencer sequencer = midiPlayer.getSequencer();
             Song song = new Song(1, "TestSong", 75);
@@ -152,9 +136,5 @@ public class TestMidiPlayer {
             assertEquals(1, trackList.length);
             Track track = trackList[0];
             assertEquals(32, track.ticks());
-        } catch (MidiUnavailableException | DataRetrievalException | InvalidMidiDataException e) {
-            e.printStackTrace();
-            fail("Exception thrown");
-        }
     }
 }

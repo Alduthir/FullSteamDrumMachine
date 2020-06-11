@@ -20,51 +20,41 @@ public class TestSongRepository {
     SongRepository songRepository;
 
     @Test
-    public void testFetchAll() {
-        try {
-            int songId = 1;
-            String songName = "test";
-            int bpm = 75;
+    public void testFetchAll() throws DataRetrievalException, SQLException {
+        int songId = 1;
+        String songName = "test";
+        int bpm = 75;
 
-            songRepository = new SongRepository(dataSource);
+        songRepository = new SongRepository(dataSource);
 
-            when(dataSource.getConnection()).thenReturn(dbConnection);
-            when(dbConnection.createStatement()).thenReturn(statement);
-            when(statement.executeQuery(Mockito.any())).thenReturn(resultSet);
-            when(resultSet.next()).thenReturn(true).thenReturn(false);
+        when(dataSource.getConnection()).thenReturn(dbConnection);
+        when(dbConnection.createStatement()).thenReturn(statement);
+        when(statement.executeQuery(Mockito.any())).thenReturn(resultSet);
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
 
-            when(resultSet.getInt("songId")).thenReturn(songId);
-            when(resultSet.getString("name")).thenReturn(songName);
-            when(resultSet.getInt("bpm")).thenReturn(bpm);
+        when(resultSet.getInt("songId")).thenReturn(songId);
+        when(resultSet.getString("name")).thenReturn(songName);
+        when(resultSet.getInt("bpm")).thenReturn(bpm);
 
-            List<Song> songList = songRepository.fetchAll();
-            assertEquals(1, songList.size());
-            Song song = songList.get(0);
+        List<Song> songList = songRepository.fetchAll();
+        assertEquals(1, songList.size());
+        Song song = songList.get(0);
 
-            assertEquals(songId, song.getId());
-            assertEquals(songName, song.getName());
-            assertEquals(bpm, song.getBpm());
-        } catch (SQLException | DataRetrievalException e) {
-            e.printStackTrace();
-            fail();
-        }
+        assertEquals(songId, song.getId());
+        assertEquals(songName, song.getName());
+        assertEquals(bpm, song.getBpm());
     }
 
     @Test
-    public void testFetchAllWithSqlException() {
-        try {
-            songRepository = new SongRepository(dataSource);
+    public void testFetchAllWithSqlException() throws SQLException {
+        songRepository = new SongRepository(dataSource);
 
-            when(dataSource.getConnection()).thenReturn(dbConnection);
-            when(dbConnection.createStatement()).thenReturn(statement);
-            when(statement.executeQuery(Mockito.any())).thenThrow(SQLException.class);
+        when(dataSource.getConnection()).thenReturn(dbConnection);
+        when(dbConnection.createStatement()).thenReturn(statement);
+        when(statement.executeQuery(Mockito.any())).thenThrow(SQLException.class);
 
-            assertThrows(DataRetrievalException.class, () -> {
-                songRepository.fetchAll();
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            fail();
-        }
+        assertThrows(DataRetrievalException.class, () -> {
+            songRepository.fetchAll();
+        });
     }
 }
